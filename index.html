@@ -237,7 +237,7 @@ Error rate:
 0.0643 (9/140)
 </code></pre>
 
-<p>The best accuracy on this dataset was at 97.5% and it was reached with considerable effort . The reached accuracy for the test set here lies at 93.6%! This is achieved with the following two simple rules:</p>
+<p>The best reportet accuracy on this dataset was at 97.5% and it was reached with considerable effort. The reached accuracy for the test set here lies at 93.6%! This is achieved with the following two simple rules:</p>
 <pre><code>## If Uniformity of Cell Size = (0.991,3.27] then Class = benign
 ## If Uniformity of Cell Size = (3.27,10]    then Class = malignant
 </code></pre>
@@ -245,11 +245,11 @@ Error rate:
 
 <h3>Included functions</h3>
 <ul>
-  <li><pre><code>OneR</code></pre> is the main function of the package: builds a model according to the One Rule machine learning algorithm for categorical data. All numerical data is automatically converted into five categorcial bins of equal length. When verbose is TRUE it gives the predictive accuracy of the attributes in decreasing order.</li>
-  <li><pre><code>bin</code></pre> discretizes all numerical data in a dataframe into categorcial bins of equal length or equal content.</li>
-  <li><pre><code>optbin</code></pre> discretizes all numerical data in a dataframe into categorcial bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method&nbsp;"logreg") or as the means of the expected values of the respective classes ("naive"). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method&nbsp;"naive"should only be used when distributions are (approximately) normal, although in this case&nbsp;"logreg"&nbsp;should give comparable results, so it is the preferable (and therefore default) method.</li>
-  <li><pre><code>eval_model</code></pre> is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument actual is a dataframe which contains the actual data in the last column. A single vector is allowed too.</li>
-  <li><pre><code>maxlevels</code></pre> removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.</li>
+  <li>OneR is the main function of the package: builds a model according to the One Rule machine learning algorithm for categorical data. All numerical data is automatically converted into five categorcial bins of equal length. When verbose is TRUE it gives the predictive accuracy of the attributes in decreasing order.</li>
+  <li>bin discretizes all numerical data in a dataframe into categorcial bins of equal length or equal content.</li>
+  <li>optbin discretizes all numerical data in a dataframe into categorcial bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method&nbsp;"logreg") or as the means of the expected values of the respective classes ("naive"). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method&nbsp;"naive"should only be used when distributions are (approximately) normal, although in this case&nbsp;"logreg"&nbsp;should give comparable results, so it is the preferable (and therefore default) method.</li>
+  <li>eval_model is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument actual is a dataframe which contains the actual data in the last column. A single vector is allowed too.</li>
+  <li>maxlevels removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.</li>
 </ul>
 
 <h3>
