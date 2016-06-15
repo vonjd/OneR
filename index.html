@@ -20,7 +20,7 @@
 
     <section class="main-content">
       
-<h3>Introduction</h3>
+<h2>Introduction</h2>
 <p>The following story is one of the most often told in the Data Science community: Some time ago the military built a system which aim it was to distinguish military vehicles from civilian ones. They chose a neural network approach and trained the system with pictures of tanks, humvees and misile launchers on the one hand and normal cars, pickups and trucks on the other. And after having reached a satisfactory accuracy they brought the system into the field (quite literary). It failed completely, performing no better than a coin toss. What had happened? No one knew, so they re-engineered the black box (no small feat in itself) and found that most of the military pics where taken at dusk or dawn and most civilian pics under brighter weather conditions. The neural net had learned the difference between light and dark!
   Although this might be an urban legend the fact that it is so often told wants to tell us something:
 <ol>
@@ -33,7 +33,7 @@ In one word: We need a good baseline which builds “the best simple model” th
 This package is filling a longstanding gap because only a JAVA based implementation was available so far (<a href="https://cran.r-project.org/web/packages/RWeka/index.html">RWeka package</a>&nbsp;as an interface for the <a href="http://weka.sourceforge.net/doc.dev/weka/classifiers/rules/OneR.html">OneR JAVA class</a>). Additionally several enhancements have been made (see below).
 </p>
 
-<h3>Design princples for the OneR package</h3>
+<h2>Design princples for the OneR package</h2>
 <p>The following design principles were followed for programming the package:</p>
 <ul>
   <li>Easy: The learning curve for new users should be minimal. Results should be obtained with ease and only minimal preprocessing and modeling steps should be necessary.</li>
@@ -52,7 +52,7 @@ This package is filling a longstanding gap because only a JAVA based implementat
   <li><span style="text-decoration: underline;">Discretization of numeric data</span>: The OneR algorithm can only handle categoric data so numeric data has to be discretized. The original OneR algorithm separates the respective values in ever smaller and smaller buckets until the best possible accuracy is being reached. In can be argued (as has been [Weka&hellip;] that this is <em>the</em> definition of overfitting and contradicts the original spirit of OneR because tons of rules (one for every bucket) will result. One can of course introduce a new parameter &ldquo;maximum bucket size&rdquo; but finding the right value for this one doesn&rsquo;t come naturally either. Therefore, we take a radically different approach: There are several methods for handling numeric data in the package (in the bin and the optbin function), the most promising one is the &ldquo;logreg&rdquo; method in the optbin function which gives only as many bins as there are target categories and which optimizes the cut points according to pairwise logistic regressions. The performance of this method on several different datasets is very encouraging and the method will be explained in detail later.</li>
   <li><span style="text-decoration: underline;">Tie breaking</span>: Sometimes the OneR algorihm will find several attributes that provide rules which all give the same best accuracy. The original algorithm just took the first attribute. While this is implemented in the OneR function as the default too a different method for tie breaking can be chosen: The contingency tables of all &ldquo;best&rdquo; rules are tested against each other with a Pearson&rsquo;s Chi squared test and the one with the smallest p-value is being chosen. The rationale behind this is that thereby the attribute with the best signal-to-noise ratio is being found.</li>
 </ul>
-<h3>A simple example</h3>
+<h2>A simple example</h2>
 <pre><code>library(OneR)</code></pre>
 <p>Determine optimal bins for numeric data</p>
 <pre><code>data <- optbin(iris)</code></pre>
@@ -120,26 +120,25 @@ Error rate:
 0.04 (6/150)
 </code></pre>
 
-<h2>Sources</h2>
-<p>[Holte93]: R. Holte: Very Simple Classification Rules Perform Well on Most Commonly Used Datasets, 1993. Availabel: http://www.mlpack.org/papers/ds.pdf.</p>
+<h3>Sources</h3>
+<p>[Holte93]: R. Holte: Very Simple Classification Rules Perform Well on Most Commonly Used Datasets, 1993. Available: http://www.mlpack.org/papers/ds.pdf.</p>
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<h3>Contact</h3>
 <p>I would love to hear about your experiences with the OneR package. Please drop me a note - you can reach me on my university account: 
 <a href="https://www.h-ab.de/nc/eng/about-aschaffenburg-university-of-applied-sciences/organisation/personal/?tx_fhapersonal_pi1%5BshowUid%5D=jouanne-diedrich">Holger K. von Jouanne-Diedrich</a></p>
 
-<h2>
-<a id="help-overview" class="anchor" href="#help-overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help overview</h2>
+<h3>
+<a id="help-overview" class="anchor" href="#help-overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help overview</h3>
 
 <div class="highlight highlight-r"><pre>help(<span class="pl-v">package</span> <span class="pl-k">=</span> <span class="pl-smi">OneR</span>)</pre></div>
 
 <p>or view the documentation on <a href="http://cran.r-project.org/web/packages/rlist/rlist.pdf">CRAN</a></p>
 
-<h2>
-<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+<h3>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
 
-<p>This package is under <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
+<p>This package is under <a href="https://raw.githubusercontent.com/vonjd/OneR/master/LICENSE">MIT License</a>.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/vonjd/OneR">OneR</a> is maintained by <a href="https://github.com/vonjd">vonjd</a>.</span>
