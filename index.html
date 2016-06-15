@@ -39,14 +39,12 @@
 
 <p>You can <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-users-and-teams" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.</p>
 
-<h3>
-  Code sample</h3>
-  <pre><code>> library(OneR)</code></pre>
+<h3>Code sample</h3>
+<pre><code>library(OneR)</code></pre>
 <p>Determine optimal bins for numeric data</p>
-<pre><code>>data <- optbin(iris)
-> 
-> # Build model with best predictor
-> model <- OneR(data, verbose = TRUE)
+<pre><code>data <- optbin(iris)
+<p>Build model with best predictor</p>
+<pre><code>model <- OneR(data, verbose = TRUE)
 
     Attribute    Accuracy
 1 * Petal.Width  96%     
@@ -55,11 +53,9 @@
 4   Sepal.Width  55.33%  
 ---
 Chosen attribute due to accuracy
-and ties method (if applicable): '*'
-
-> 
-> # Show learned rules and model diagnostics
-> summary(model)
+and ties method (if applicable): '*'</code></pre>
+<p>Show learned rules and model diagnostics</p>
+<pre><code>summary(model)
 
 Rules:
 If Petal.Width = (0.0976,0.791] then Species = setosa
@@ -80,17 +76,13 @@ Species      (0.0976,0.791] (0.791,1.63] (1.63,2.5] Sum
 Maximum in each column: '*'
 
 Pearson's Chi-squared test:
-X-squared = 266.35, df = 4, p-value < 2.2e-16
-
-> 
-> # Plot model diagnostics
-> plot(model)
-> 
-> # Use model to predict data
-> prediction <- predict(model, data)
-> 
-> # Evaluate prediction statistics
-> eval_model(prediction, data)
+X-squared = 266.35, df = 4, p-value < 2.2e-16</code></pre>
+<p>Plot model diagnostics</p>
+<pre><code>plot(model)</code></pre>
+<p>Use model to predict data</p>
+<pre><code>prediction <- predict(model, data)</code></pre>
+<p>Evaluate prediction statistics</p>
+<pre><code>eval_model(prediction, data)
 
            actual            
 prediction   setosa versicolor virginica Sum
@@ -110,8 +102,7 @@ Accuracy:
 0.96 (144/150)
 
 Error rate:
-0.04 (6/150)
-  </code></pre>
+0.04 (6/150)</code></pre>
 
 
 <h3>
