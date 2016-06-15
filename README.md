@@ -5,4 +5,4 @@ You can find the vignette here:
 http://vonjd.github.io/OneR/
 
 You can find the full documentation here:
-https://github.com/vonjd/OneR/blob/master/OneR.pdf
+https://github.com/vonjd/OneR/raw/master/OneR.pdf
