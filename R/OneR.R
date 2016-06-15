@@ -230,6 +230,7 @@ predict.OneR <- function(object, newdata, ...) {
 #'
 #' In the contingency table the maximum values in each column are highlighted by adding a '*', thereby representing the rules of the OneR model.
 #' @seealso \code{\link{OneR}}
+#' @keywords diagnostics
 #' @examples
 #' model <- OneR(iris)
 #' summary(model)
@@ -291,6 +292,7 @@ print.OneR <- function(x, ...) {
 #' @param ... further arguments passed to or from other methods.
 #' @details If more than 20 levels are present for either the feature attribute or the target the function stops with an error.
 #' @seealso \code{\link{OneR}}
+#' @keywords diagnostics
 #' @examples
 #' model <- OneR(iris)
 #' plot(model)
