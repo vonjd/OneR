@@ -19,16 +19,20 @@
     </section>
 
     <section class="main-content">
+      
 <h3>Introduction</h3>
 <p>The following story is one of the most often told in the Data Science community: Some time ago the military built a system which aim it was to distinguish military vehicles from civilian ones. They chose a neural network approach and trained the system with pictures of tanks, humvees and misile launchers on the one hand and normal cars, pickups and trucks on the other. And after having reached a satisfactory accuracy they brought the system into the field (quite literary). It failed completely, performing no better than a coin toss. What had happened? No one knew, so they re-engineered the black box (no small feat in itself) and found that most of the military pics where taken at dusk or dawn and most civilian pics under brighter weather conditions. The neural net had learned the difference between light and dark!
   Although this might be an urban legend the fact that it is so often told wants to tell us something:
-  <ol>
-    <li>Many of our Machine Learning models are so complex that we cannot understand them ourselves.</li>
-    <li>Because of 1. we cannot differentiate between the simpler aspects of a problem which can be tackled by simple models and the more sophisticated ones which need specilized treatment.</li>
-  </ol>
-  The above is not only true for neural networks (and especially deep neural networks) but for most of the methods used today, especially Support Vector Machines and Random Forrests and in general all kinds of ensemble based methods.
-  In one word: We need a good baseline which builds “the best simple model” that strikes a balance between the best accuracy possible with a model that is still simple to grasp: We have developed the OneR package for finding this sweet spot and thereby establishing a new baseline for classification models in Machine Learning.
+<ol>
+  <li>Many of our Machine Learning models are so complex that we cannot understand them ourselves.</li>
+  <li>Because of 1. we cannot differentiate between the simpler aspects of a problem which can be tackled by simple models and the more sophisticated ones which need specilized treatment.</li>
+</ol>
+The above is not only true for neural networks (and especially deep neural networks) but for most of the methods used today, especially Support Vector Machines and Random Forrests and in general all kinds of ensemble based methods.
+In one word: We need a good baseline which builds “the best simple model” that strikes a balance between the best accuracy possible with a model that is still simple to grasp: We have developed the OneR package for finding this sweet spot and thereby establishing a new baseline for classification models in Machine Learning.
+
+This package is filling a longstanding gap because only a JAVA based implementation was available so far (<a href="https://cran.r-project.org/web/packages/RWeka/index.html">RWeka package</a>&nbsp;as an interface for the <a href="http://weka.sourceforge.net/doc.dev/weka/classifiers/rules/OneR.html">OneR JAVA class</a>). Additionally several enhancements have been made (see below).
 </p>
+
 <h3>Design princples for the OneR package</h3>
 <p>The following design principles were followed for programming the package:</p>
 <ul>
@@ -42,7 +46,7 @@
   <li>Inituitive: Model diagnostics should be presented in form of a simple plot.</li>
   <li>Native R: The whole package is written in native R code. Thereby the sourcecode can be easily checked and the whole package is very lean.</li>
 </ul>
-<p>The package is based on the – as the name might reveal – one rule classification algorithm [Holte…] Although the underlying method is simple enough (basically: find the best predictor and take the majority vote for each level as a rule) several enhancements have been made:</p>
+<p>The package is based on the – as the name might reveal – one rule classification algorithm [Holte93]. Although the underlying method is simple enough (basically 1-level decision trees) several enhancements have been made:</p>
 <ul>
   <li><span style="text-decoration: underline;">Missing values</span>: In the original algorithm missing values were always handled as a separate level in the respective attribute. While missing values can sometimes reveal interesting patterns in other cases they are, well, just values that are missing. In the OneR package missing values can be handled as separate levels (level &ldquo;NA&rdquo;) or they can be omitted.</li>
   <li><span style="text-decoration: underline;">Discretization of numeric data</span>: The OneR algorithm can only handle categoric data so numeric data has to be discretized. The original OneR algorithm separates the respective values in ever smaller and smaller buckets until the best possible accuracy is being reached. In can be argued (as has been [Weka&hellip;] that this is <em>the</em> definition of overfitting and contradicts the original spirit of OneR because tons of rules (one for every bucket) will result. One can of course introduce a new parameter &ldquo;maximum bucket size&rdquo; but finding the right value for this one doesn&rsquo;t come naturally either. Therefore, we take a radically different approach: There are several methods for handling numeric data in the package (in the bin and the optbin function), the most promising one is the &ldquo;logreg&rdquo; method in the optbin function which gives only as many bins as there are target categories and which optimizes the cut points according to pairwise logistic regressions. The performance of this method on several different datasets is very encouraging and the method will be explained in detail later.</li>
@@ -62,7 +66,8 @@
 4   Sepal.Width  55.33%  
 ---
 Chosen attribute due to accuracy
-and ties method (if applicable): '*'</code></pre>
+and ties method (if applicable): '*'
+</code></pre>
 <p>Show learned rules and model diagnostics</p>
 <pre><code>summary(model)
 
@@ -85,7 +90,8 @@ Species      (0.0976,0.791] (0.791,1.63] (1.63,2.5] Sum
 Maximum in each column: '*'
 
 Pearson's Chi-squared test:
-X-squared = 266.35, df = 4, p-value < 2.2e-16</code></pre>
+X-squared = 266.35, df = 4, p-value < 2.2e-16
+</code></pre>
 <p>Plot model diagnostics</p>
 <pre><code>plot(model)</code></pre>
 <p>Use model to predict data</p>
@@ -111,13 +117,29 @@ Accuracy:
 0.96 (144/150)
 
 Error rate:
-0.04 (6/150)</code></pre>
+0.04 (6/150)
+</code></pre>
 
-
+<h2>Sources</h2>
+<p>[Holte93]: R. Holte: Very Simple Classification Rules Perform Well on Most Commonly Used Datasets, 1993. Availabel: http://www.mlpack.org/papers/ds.pdf.</p>
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>Having trouble with Pages? Check out our <a href="https://help.github.com/pages">documentation</a> or <a href="https://github.com/contact">contact support</a> and we’ll help you sort it out.</p>
+<h3>Contact</h3>
+<p>I would love to hear about your experiences with the OneR package. Please drop me a note - you can reach me on my university account: 
+<a href="https://www.h-ab.de/nc/eng/about-aschaffenburg-university-of-applied-sciences/organisation/personal/?tx_fhapersonal_pi1%5BshowUid%5D=jouanne-diedrich">Holger K. von Jouanne-Diedrich</a></p>
+
+<h2>
+<a id="help-overview" class="anchor" href="#help-overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help overview</h2>
+
+<div class="highlight highlight-r"><pre>help(<span class="pl-v">package</span> <span class="pl-k">=</span> <span class="pl-smi">OneR</span>)</pre></div>
+
+<p>or view the documentation on <a href="http://cran.r-project.org/web/packages/rlist/rlist.pdf">CRAN</a></p>
+
+<h2>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h2>
+
+<p>This package is under <a href="http://opensource.org/licenses/MIT">MIT License</a>.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/vonjd/OneR">OneR</a> is maintained by <a href="https://github.com/vonjd">vonjd</a>.</span>
