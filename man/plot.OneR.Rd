@@ -21,6 +21,9 @@ If more than 20 levels are present for either the feature attribute or the targe
 model <- OneR(iris)
 plot(model)
 }
+\author{
+Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+}
 \seealso{
 \code{\link{OneR}}
 }

@@ -16,6 +16,9 @@ Test if object is a OneR model.
 model <- OneR(iris)
 is.OneR(model) # evaluates to TRUE
 }
+\author{
+Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+}
 \keyword{OneR}
 \keyword{model}
 

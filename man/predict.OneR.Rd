@@ -25,6 +25,9 @@ model <- OneR(iris)
 prediction <- predict(model, iris[1:4])
 eval_model(prediction, iris[5])
 }
+\author{
+Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+}
 \seealso{
 \code{\link{OneR}}
 }

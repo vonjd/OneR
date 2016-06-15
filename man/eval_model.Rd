@@ -24,6 +24,9 @@ summary(model)
 prediction <- predict(model, data)
 eval_model(prediction, data)
 }
+\author{
+Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+}
 \keyword{accuracy}
 \keyword{evaluation}
 

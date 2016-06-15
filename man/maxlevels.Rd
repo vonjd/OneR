@@ -27,6 +27,9 @@ df <- data.frame(numeric = c(1:26), alphabet = letters)
 str(df)
 str(maxlevels(df))
 }
+\author{
+Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+}
 \seealso{
 \code{\link{OneR}}
 }

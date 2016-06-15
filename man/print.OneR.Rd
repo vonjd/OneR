@@ -21,6 +21,9 @@ Prints the rules and the accuracy of an OneR model.
 model <- OneR(iris)
 print(model)
 }
+\author{
+Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+}
 \seealso{
 \code{\link{OneR}}
 }

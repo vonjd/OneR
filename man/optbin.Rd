@@ -44,6 +44,9 @@ model_opt <- OneR(data_opt, verbose = TRUE)
 summary(model_opt)
 
 }
+\author{
+Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+}
 \seealso{
 \code{\link{OneR}}, \code{\link{bin}}
 }

@@ -23,6 +23,9 @@ In the contingency table the maximum values in each column are highlighted by ad
 model <- OneR(iris)
 summary(model)
 }
+\author{
+Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+}
 \seealso{
 \code{\link{OneR}}
 }
