@@ -21,17 +21,15 @@
     <section class="main-content">
       
 <h2>Introduction</h2>
-<p>The following story is one of the most often told in the Data Science community: Some time ago the military built a system which aim it was to distinguish military vehicles from civilian ones. They chose a neural network approach and trained the system with pictures of tanks, humvees and misile launchers on the one hand and normal cars, pickups and trucks on the other. And after having reached a satisfactory accuracy they brought the system into the field (quite literary). It failed completely, performing no better than a coin toss. What had happened? No one knew, so they re-engineered the black box (no small feat in itself) and found that most of the military pics where taken at dusk or dawn and most civilian pics under brighter weather conditions. The neural net had learned the difference between light and dark!
-  Although this might be an urban legend the fact that it is so often told wants to tell us something:
+<p>The following story is one of the most often told in the Data Science community: Some time ago the military built a system which aim it was to distinguish military vehicles from civilian ones. They chose a neural network approach and trained the system with pictures of tanks, humvees and misile launchers on the one hand and normal cars, pickups and trucks on the other. And after having reached a satisfactory accuracy they brought the system into the field (quite literary). It failed completely, performing no better than a coin toss. What had happened? No one knew, so they re-engineered the black box (no small feat in itself) and found that most of the military pics where taken at dusk or dawn and most civilian pics under brighter weather conditions. The neural net had learned the difference between light and dark!</p>
+<p>Although this might be an urban legend the fact that it is so often told wants to tell us something:</p>
 <ol>
   <li>Many of our Machine Learning models are so complex that we cannot understand them ourselves.</li>
   <li>Because of 1. we cannot differentiate between the simpler aspects of a problem which can be tackled by simple models and the more sophisticated ones which need specilized treatment.</li>
 </ol>
-The above is not only true for neural networks (and especially deep neural networks) but for most of the methods used today, especially Support Vector Machines and Random Forrests and in general all kinds of ensemble based methods.
-In one word: We need a good baseline which builds “the best simple model” that strikes a balance between the best accuracy possible with a model that is still simple to grasp: We have developed the OneR package for finding this sweet spot and thereby establishing a new baseline for classification models in Machine Learning.
-
-This package is filling a longstanding gap because only a JAVA based implementation was available so far (<a href="https://cran.r-project.org/web/packages/RWeka/index.html">RWeka package</a>&nbsp;as an interface for the <a href="http://weka.sourceforge.net/doc.dev/weka/classifiers/rules/OneR.html">OneR JAVA class</a>). Additionally several enhancements have been made (see below).
-</p>
+The above is not only true for neural networks (and especially deep neural networks) but for most of the methods used today, especially Support Vector Machines and Random Forrests and in general all kinds of ensemble based methods.</p>
+<p>In one word: We need a good baseline which builds “the best simple model” that strikes a balance between the best accuracy possible with a model that is still simple to grasp: We have developed the OneR package for finding this sweet spot and thereby establishing a new baseline for classification models in Machine Learning.</p>
+<p>This package is filling a longstanding gap because only a JAVA based implementation was available so far (<a href="https://cran.r-project.org/web/packages/RWeka/index.html">RWeka package</a>&nbsp;as an interface for the <a href="http://weka.sourceforge.net/doc.dev/weka/classifiers/rules/OneR.html">OneR JAVA class</a>). Additionally several enhancements have been made (see below).</p>
 
 <h2>Design princples for the OneR package</h2>
 <p>The following design principles were followed for programming the package:</p>
@@ -53,7 +51,9 @@ This package is filling a longstanding gap because only a JAVA based implementat
   <li><span style="text-decoration: underline;">Tie breaking</span>: Sometimes the OneR algorihm will find several attributes that provide rules which all give the same best accuracy. The original algorithm just took the first attribute. While this is implemented in the OneR function as the default too a different method for tie breaking can be chosen: The contingency tables of all &ldquo;best&rdquo; rules are tested against each other with a Pearson&rsquo;s Chi squared test and the one with the smallest p-value is being chosen. The rationale behind this is that thereby the attribute with the best signal-to-noise ratio is being found.</li>
 </ul>
 <h2>A simple example</h2>
-<pre><code>library(OneR)</code></pre>
+<p>Install latest version from GitHub and load package</p>
+<pre><code>devtools::install_github("vonjd/OneR")
+library(OneR)</code></pre>
 <p>Determine optimal bins for numeric data</p>
 <pre><code>data <- optbin(iris)</code></pre>
 <p>Build model with best predictor</p>
@@ -121,8 +121,141 @@ Error rate:
 0.04 (6/150)
 </code></pre>
 
+<p>Please note that the very good accuracy of 96% is reached effortlessly.</p>
+<p>Petal.Width is identified as the atttibute with the highest predictive value. The cut points of the intervals are found automatically (via the included optbin function). The results are three very simple, yet accurate, rules to predict the respective species:</p>
+<pre><code>If Petal.Width = (0.0976,0.791] then Species = setosa
+If Petal.Width = (0.791,1.63]   then Species = versicolor
+If Petal.Width = (1.63,2.5]     then Species = virginica
+</code></pre>
+<p>The nearly perfect separation of the colors in the diagnostic plot give a good indication of the model’s ability to separate the different species.</p>
+
+<h3>A more sophisticated real-world example</h3>
+
+<p>The next example tries to find a model for the identification of breast cancer. The example can run without further preparation:</p>
+
+<pre><code>library(OneR)
+
+# http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.names
+# According to this source the best out-of-sample performance was 95.9%
+
+# #  Attribute                     Domain
+# -- -----------------------------------------
+# 1. Sample code number           id number
+# 2. Clump Thickness              1 - 10
+# 3. Uniformity of Cell Size      1 - 10
+# 4. Uniformity of Cell Shape     1 - 10
+# 5. Marginal Adhesion            1 - 10
+# 6. Single Epithelial Cell Size  1 - 10
+# 7. Bare Nuclei                  1 - 10
+# 8. Bland Chromatin              1 - 10
+# 9. Normal Nucleoli              1 - 10
+# 10. Mitoses                     1 - 10
+# 11. Class:                      (2 for benign, 4 for malignant)
+
+# Load and name data
+data <- read.csv("http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data", na.strings = "?")
+data <- data[-1] #remove sample code number
+class <- factor(data[ , ncol(data)], levels = c(2, 4), labels = c("benign", "malignant"))
+data <- data[-ncol(data)]; data <- cbind(data, class)
+names(data) <- c("Clump Thickness", "Uniformity of Cell Size", "Uniformity of Cell Shape", "Marginal Adhesion", "Single Epithelial Cell Size", "Bare Nuclei", "Bland Chromatin", "Normal Nucleoli", "Mitoses", "Class")
+
+# Divide training (80%) and test set (20%)
+set.seed(123)
+random <- sample(1:nrow(data), 0.8 * nrow(data))
+data.train <- optbin(data[random, ])
+Warning message:
+In optbin(data[random, ]) :
+  at least one instance was removed due to missing values
+data.test <- data[-random, ]
+
+# Train OneR model on training set
+model.train <- OneR(data.train, verbose = T)
+
+    Attribute                   Accuracy
+1 * Uniformity of Cell Size     92.83%  
+2   Uniformity of Cell Shape    92.1%   
+3   Bland Chromatin             90.99%  
+4   Bare Nuclei                 90.44%  
+5   Single Epithelial Cell Size 88.6%   
+6   Normal Nucleoli             87.13%  
+7   Marginal Adhesion           86.95%  
+8   Clump Thickness             86.03%  
+9   Mitoses                     78.68%  
+---
+Chosen attribute due to accuracy
+and ties method (if applicable): '*'
+
+
+# Show model and diagnostics
+summary(model.train)
+
+Rules:
+If Uniformity of Cell Size = (0.991,3.27] then Class = benign
+If Uniformity of Cell Size = (3.27,10]    then Class = malignant
+
+Accuracy:
+505 of 544 instances classified correctly (92.83%)
+
+Contingency table:
+           Uniformity of Cell Size
+Class       (0.991,3.27] (3.27,10] Sum
+  benign           * 344        10 354
+  malignant           29     * 161 190
+  Sum                373       171 544
+---
+Maximum in each column: '*'
+
+Pearson's Chi-squared test:
+X-squared = 381.11, df = 1, p-value < 2.2e-16
+
+
+# Plot model diagnostics
+plot(model.train)</code></pre>
+<img src="https://raw.githubusercontent.com/vonjd/OneR/gh-pages/OneR_iris.png" alt="OneR with Iris data set" />
+<pre><code># Use trained model to predict test set
+prediction <- predict(model.train, data.test)
+
+# Evaluate model performance on test set
+eval_model(prediction, data.test)
+
+           actual           
+prediction  benign malignant Sum
+  benign        90         8  98
+  malignant      1        41  42
+  Sum           91        49 140
+
+           actual           
+prediction  benign malignant  Sum
+  benign      0.64      0.06 0.70
+  malignant   0.01      0.29 0.30
+  Sum         0.65      0.35 1.00
+
+Accuracy:
+0.9357 (131/140)
+
+Error rate:
+0.0643 (9/140)
+</code></pre>
+
+<p>The best accuracy on this dataset was at 97.5% and it was reached with considerable effort . The reached accuracy for the test set here lies at 93.6%! This is achieved with the following two simple rules:</p>
+<pre><code>## If Uniformity of Cell Size = (0.991,3.27] then Class = benign
+## If Uniformity of Cell Size = (3.27,10]    then Class = malignant
+</code></pre>
+<p>Uniformity of Cell Size is identified as the atttibute with the highest predictive value. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the colors in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue.</p>
+
 <h3>Sources</h3>
 <p>[Holte93]: R. Holte: Very Simple Classification Rules Perform Well on Most Commonly Used Datasets, 1993. Available: http://www.mlpack.org/papers/ds.pdf.</p>
+
+<h3>Included functions</h3>
+
+<ul>
+<li>OneR is the main function of the package: builds a model according to the One Rule machine learning algorithm for categorical data. All numerical data is automatically converted into five categorcial bins of equal length. When verbose is TRUE it gives the predictive accuracy of the attributes in decreasing order.</li>
+<li>bin discretizes all numerical data in a dataframe into categorcial bins of equal length or equal content.</li>
+<li>optbin discretizes all numerical data in a dataframe into categorcial bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method&nbsp;"logreg") or as the means of the expected values of the respective classes ("naive"). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method&nbsp;"naive"should only be used when distributions are (approximately) normal, although in this case&nbsp;"logreg"&nbsp;should give comparable results, so it is the preferable (and therefore default) method.</li>
+<li>eval_model is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument actual is a dataframe which contains the actual data in the last column. A single vector is allowed too.</li>
+<li>Maxlevels: Removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.</li>
+</ul>
+
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
 
@@ -133,8 +266,6 @@ Error rate:
 <a id="help-overview" class="anchor" href="#help-overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Help overview</h3>
 
 <div class="highlight highlight-r"><pre>help(<span class="pl-v">package</span> <span class="pl-k">=</span> <span class="pl-smi">OneR</span>)</pre></div>
-
-<p>or view the documentation on <a href="http://cran.r-project.org/web/packages/rlist/rlist.pdf">CRAN</a></p>
 
 <h3>
 <a id="license" class="anchor" href="#license" aria-hidden="true"><span class="octicon octicon-link"></span></a>License</h3>
