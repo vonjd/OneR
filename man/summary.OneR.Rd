@@ -26,4 +26,5 @@ summary(model)
 \seealso{
 \code{\link{OneR}}
 }
+\keyword{diagnostics}
 
