@@ -1,0 +1,11 @@
+Package: OneR
+Type: Package
+Title: OneR
+Version: 1.2
+Date: 2016-06-12
+Author: Holger K. von Jouanne-Diedrich <r-project@ephorie.de>
+Maintainer: Holger K. von Jouanne-Diedrich <r-project@ephorie.de>
+Description: Implements the OneR classification algorithm together with some helper functions.
+License: MIT + file LICENSE
+LazyData: TRUE
+RoxygenNote: 5.0.1
