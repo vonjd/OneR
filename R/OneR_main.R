@@ -13,6 +13,7 @@
 #' When there is more than one attribute with best performance either the first (from left to right) is being chosen (method \code{"first"}) or
 #' the one with the lowest p-value of a chi-squared test (method \code{"chisq"}).
 #' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{bin}}, \code{\link{optbin}}, \code{\link{eval_model}}, \code{\link{maxlevels}}
 #' @examples
 #' data <- optbin(iris)
