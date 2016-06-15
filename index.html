@@ -151,25 +151,25 @@ If Petal.Width = (1.63,2.5]     then Species = virginica
 # 9. Normal Nucleoli              1 - 10
 # 10. Mitoses                     1 - 10
 # 11. Class:                      (2 for benign, 4 for malignant)
-
-# Load and name data
-data <- read.csv("http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data", na.strings = "?")
+</code></pre>
+<p>Load and name data</p>
+<pre><code>data <- read.csv("http://archive.ics.uci.edu/ml/machine-learning-databases/breast-cancer-wisconsin/breast-cancer-wisconsin.data", na.strings = "?")
 data <- data[-1] #remove sample code number
 class <- factor(data[ , ncol(data)], levels = c(2, 4), labels = c("benign", "malignant"))
 data <- data[-ncol(data)]; data <- cbind(data, class)
 names(data) <- c("Clump Thickness", "Uniformity of Cell Size", "Uniformity of Cell Shape", "Marginal Adhesion", "Single Epithelial Cell Size", "Bare Nuclei", "Bland Chromatin", "Normal Nucleoli", "Mitoses", "Class")
-
-# Divide training (80%) and test set (20%)
-set.seed(123)
+</code></pre>
+<p>Divide training (80%) and test set (20%)</p>
+<pre><code>set.seed(123)
 random <- sample(1:nrow(data), 0.8 * nrow(data))
 data.train <- optbin(data[random, ])
 Warning message:
 In optbin(data[random, ]) :
   at least one instance was removed due to missing values
 data.test <- data[-random, ]
-
-# Train OneR model on training set
-model.train <- OneR(data.train, verbose = T)
+</code></pre>
+<p>Train OneR model on training set</p>
+<pre><code>model.train <- OneR(data.train, verbose = T)
 
     Attribute                   Accuracy
 1 * Uniformity of Cell Size     92.83%  
@@ -184,10 +184,9 @@ model.train <- OneR(data.train, verbose = T)
 ---
 Chosen attribute due to accuracy
 and ties method (if applicable): '*'
-
-
-# Show model and diagnostics
-summary(model.train)
+</code></pre>
+<p>Show model and diagnostics</p>
+<pre><code>summary(model.train)
 
 Rules:
 If Uniformity of Cell Size = (0.991,3.27] then Class = benign
@@ -207,16 +206,16 @@ Maximum in each column: '*'
 
 Pearson's Chi-squared test:
 X-squared = 381.11, df = 1, p-value < 2.2e-16
-
-
-# Plot model diagnostics
-plot(model.train)</code></pre>
+</code></pre>
+<p>Plot model diagnostics</p>
+<pre><code>plot(model.train)</code></pre>
 <img src="https://raw.githubusercontent.com/vonjd/OneR/gh-pages/OneR_cancer.png" alt="OneR with breast cancer data set" />
-<pre><code># Use trained model to predict test set
-prediction <- predict(model.train, data.test)
-
-# Evaluate model performance on test set
-eval_model(prediction, data.test)
+<pre><code>
+<p>Use trained model to predict test set</p>
+<pre><code>prediction <- predict(model.train, data.test)
+</code></pre>
+<p>Evaluate model performance on test set</p>
+<pre><code>eval_model(prediction, data.test)
 
            actual           
 prediction  benign malignant Sum
