@@ -24,4 +24,5 @@ plot(model)
 \seealso{
 \code{\link{OneR}}
 }
+\keyword{diagnostics}
 
