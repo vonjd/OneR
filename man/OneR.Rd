@@ -43,6 +43,9 @@ plot(model)
 prediction <- predict(model, data)
 eval_model(prediction, data)
 }
+\author{
+Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+}
 \seealso{
 \code{\link{bin}}, \code{\link{optbin}}, \code{\link{eval_model}}, \code{\link{maxlevels}}
 }
