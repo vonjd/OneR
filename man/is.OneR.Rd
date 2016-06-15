@@ -19,6 +19,9 @@ is.OneR(model) # evaluates to TRUE
 \author{
 Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
 }
+\references{
+\url{http://vonjd.github.io/OneR/}
+}
 \keyword{OneR}
 \keyword{model}
 

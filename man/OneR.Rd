@@ -46,6 +46,9 @@ eval_model(prediction, data)
 \author{
 Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
 }
+\references{
+\url{http://vonjd.github.io/OneR/}
+}
 \seealso{
 \code{\link{bin}}, \code{\link{optbin}}, \code{\link{eval_model}}, \code{\link{maxlevels}}
 }

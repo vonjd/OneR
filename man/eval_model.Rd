@@ -27,6 +27,9 @@ eval_model(prediction, data)
 \author{
 Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
 }
+\references{
+\url{http://vonjd.github.io/OneR/}
+}
 \keyword{accuracy}
 \keyword{evaluation}
 

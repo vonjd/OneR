@@ -37,6 +37,9 @@ str(bin(data, nbins = 3, labels = c("small", "medium", "large")))
 \author{
 Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
 }
+\references{
+\url{http://vonjd.github.io/OneR/}
+}
 \seealso{
 \code{\link{OneR}}, \code{\link{optbin}}
 }
