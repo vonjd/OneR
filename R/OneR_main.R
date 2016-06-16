@@ -6,7 +6,7 @@
 #' @param ties.method a character string specifying how ties are treated, see 'Details'; can be abbreviated.
 #' @param verbose If \code{TRUE} prints rank, names and predictive accuracy of the attributes in decreasing order (with \code{ties.method = "first"}).
 #' @keywords 1R OneR One Rule
-#' @details All numerical data is automatically converted into five categorcial bins of equal length. Instances with missing values are removed.
+#' @details All numerical data is automatically converted into five categorical bins of equal length. Instances with missing values are removed.
 #' This is done by internally calling the default version of \code{\link{bin}} before starting the OneR algorithm.
 #' To finetune this behaviour data preprocessing with the \code{\link{bin}} or \code{\link{optbin}} functions should be performed.
 #'

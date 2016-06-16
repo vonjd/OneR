@@ -20,7 +20,7 @@ OneR(data, formula = NULL, ties.method = c("first", "chisq"),
 Builds a model according to the One Rule machine learning algorithm for categorical data.
 }
 \details{
-All numerical data is automatically converted into five categorcial bins of equal length. Instances with missing values are removed.
+All numerical data is automatically converted into five categorical bins of equal length. Instances with missing values are removed.
 This is done by internally calling the default version of \code{\link{bin}} before starting the OneR algorithm.
 To finetune this behaviour data preprocessing with the \code{\link{bin}} or \code{\link{optbin}} functions should be performed.
 

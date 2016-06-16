@@ -19,7 +19,7 @@ bin(data, nbins = 5, labels = NULL, method = c("length", "content"),
 \item{na.omit}{boolean value whether instances with missing values should be removed.}
 }
 \description{
-Discretizes all numerical data in a dataframe into categorcial bins of equal length or content.
+Discretizes all numerical data in a dataframe into categorical bins of equal length or content.
 }
 \details{
 Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. When called with a single vector only the respective factor (and not a dataframe) is returned.

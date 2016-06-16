@@ -54,7 +54,7 @@ logreg <- function(x, target) {
 
 #' Binning function
 #'
-#' Discretizes all numerical data in a dataframe into categorcial bins of equal length or content.
+#' Discretizes all numerical data in a dataframe into categorical bins of equal length or content.
 #' @param data dataframe which contains the data.
 #' @param nbins number of bins (= levels).
 #' @param labels character vector of labels for the resulting category.
@@ -105,7 +105,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content"),
 
 #' Optimal Binning function
 #'
-#' Discretizes all numerical data in a dataframe into categorcial bins where the cut points are optimally aligned with the target categories, thereby a factor is returned.
+#' Discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned.
 #' When building a OneR model this could result in fewer rules with enhanced accuracy.
 #' @param data dataframe which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
 #' @param formula formula interface for the \code{optbin} function.
