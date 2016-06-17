@@ -51,9 +51,11 @@ The above is not only true for neural networks (and especially deep neural netwo
   <li><span style="text-decoration: underline;">Discretization of numeric data</span>: The OneR algorithm can only handle categorical data so numeric data has to be discretized. The original OneR algorithm separates the respective values in ever smaller and smaller buckets until the best possible accuracy is being reached. In can be argued (as has been [Weka&hellip;] that this is <em>the</em> definition of overfitting and contradicts the original spirit of OneR because tons of rules (one for every bucket) will result. One can of course introduce a new parameter &ldquo;maximum bucket size&rdquo; but finding the right value for this one doesn&rsquo;t come naturally either. Therefore, we take a radically different approach: There are several methods for handling numeric data in the package (in the bin and the optbin function), the most promising one is the &ldquo;logreg&rdquo; method in the optbin function which gives only as many bins as there are target categories and which optimizes the cut points according to pairwise logistic regressions. The performance of this method on several different datasets is very encouraging and the method will be explained in detail later.</li>
   <li><span style="text-decoration: underline;">Tie breaking</span>: Sometimes the OneR algorithm will find several attributes that provide rules which all give the same best accuracy. The original algorithm just took the first attribute. While this is implemented in the OneR function as the default too a different method for tie breaking can be chosen: The contingency tables of all &ldquo;best&rdquo; rules are tested against each other with a Pearson&rsquo;s Chi squared test and the one with the smallest p-value is being chosen. The rationale behind this is that thereby the attribute with the best signal-to-noise ratio is being found.</li>
 </ul>
-<h2>A simple example</h2>
+<h2>Getting started with a simple example</h2>
 <p>Install latest version from GitHub and load package</p>
-<pre><code>devtools::install_github("vonjd/OneR")
+<pre><code>install.packages("devtools")
+library(devtools)
+install_github("vonjd/OneR")
 library(OneR)</code></pre>
 <p>Determine optimal bins for numeric data</p>
 <pre><code>data <- optbin(iris)</code></pre>
@@ -264,7 +266,7 @@ Error rate:
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Support or Contact</h3>
 
-<p>I would love to hear about your experiences with the OneR package. Please drop me a note - you can reach me on my university account: 
+<p>I would love to hear about your experiences with the OneR package. Please drop me a note - you can reach me at  my university account: 
 <a href="https://www.h-ab.de/nc/eng/about-aschaffenburg-university-of-applied-sciences/organisation/personal/?tx_fhapersonal_pi1%5BshowUid%5D=jouanne-diedrich">Holger K. von Jouanne-Diedrich</a></p>
 
 <h3>
