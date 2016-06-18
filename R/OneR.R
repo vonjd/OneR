@@ -24,7 +24,7 @@ naive <- function(x, target) {
   # The cutpoints are the means of the expected values of the respective target levels.
   breaks <- c(min(x) - 1/1000 * diff(range(x)), na.omit(filter(midpoints, c(1/2, 1/2))), max(x) + 1/1000 * diff(range(x)))
   #breaks <- unique(as.numeric(formatC(0 + breaks, digits = 3, width = 1L)))
-  cut(orig, breaks = breaks)
+  cut(orig, breaks = unique(breaks))
 }
 
 logreg_midpoint <- function(data) {
@@ -51,7 +51,7 @@ logreg <- function(x, target) {
   midbreaks <- apply(pairs, 1, function(x) logreg_midpoint(c(nl[x[1]], nl[x[2]])))
   breaks <- c(min(x) - 1/1000 * diff(range(x)), midbreaks, max(x) + 1/1000 * diff(range(x)))
   #breaks <- unique(as.numeric(formatC(0 + breaks, digits = 3, width = 1L)))
-  cut(orig, breaks = breaks)
+  cut(orig, breaks = unique(breaks))
 }
 
 #' Binning function
