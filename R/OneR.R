@@ -23,7 +23,8 @@ naive <- function(x, target) {
   midpoints <- sort(sapply(xs, mean))
   # The cutpoints are the means of the expected values of the respective target levels.
   breaks <- c(min(x) - 1/1000 * diff(range(x)), na.omit(filter(midpoints, c(1/2, 1/2))), max(x) + 1/1000 * diff(range(x)))
-  cut(orig, breaks = unique(breaks))
+  breaks <- unique(as.numeric(formatC(0 + breaks, digits = 3, width = 1L)))
+  cut(orig, breaks = breaks)
 }
 
 logreg_midpoint <- function(data) {
@@ -49,7 +50,8 @@ logreg <- function(x, target) {
   pairs <- matrix(c(1:(length(nl) - 1), 2:length(nl)), ncol = 2, byrow = TRUE)
   midbreaks <- apply(pairs, 1, function(x) logreg_midpoint(c(nl[x[1]], nl[x[2]])))
   breaks <- c(min(x) - 1/1000 * diff(range(x)), midbreaks, max(x) + 1/1000 * diff(range(x)))
-  cut(orig, breaks = unique(sort(breaks)))
+  breaks <- unique(as.numeric(formatC(0 + breaks, digits = 3, width = 1L)))
+  cut(orig, breaks = breaks)
 }
 
 #' Binning function
@@ -91,8 +93,8 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content"),
   data[] <- lapply(data, function(x) if (is.numeric(x) ) {
     if (length(unique(x)) <= nbins) as.factor(x)
     else {
-      if (method == "content") nbins <- c(min(x) - 1/1000 * diff(range(x)), na.omit(quantile(x, (1:(nbins-1)/nbins))), max(x) + 1/1000 * diff(range(x)))
-      cut(x, nbins, labels = labels)
+      if (method == "content") { nbins <- c(min(x) - 1/1000 * diff(range(x)), na.omit(quantile(x, (1:(nbins-1)/nbins))), max(x) + 1/1000 * diff(range(x))); nbins <- unique(as.numeric(formatC(0 + nbins, digits = 3, width = 1L))) }
+      cut(x, breaks = nbins, labels = labels)
     }
   } else as.factor(x))
   if (na.omit == FALSE) {
