@@ -1,58 +1,4 @@
-mode <- function(x) {
-  names(sort(-table(x[ , ncol(x)])))[1]
-}
-
-addNA <- function(x) {
-  if (is.factor(x)) x <- factor(x, levels = c(levels(x), "NA"))
-  x[is.na(x)] <- "NA"
-  return(x)
-}
-
-get_breaks <- function(x) {
-  lower = as.numeric(sub("\\((.+),.*", "\\1", x))
-  upper = as.numeric(sub("[^,]*,([^]]*)\\]", "\\1", x))
-  breaks <- unique(c(lower, upper))
-  return(breaks)
-}
-
-naive <- function(x, target) {
-  orig <- x
-  tmp <- na.omit(cbind(x, target))
-  x <- tmp[ , 1]; target <- tmp[ , 2]
-  xs <- split(x, target)
-  midpoints <- sort(sapply(xs, mean))
-  # The cutpoints are the means of the expected values of the respective target levels.
-  breaks <- c(min(x) - 1/1000 * diff(range(x)), na.omit(filter(midpoints, c(1/2, 1/2))), max(x) + 1/1000 * diff(range(x)))
-  #breaks <- unique(as.numeric(formatC(0 + breaks, digits = 3, width = 1L)))
-  cut(orig, breaks = unique(breaks))
-}
-
-logreg_midpoint <- function(data) {
-  df <- data.frame(x = unlist(data), target = factor(rep(names(data), sapply(data, length))))
-  coefs <-  suppressWarnings(coef(glm(target ~ x, data = df, family = binomial)))
-  midpoint <- - coefs[1] / coefs[2]
-  # test limits
-  range <- sort(sapply(data, mean))
-  if (is.na(midpoint)) return(mean(range))
-  if (midpoint < range[1]) return(range[1])
-  if (midpoint > range[2]) return(range[2])
-  # ---
-  return(midpoint)
-}
-
-logreg <- function(x, target) {
-  orig <- x
-  tmp <- na.omit(cbind(x, target))
-  x <- tmp[ , 1]; target <- tmp[ , 2]
-  xs <- split(x, target)
-  midpoints <- sapply(xs, mean)
-  nl <- xs[order(midpoints)]
-  pairs <- matrix(c(1:(length(nl) - 1), 2:length(nl)), ncol = 2, byrow = TRUE)
-  midbreaks <- apply(pairs, 1, function(x) logreg_midpoint(c(nl[x[1]], nl[x[2]])))
-  breaks <- c(min(x) - 1/1000 * diff(range(x)), midbreaks, max(x) + 1/1000 * diff(range(x)))
-  #breaks <- unique(as.numeric(formatC(0 + breaks, digits = 3, width = 1L)))
-  cut(orig, breaks = unique(breaks))
-}
+# OneR helper functions
 
 #' Binning function
 #'
@@ -94,8 +40,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content"),
     if (length(unique(x)) <= nbins) as.factor(x)
     else {
       if (method == "content") nbins <- c(min(x) - 1/1000 * diff(range(x)), na.omit(quantile(x, (1:(nbins-1)/nbins))), max(x) + 1/1000 * diff(range(x)))
-      #if (method == "content") { nbins <- c(min(x) - 1/1000 * diff(range(x)), na.omit(quantile(x, (1:(nbins-1)/nbins))), max(x) + 1/1000 * diff(range(x))); nbins <- unique(as.numeric(formatC(0 + nbins, digits = 3, width = 1L))) }
-      cut(x, breaks = nbins, labels = labels)
+      CUT(x, breaks = unique(nbins), labels = labels)
     }
   } else as.factor(x))
   if (na.omit == FALSE) {

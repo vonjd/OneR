@@ -1,3 +1,5 @@
+# OneR main function
+
 #' One Rule function
 #'
 #' Builds a model according to the One Rule machine learning algorithm for categorical data.
