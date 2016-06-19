@@ -1,5 +1,5 @@
 # OneR
-This R package implements the OneR classification algorithm together with some helper functions.
+This R package implements the OneR classification algorithm with enhancements for sophisticated handling of missing values, numeric data and ties together with extensive diagnostic functions.
 
 ## Documentation
 
