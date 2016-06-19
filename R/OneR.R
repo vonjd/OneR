@@ -13,7 +13,7 @@
 #' Method \code{"length"} gives intervals of equal length, method \code{"content"} gives intervals of equal content (via quantiles).
 #'
 #' When \code{"na.omit = FALSE"} a new level \code{"NA"} is introduced into each factor.
-#' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}, \code{\link{optbin}}
 #' @examples
@@ -68,7 +68,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content"),
 #' Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. If the target is numeric it is turned into a factor with the number of levels equal to the number of values. Additionally a warning is given.
 #'
 #' When \code{"na.omit = FALSE"} a new level \code{"NA"} is introduced into each factor.
-#' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}, \code{\link{bin}}
 #' @examples
@@ -129,7 +129,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
 #' Examples are IDs or names.
 #'
 #' Character strings are treated as factors although they keep their datatype. Numeric data is left untouched.
-#' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}
 #' @examples
@@ -154,7 +154,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #' @param ... further arguments passed to or from other methods.
 #' @details \code{newdata} can have the same format as used for building the model but must at least have the feature variable that is used in the OneR rules.
 #' If cases appear that were not present when building the model the predicted value is \code{UNSEEN}.
-#' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}
 #' @examples
@@ -186,7 +186,7 @@ predict.OneR <- function(object, newdata, ...) {
 #' @details Prints the rules of the OneR model, the accuracy, a contingency table of the feature attribute and the target and performs a chi-squared test on this table.
 #'
 #' In the contingency table the maximum values in each column are highlighted by adding a '*', thereby representing the rules of the OneR model.
-#' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}
 #' @keywords diagnostics
@@ -229,7 +229,7 @@ summary.OneR <- function(object, ...) {
 #' @param x object of class \code{"OneR"}.
 #' @param ... further arguments passed to or from other methods.
 #' @details Prints the rules and the accuracy of an OneR model.
-#' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}
 #' @examples
@@ -254,7 +254,7 @@ print.OneR <- function(x, ...) {
 #' @param x object of class \code{"OneR"}.
 #' @param ... further arguments passed to or from other methods.
 #' @details If more than 20 levels are present for either the feature attribute or the target the function stops with an error.
-#' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}
 #' @keywords diagnostics
@@ -274,7 +274,7 @@ plot.OneR <- function(x, ...) {
 #' Test if object is a OneR model.
 #' @param x object to be tested.
 #' @keywords OneR model
-#' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @examples
 #' model <- OneR(iris)
@@ -288,7 +288,7 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' @param prediction vector which contains the predicted values.
 #' @param actual dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.
 #' @details Invisibly returns a list with the number of correctly classified and total instances and a contingency table with the absolute numbers.
-#' @author Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+#' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @keywords evaluation accuracy
 #' @examples

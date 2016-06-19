@@ -24,7 +24,7 @@ model <- OneR(iris)
 summary(model)
 }
 \author{
-Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+Holger von Jouanne-Diedrich
 }
 \references{
 \url{http://vonjd.github.io/OneR/}

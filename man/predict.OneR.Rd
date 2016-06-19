@@ -26,7 +26,7 @@ prediction <- predict(model, iris[1:4])
 eval_model(prediction, iris[5])
 }
 \author{
-Holger von Jouanne-Diedrich, \email{r-project@ephorie.de}
+Holger von Jouanne-Diedrich
 }
 \references{
 \url{http://vonjd.github.io/OneR/}
