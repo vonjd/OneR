@@ -32,6 +32,8 @@
 #' plot(model)
 #' prediction <- predict(model, data)
 #' eval_model(prediction, data)
+#' @importFrom stats model.frame
+#' @importFrom stats chisq.test
 #' @export
 OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbose = FALSE) {
   method <- match.arg(ties.method)

@@ -22,6 +22,7 @@
 #' str(bin(data))
 #' str(bin(data, nbins = 3))
 #' str(bin(data, nbins = 3, labels = c("small", "medium", "large")))
+#' @importFrom stats quantile
 #' @export
 bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content"), na.omit = TRUE) {
   method <- match.arg(method)
@@ -192,6 +193,8 @@ predict.OneR <- function(object, newdata, ...) {
 #' @examples
 #' model <- OneR(iris)
 #' summary(model)
+#' @importFrom stats addmargins
+#' @importFrom stats chisq.test
 #' @export
 summary.OneR <- function(object, ...) {
   model <- object
@@ -258,6 +261,7 @@ print.OneR <- function(x, ...) {
 #' @examples
 #' model <- OneR(iris)
 #' plot(model)
+#' @importFrom graphics mosaicplot
 #' @export
 plot.OneR <- function(x, ...) {
   model <- x
@@ -293,6 +297,7 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' summary(model)
 #' prediction <- predict(model, data)
 #' eval_model(prediction, data)
+#' @importFrom stats addmargins
 #' @export
 eval_model <- function(prediction, actual) {
   data <- actual

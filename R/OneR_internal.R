@@ -35,6 +35,8 @@ get_breaks <- function(x) {
   return(breaks)
 }
 
+#' @importFrom stats na.omit
+#' @importFrom stats filter
 naive <- function(x, target) {
   orig <- x
   tmp <- na.omit(cbind(x, target))
@@ -46,6 +48,9 @@ naive <- function(x, target) {
   CUT(orig, breaks = unique(breaks))
 }
 
+#' @importFrom stats coef
+#' @importFrom stats glm
+#' @importFrom stats binomial
 logreg_midpoint <- function(data) {
   df <- data.frame(x = unlist(data), target = factor(rep(names(data), sapply(data, length))))
   coefs <-  suppressWarnings(coef(glm(target ~ x, data = df, family = binomial)))
@@ -59,6 +64,7 @@ logreg_midpoint <- function(data) {
   return(midpoint)
 }
 
+#' @importFrom stats na.omit
 logreg <- function(x, target) {
   orig <- x
   tmp <- na.omit(cbind(x, target))
