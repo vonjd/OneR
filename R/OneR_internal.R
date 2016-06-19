@@ -9,14 +9,13 @@ CUT <- function(x, breaks, ...) {
     if (dx == 0) {
       dx <- abs(rx[1L])
       breaks <- seq.int(rx[1L] - dx/1000, rx[2L] + dx/1000, length.out = nb)
-    }
-    else {
+    } else {
       breaks <- seq.int(rx[1L], rx[2L], length.out = nb)
       breaks[c(1L, nb)] <- c(rx[1L] - dx/1000, rx[2L] + dx/1000)
     }
   }
   breaks.f <- c(breaks[1], as.numeric(formatC(0 + breaks[2:(length(breaks)-1)], digits = 3, width = 1L)), breaks[length(breaks)])
-  cut(x, breaks = breaks.f, ...) 
+  cut(x, breaks = breaks.f, ...)
 }
 
 mode <- function(x) {
