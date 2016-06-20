@@ -17,7 +17,7 @@ OneR(data, formula = NULL, ties.method = c("first", "chisq"),
 \item{verbose}{If \code{TRUE} prints rank, names and predictive accuracy of the attributes in decreasing order (with \code{ties.method = "first"}).}
 }
 \description{
-Builds a model according to the One Rule machine learning algorithm for categorical data.
+Builds a model according to the One Rule (OneR) machine learning classification algorithm.
 }
 \details{
 All numerical data is automatically converted into five categorical bins of equal length. Instances with missing values are removed.

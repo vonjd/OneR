@@ -33,6 +33,10 @@ str(data)
 str(bin(data))
 str(bin(data, nbins = 3))
 str(bin(data, nbins = 3, labels = c("small", "medium", "large")))
+
+## Difference between methods "length" and "content"
+set.seed(123); table(bin(rnorm(900), nbins = 3))
+set.seed(123); table(bin(rnorm(900), nbins = 3, method = "content"))
 }
 \author{
 Holger von Jouanne-Diedrich
