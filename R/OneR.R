@@ -24,8 +24,8 @@
 #' str(bin(data, nbins = 3, labels = c("small", "medium", "large")))
 #'
 #' ## Difference between methods "length" and "content"
-#' set.seed(123); table(bin(rnorm(900), nbins = 3))
-#' set.seed(123); table(bin(rnorm(900), nbins = 3, method = "content"))
+#' set.seed(1); table(bin(rnorm(900), nbins = 3))
+#' set.seed(1); table(bin(rnorm(900), nbins = 3, method = "content"))
 #' @importFrom stats quantile
 #' @export
 bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content"), na.omit = TRUE) {
