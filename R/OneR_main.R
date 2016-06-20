@@ -2,7 +2,7 @@
 
 #' One Rule function
 #'
-#' Builds a model according to the One Rule machine learning algorithm for categorical data.
+#' Builds a model according to the One Rule (OneR) machine learning classification algorithm.
 #' @param data dataframe, which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
 #' @param formula formula interface for the \code{OneR} function.
 #' @param ties.method a character string specifying how ties are treated, see 'Details'; can be abbreviated.

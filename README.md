@@ -1,5 +1,5 @@
 # OneR
-This R package implements the OneR classification algorithm with enhancements for sophisticated handling of missing values, numeric data and ties together with extensive diagnostic functions.
+This R package implements the One Rule (OneR) Machine Learning classification algorithm with enhancements for sophisticated handling of missing values and numeric data together with extensive diagnostic functions.
 
 ## Documentation
 
