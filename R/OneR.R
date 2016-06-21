@@ -291,7 +291,7 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' Function for evaluating a OneR classification model. Prints prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy and error rate.
 #' @param prediction vector which contains the predicted values.
 #' @param actual dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.
-#' @details Invisibly returns a list with the number of correctly classified and total instances and a contingency table with the absolute numbers.
+#' @details Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.
 #' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @keywords evaluation accuracy
@@ -307,16 +307,16 @@ eval_model <- function(prediction, actual) {
   data <- actual
   if (is.list(data) == FALSE) data <- data.frame(data)
   if (typeof(as.vector(data[ , ncol(data)])) != typeof(prediction)) warning("data types of prediction and actual are different")
-  cont <- table(prediction, data[ , ncol(data)])
-  cont.m <- addmargins(cont)
+  conf <- table(prediction, data[ , ncol(data)])
+  conf.m <- addmargins(conf)
   cat("\n", rep(" ", 11), "actual", sep = "")
-  print(cont.m)
-  cont.p <- prop.table(table(prediction, data[ , ncol(data)]))
-  cont.pm <- round(addmargins(cont.p), 2)
+  print(conf.m)
+  conf.p <- prop.table(table(prediction, data[ , ncol(data)]))
+  conf.pm <- round(addmargins(conf.p), 2)
   cat("\n", rep(" ", 11), "actual", sep = "")
-  print(cont.pm)
-  sum.cont.adj <- sum(cont[colnames(cont)[col(cont)] == rownames(cont)[row(cont)]])
-  cat("\nAccuracy:\n", round(sum.cont.adj / sum(cont), 4), " (", sum.cont.adj, "/", sum(cont), ")", sep = "")
-  cat("\n\nError rate:\n", round(1 - sum.cont.adj / sum(cont), 4), " (", sum(cont) - sum.cont.adj, "/", sum(cont), ")\n\n", sep = "")
-  return(invisible(list(correct_instances = sum.cont.adj, total_instances = sum(cont), cont_table = cont)))
+  print(conf.pm)
+  sum.conf.adj <- sum(conf[colnames(conf)[col(conf)] == rownames(conf)[row(conf)]])
+  cat("\nAccuracy:\n", round(sum.conf.adj / sum(conf), 4), " (", sum.conf.adj, "/", sum(conf), ")", sep = "")
+  cat("\n\nError rate:\n", round(1 - sum.conf.adj / sum(conf), 4), " (", sum(conf) - sum.conf.adj, "/", sum(conf), ")\n\n", sep = "")
+  return(invisible(list(correct_instances = sum.conf.adj, total_instances = sum(conf), conf_matrix = conf)))
 }

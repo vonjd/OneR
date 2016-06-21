@@ -15,7 +15,7 @@ eval_model(prediction, actual)
 Function for evaluating a OneR classification model. Prints prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy and error rate.
 }
 \details{
-Invisibly returns a list with the number of correctly classified and total instances and a contingency table with the absolute numbers.
+Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.
 }
 \examples{
 data <- iris
