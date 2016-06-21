@@ -5,14 +5,22 @@ This R package implements the One Rule (OneR) Machine Learning classification al
 
 You can find the vignette here: http://vonjd.github.io/OneR/
 
-You can find the full documentation here: https://raw.githubusercontent.com/vonjd/OneR/gh-pages/OneR.pdf
+You can find the full documentation here: http://cran.r-project.org/web/packages/OneR/OneR.pdf
 
 ## Installation
+
+Install the latest version from GitHub:
 
 ```R
 install.packages("devtools")
 library(devtools)
 install_github("vonjd/OneR")
+```
+
+Install from [CRAN](https://cran.r-project.org/package=OneR):
+
+```r
+install.packages("OneR")
 ```
 
 ## Contact
