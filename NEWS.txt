@@ -1,0 +1,3 @@
+changes in V 1.21
+- modified internal CUT function to address "breaks are not unique" error, which in some cases could result when calling the optbin-function
+- minor corrections in documentation and streamlining of code
