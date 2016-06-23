@@ -15,7 +15,7 @@ CUT <- function(x, breaks, ...) {
     }
   }
   breaks.f <- c(breaks[1], as.numeric(formatC(0 + breaks[2:(length(breaks)-1)], digits = 3, width = 1L)), breaks[length(breaks)])
-  cut(x, breaks = breaks.f, ...)
+  cut(x, breaks = unique(breaks.f), ...)
 }
 
 mode <- function(x) {
