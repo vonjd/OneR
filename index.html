@@ -52,7 +52,7 @@ The above is not only true for neural networks (and especially deep neural netwo
   <li><span style="text-decoration: underline;">Tie breaking</span>: Sometimes the OneR algorithm will find several attributes that provide rules which all give the same best accuracy. The original algorithm just took the first attribute. While this is implemented in the OneR function as the default too a different method for tie breaking can be chosen: The contingency tables of all &ldquo;best&rdquo; rules are tested against each other with a Pearson&rsquo;s Chi squared test and the one with the smallest p-value is being chosen. The rationale behind this is that thereby the attribute with the best signal-to-noise ratio is being found.</li>
 </ul>
 <h2>Getting started with a simple example</h2>
-<p>You can also watch this video which goes through the following example step-by-step:</p><a href="https://www.youtube.com/watch?v=AGC0oRlXxgU">Quick Start Guide for the OneR package</a>
+<p>You can also watch this video which goes through the following example step-by-step:</p><a href="https://www.youtube.com/watch?v=AGC0oRlXxgU">Quick Start Guide for the OneR package (Video)</a>
 <p>Install from CRAN and load package</p>
 <pre><code>install.packages("OneR")
 library(OneR)</code></pre>
