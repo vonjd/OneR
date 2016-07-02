@@ -11,11 +11,11 @@ eval_model(prediction, actual)
 
 \item{actual}{dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.}
 }
+\value{
+Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.
+}
 \description{
 Function for evaluating a OneR classification model. Prints prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy and error rate.
-}
-\details{
-Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.
 }
 \examples{
 data <- iris

@@ -8,6 +8,7 @@
 #' @param labels character vector of labels for the resulting category.
 #' @param method a character string specifying the binning method, see 'Details'; can be abbreviated.
 #' @param na.omit boolean value whether instances with missing values should be removed.
+#' @return A dataframe or vector.
 #' @keywords binning discretization discretize
 #' @details Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. When called with a single vector only the respective factor (and not a dataframe) is returned.
 #' Method \code{"length"} gives intervals of equal length, method \code{"content"} gives intervals of equal content (via quantiles).
@@ -64,6 +65,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content"),
 #' @param formula formula interface for the \code{optbin} function.
 #' @param method a character string specifying the method for optimal binning, see 'Details'; can be abbreviated.
 #' @param na.omit boolean value whether instances with missing values should be removed.
+#' @return A dataframe.
 #' @keywords binning discretization discretize
 #' @details The cutpoints are calculated by pairwise logistic regressions (method \code{"logreg"}) or as the means of the expected values of the respective classes (\code{"naive"}).
 #' The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method \code{"naive"} should only be used when distributions are (approximately) normal,
@@ -129,6 +131,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
 #' @param data dataframe which contains the data.
 #' @param maxlevels number of maximum factor levels.
 #' @param na.omit boolean value whether missing values should be treated as a level, defaults to omit missing values before counting.
+#' @return A dataframe.
 #' @details Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit.
 #' Examples are IDs or names.
 #'
@@ -156,6 +159,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #' @param object object of class \code{"OneR"}.
 #' @param newdata dataframe in which to look for the feature variable with which to predict.
 #' @param ... further arguments passed to or from other methods.
+#' @return A named vector.
 #' @details \code{newdata} can have the same format as used for building the model but must at least have the feature variable that is used in the OneR rules.
 #' If cases appear that were not present when building the model the predicted value is \code{UNSEEN}.
 #' @author Holger von Jouanne-Diedrich
@@ -291,7 +295,7 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' Function for evaluating a OneR classification model. Prints prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy and error rate.
 #' @param prediction vector which contains the predicted values.
 #' @param actual dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.
-#' @details Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.
+#' @return Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.
 #' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @keywords evaluation accuracy

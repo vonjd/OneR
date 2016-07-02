@@ -13,6 +13,9 @@
 
 \item{...}{further arguments passed to or from other methods.}
 }
+\value{
+A named vector.
+}
 \description{
 Predict values based on OneR model object.
 }

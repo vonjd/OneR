@@ -18,6 +18,9 @@ bin(data, nbins = 5, labels = NULL, method = c("length", "content"),
 
 \item{na.omit}{boolean value whether instances with missing values should be removed.}
 }
+\value{
+A dataframe or vector.
+}
 \description{
 Discretizes all numerical data in a dataframe into categorical bins of equal length or content.
 }

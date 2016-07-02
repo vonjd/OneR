@@ -16,6 +16,10 @@ OneR(data, formula = NULL, ties.method = c("first", "chisq"),
 
 \item{verbose}{If \code{TRUE} prints rank, names and predictive accuracy of the attributes in decreasing order (with \code{ties.method = "first"}).}
 }
+\value{
+Returns an object of class "OneR". Internally this is a list consisting of the names of the target and feature variables, a list of the rules,
+the number of correctly classified and total instances and the contingency table of the best predictor vs. the target variable.
+}
 \description{
 Builds a model according to the One Rule (OneR) machine learning classification algorithm.
 }

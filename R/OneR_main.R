@@ -7,6 +7,8 @@
 #' @param formula formula interface for the \code{OneR} function.
 #' @param ties.method a character string specifying how ties are treated, see 'Details'; can be abbreviated.
 #' @param verbose If \code{TRUE} prints rank, names and predictive accuracy of the attributes in decreasing order (with \code{ties.method = "first"}).
+#' @return Returns an object of class "OneR". Internally this is a list consisting of the names of the target and feature variables, a list of the rules,
+#' the number of correctly classified and total instances and the contingency table of the best predictor vs. the target variable.
 #' @keywords 1R OneR One Rule
 #' @details All numerical data is automatically converted into five categorical bins of equal length. Instances with missing values are removed.
 #' This is done by internally calling the default version of \code{\link{bin}} before starting the OneR algorithm.

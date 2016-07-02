@@ -16,6 +16,9 @@ optbin(data, formula = NULL, method = c("logreg", "naive"),
 
 \item{na.omit}{boolean value whether instances with missing values should be removed.}
 }
+\value{
+A dataframe.
+}
 \description{
 Discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned.
 When building a OneR model this could result in fewer rules with enhanced accuracy.

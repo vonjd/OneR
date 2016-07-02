@@ -13,6 +13,9 @@ maxlevels(data, maxlevels = 20, na.omit = TRUE)
 
 \item{na.omit}{boolean value whether missing values should be treated as a level, defaults to omit missing values before counting.}
 }
+\value{
+A dataframe.
+}
 \description{
 Removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels.
 }

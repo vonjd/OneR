@@ -1,4 +1,4 @@
 changes in V 1.21
 - Modified internal CUT function to address "breaks are not unique" error, which in some cases could result when calling the optbin-function
 - Added "Confusion matrix" to printout of eval_model function for clarity
-- Minor corrections in documentation and streamlining of code
+- Extension of and minor corrections in documentation and streamlining of code
