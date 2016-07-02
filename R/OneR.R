@@ -281,6 +281,7 @@ plot.OneR <- function(x, ...) {
 #'
 #' Test if object is a OneR model.
 #' @param x object to be tested.
+#' @return A boolean whether object is of class "OneR".
 #' @keywords OneR model
 #' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
