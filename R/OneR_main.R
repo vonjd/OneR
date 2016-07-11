@@ -75,7 +75,7 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
     accs <- round(100 * sort(perf, decreasing = TRUE) / nrow(data), 2)
     attr <- colnames(data[order(perf, decreasing = TRUE)])
     M <- matrix(c(as.character(attr), paste(accs, "%", sep = "")), ncol = 2)
-    rownames(M) <- rank((100 - sort(accs, decreasing = TRUE)), ties.method = "min")
+    rownames(M) <- rank((100 - sort(perf, decreasing = TRUE)), ties.method = "min")
     rownames(M)[newbest] <- paste(rownames(M)[newbest], " *", sep = "")
     colnames(M) <- c("Attribute", "Accuracy")
     cat("\n")

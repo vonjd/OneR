@@ -1,10 +1,11 @@
-changes in V 1.3
+Changes in V 1.3
 New features
-- New method "clusters" for the bin function, which determines the bins according to clusters in the data.
+- bin: New method "clusters", which determines the bins according to clusters in the data.
 
 Bugfixes
-- Some borderline cases could result in a "breaks are not unique" error when calling the optbin function.
+- optbin: Some borderline cases could result in a "breaks are not unique" error.
+- OneR: In some borderline cases with very large datasets the numbering of printed ranks (verbose = TRUE) could be wrong due to rounding errors.
 
 Misc.
-- Added "Confusion matrix" to printout of eval_model function for clarity.
+- eval_model: Added "Confusion matrix" to printout for clarity.
 - Extension of and minor corrections in documentation and streamlining of code.
