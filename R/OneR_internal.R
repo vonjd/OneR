@@ -77,7 +77,7 @@ logreg <- function(x, target) {
   midpoints <- sapply(xs, mean)
   nl <- xs[order(midpoints)]
   pairs <- matrix(c(1:(length(nl) - 1), 2:length(nl)), ncol = 2, byrow = TRUE)
-  midbreaks <- apply(pairs, 1, function(x) logreg_midpoint(c(nl[x[1]], nl[x[2]])))
-  breaks <- add_range(x, na.omit(midbreaks))
+  midpoints <- apply(pairs, 1, function(x) logreg_midpoint(c(nl[x[1]], nl[x[2]])))
+  breaks <- add_range(x, na.omit(midpoints))
   CUT(orig, breaks = unique(breaks))
 }
