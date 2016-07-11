@@ -5,7 +5,7 @@
 \title{Binning function}
 \usage{
 bin(data, nbins = 5, labels = NULL, method = c("length", "content",
-  "Jenks"), na.omit = TRUE)
+  "clusters"), na.omit = TRUE)
 }
 \arguments{
 \item{data}{dataframe which contains the data.}
@@ -27,7 +27,7 @@ Discretizes all numerical data in a dataframe into categorical bins of equal len
 \details{
 Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. When called with a single vector only the respective factor (and not a dataframe) is returned.
 Method \code{"length"} gives intervals of equal length, method \code{"content"} gives intervals of equal content (via quantiles).
-Method \code{"Jenks"} determins \code{"nbins"} clusters via 1D kmeans with deterministic seeding of the initial cluster centres.
+Method \code{"clusters"} determins \code{"nbins"} clusters via 1D kmeans with deterministic seeding of the initial cluster centres (Jenks natural breaks optimization).
 
 When \code{"na.omit = FALSE"} a new level \code{"NA"} is introduced into each factor.
 }
@@ -54,8 +54,7 @@ Holger von Jouanne-Diedrich
 \keyword{Jenks}
 \keyword{binning}
 \keyword{breaks}
+\keyword{clusters}
 \keyword{discretization}
 \keyword{discretize}
-\keyword{natural}
-\keyword{optimization}
 

@@ -9,10 +9,10 @@
 #' @param method a character string specifying the binning method, see 'Details'; can be abbreviated.
 #' @param na.omit boolean value whether instances with missing values should be removed.
 #' @return A dataframe or vector.
-#' @keywords binning discretization discretize Jenks natural breaks optimization
+#' @keywords binning discretization discretize clusters Jenks breaks
 #' @details Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. When called with a single vector only the respective factor (and not a dataframe) is returned.
 #' Method \code{"length"} gives intervals of equal length, method \code{"content"} gives intervals of equal content (via quantiles).
-#' Method \code{"Jenks"} determins \code{"nbins"} clusters via 1D kmeans with deterministic seeding of the initial cluster centres.
+#' Method \code{"clusters"} determins \code{"nbins"} clusters via 1D kmeans with deterministic seeding of the initial cluster centres (Jenks natural breaks optimization).
 #'
 #' When \code{"na.omit = FALSE"} a new level \code{"NA"} is introduced into each factor.
 #' @author Holger von Jouanne-Diedrich
@@ -31,7 +31,7 @@
 #' @importFrom stats quantile
 #' @importFrom stats kmeans
 #' @export
-bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", "Jenks"), na.omit = TRUE) {
+bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", "clusters"), na.omit = TRUE) {
   method <- match.arg(method)
   vec <- FALSE
   if (is.atomic(data) == TRUE & is.null(dim(data)) == TRUE) { vec <- TRUE; data <- data.frame(data) }
