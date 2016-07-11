@@ -28,6 +28,10 @@ addNA <- function(x) {
   return(x)
 }
 
+add_range <- function(x, midpoints) {
+  c(min(x) - 1/1000 * diff(range(x)), midpoints, max(x) + 1/1000 * diff(range(x)))
+}
+
 get_breaks <- function(x) {
   lower = as.numeric(sub("\\((.+),.*", "\\1", x))
   upper = as.numeric(sub("[^,]*,([^]]*)\\]", "\\1", x))
@@ -44,7 +48,7 @@ naive <- function(x, target) {
   xs <- split(x, target)
   midpoints <- sort(sapply(xs, mean))
   # The cutpoints are the means of the expected values of the respective target levels.
-  breaks <- c(min(x) - 1/1000 * diff(range(x)), na.omit(filter(midpoints, c(1/2, 1/2))), max(x) + 1/1000 * diff(range(x)))
+  breaks <- add_range(x, na.omit(filter(midpoints, c(1/2, 1/2))))
   CUT(orig, breaks = unique(breaks))
 }
 
@@ -74,6 +78,6 @@ logreg <- function(x, target) {
   nl <- xs[order(midpoints)]
   pairs <- matrix(c(1:(length(nl) - 1), 2:length(nl)), ncol = 2, byrow = TRUE)
   midbreaks <- apply(pairs, 1, function(x) logreg_midpoint(c(nl[x[1]], nl[x[2]])))
-  breaks <- c(min(x) - 1/1000 * diff(range(x)), midbreaks, max(x) + 1/1000 * diff(range(x)))
+  breaks <- add_range(x, midbreaks)
   CUT(orig, breaks = unique(breaks))
 }

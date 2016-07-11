@@ -2,16 +2,17 @@
 
 #' Binning function
 #'
-#' Discretizes all numerical data in a dataframe into categorical bins of equal length or content.
+#' Discretizes all numerical data in a dataframe into categorical bins of equal length or content or based on automatically determined clusters.
 #' @param data dataframe which contains the data.
 #' @param nbins number of bins (= levels).
 #' @param labels character vector of labels for the resulting category.
 #' @param method a character string specifying the binning method, see 'Details'; can be abbreviated.
 #' @param na.omit boolean value whether instances with missing values should be removed.
 #' @return A dataframe or vector.
-#' @keywords binning discretization discretize
+#' @keywords binning discretization discretize Jenks natural breaks optimization
 #' @details Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. When called with a single vector only the respective factor (and not a dataframe) is returned.
 #' Method \code{"length"} gives intervals of equal length, method \code{"content"} gives intervals of equal content (via quantiles).
+#' Method \code{"Jenks"} determins \code{"nbins"} clusters via 1D kmeans with deterministic seeding of the initial cluster centres.
 #'
 #' When \code{"na.omit = FALSE"} a new level \code{"NA"} is introduced into each factor.
 #' @author Holger von Jouanne-Diedrich
@@ -28,8 +29,9 @@
 #' set.seed(1); table(bin(rnorm(900), nbins = 3))
 #' set.seed(1); table(bin(rnorm(900), nbins = 3, method = "content"))
 #' @importFrom stats quantile
+#' @importFrom stats kmeans
 #' @export
-bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content"), na.omit = TRUE) {
+bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", "Jenks"), na.omit = TRUE) {
   method <- match.arg(method)
   vec <- FALSE
   if (is.atomic(data) == TRUE & is.null(dim(data)) == TRUE) { vec <- TRUE; data <- data.frame(data) }
@@ -45,7 +47,11 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content"),
   data[] <- lapply(data, function(x) if (is.numeric(x) ) {
     if (length(unique(x)) <= nbins) as.factor(x)
     else {
-      if (method == "content") nbins <- c(min(x) - 1/1000 * diff(range(x)), na.omit(quantile(x, (1:(nbins-1)/nbins))), max(x) + 1/1000 * diff(range(x)))
+      if (method == "content") nbins <- add_range(x, na.omit(quantile(x, (1:(nbins-1)/nbins))))
+      if (method == "Jenks") {
+        midpoints <- sort(kmeans(x, centers = seq(min(x), max(x), length = nbins))$centers)
+        breaks <- add_range(x, na.omit(filter(midpoints, c(1/2, 1/2))))
+      }
       CUT(x, breaks = unique(nbins), labels = labels)
     }
   } else as.factor(x))

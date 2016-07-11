@@ -4,8 +4,8 @@
 \alias{bin}
 \title{Binning function}
 \usage{
-bin(data, nbins = 5, labels = NULL, method = c("length", "content"),
-  na.omit = TRUE)
+bin(data, nbins = 5, labels = NULL, method = c("length", "content",
+  "Jenks"), na.omit = TRUE)
 }
 \arguments{
 \item{data}{dataframe which contains the data.}
@@ -22,11 +22,12 @@ bin(data, nbins = 5, labels = NULL, method = c("length", "content"),
 A dataframe or vector.
 }
 \description{
-Discretizes all numerical data in a dataframe into categorical bins of equal length or content.
+Discretizes all numerical data in a dataframe into categorical bins of equal length or content or based on automatically determined clusters.
 }
 \details{
 Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. When called with a single vector only the respective factor (and not a dataframe) is returned.
 Method \code{"length"} gives intervals of equal length, method \code{"content"} gives intervals of equal content (via quantiles).
+Method \code{"Jenks"} determins \code{"nbins"} clusters via 1D kmeans with deterministic seeding of the initial cluster centres.
 
 When \code{"na.omit = FALSE"} a new level \code{"NA"} is introduced into each factor.
 }
@@ -50,7 +51,11 @@ Holger von Jouanne-Diedrich
 \seealso{
 \code{\link{OneR}}, \code{\link{optbin}}
 }
+\keyword{Jenks}
 \keyword{binning}
+\keyword{breaks}
 \keyword{discretization}
 \keyword{discretize}
+\keyword{natural}
+\keyword{optimization}
 
