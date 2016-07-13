@@ -252,8 +252,10 @@ summary.OneR <- function(object, ...) {
 #' @export
 print.OneR <- function(x, ...) {
   model <- x
-  longest <- max(nchar(names(model$rules)))
+  cat("\nCall:\n")
+  print(model$call)
   cat("\nRules:\n")
+  longest <- max(nchar(names(model$rules)))
   for (iter in 1:length(model$rules)) {
     len <- longest - nchar(names(model$rules[iter]))
     cat("If ", model$feature, " = ", names(model$rules[iter]), rep(" ", len)," then ", model$target, " = ", model$rules[[iter]], "\n", sep = "")
