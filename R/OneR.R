@@ -71,7 +71,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #' @param formula formula interface for the \code{optbin} function.
 #' @param method a character string specifying the method for optimal binning, see 'Details'; can be abbreviated.
 #' @param na.omit boolean value whether instances with missing values should be removed.
-#' @return A dataframe.
+#' @return A dataframe with the target variable being in the last column.
 #' @keywords binning discretization discretize
 #' @details The cutpoints are calculated by pairwise logistic regressions (method \code{"logreg"}) or as the means of the expected values of the respective classes (\code{"naive"}).
 #' The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method \code{"naive"} should only be used when distributions are (approximately) normal,
