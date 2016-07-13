@@ -48,7 +48,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
     if (length(unique(x)) <= nbins) as.factor(x)
     else {
       if (method == "content") nbins <- add_range(x, na.omit(quantile(x, (1:(nbins-1)/nbins))))
-      if (method == "Jenks") {
+      if (method == "clusters") {
         midpoints <- sort(kmeans(x, centers = seq(min(x), max(x), length = nbins))$centers)
         breaks <- add_range(x, na.omit(filter(midpoints, c(1/2, 1/2))))
       }
