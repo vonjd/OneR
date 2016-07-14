@@ -47,9 +47,9 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
   data[] <- lapply(data, function(x) if (is.numeric(x) ) {
     if (length(unique(x)) <= nbins) as.factor(x)
     else {
-      if (method == "content") nbins <- add_range(x, na.omit(quantile(x, (1:(nbins-1)/nbins))))
+      if (method == "content") nbins <- add_range(x, na.omit(quantile(x, (1:(nbins-1)/nbins), na.rm = TRUE)))
       if (method == "clusters") {
-        midpoints <- sort(kmeans(x, centers = seq(min(x), max(x), length = nbins))$centers)
+        midpoints <- sort(kmeans(na.omit(x), centers = seq(min(x, na.rm = TRUE), max(x, na.rm = TRUE), length = nbins))$centers)
         nbins <- add_range(x, na.omit(filter(midpoints, c(1/2, 1/2))))
       }
       CUT(x, breaks = unique(nbins), labels = labels)

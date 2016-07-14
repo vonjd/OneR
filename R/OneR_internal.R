@@ -23,13 +23,13 @@ mode <- function(x) {
 }
 
 addNA <- function(x) {
-  if (is.factor(x)) x <- factor(x, levels = c(levels(x), "NA"))
+  if (is.factor(x) & !("NA" %in% levels(x))) x <- factor(x, levels = c(levels(x), "NA"))
   x[is.na(x)] <- "NA"
   return(x)
 }
 
 add_range <- function(x, midpoints) {
-  c(min(x) - 1/1000 * diff(range(x)), midpoints, max(x) + 1/1000 * diff(range(x)))
+  c(min(x, na.rm = TRUE) - 1/1000 * diff(range(x, na.rm = TRUE)), midpoints, max(x, na.rm = TRUE) + 1/1000 * diff(range(x, na.rm = TRUE)))
 }
 
 get_breaks <- function(x) {

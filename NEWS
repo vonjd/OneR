@@ -1,4 +1,4 @@
-OneR 1.3 (2016-07-11)
+OneR 1.3 (2016-07-14)
 =====================
 
 NEW FEATURES
@@ -7,10 +7,12 @@ NEW FEATURES
 - print & summary: The function call with the specified arguments which was used to build the model is printed first.
 
 MINOR IMPROVEMENTS
+- bin & optbin: In cases where there were missing values and already a factor level "NA" the functions gave an unhelpful warning.
 - eval_model: Added "Confusion matrix" to printout for clarity.
 - Extension of and minor corrections in documentation
 - Some minor streamlining of code.
 
 BUGFIXES
+- bin: The method "content" stopped with an error in case of missing values.
 - optbin: Some borderline cases could result in a "breaks are not unique" error.
 - OneR: In some borderline cases with very large datasets the numbering of printed ranks (verbose = TRUE) could be wrong due to rounding errors.

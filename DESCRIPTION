@@ -2,7 +2,7 @@ Package: OneR
 Type: Package
 Title: One Rule Machine Learning Classification Algorithm with Enhancements
 Version: 1.3
-Date: 2016-07-11
+Date: 2016-07-14
 Author: Holger von Jouanne-Diedrich
 Maintainer: Holger von Jouanne-Diedrich <holger.jouanne-diedrich@h-ab.de>
 Description: Implements the One Rule (OneR) Machine Learning classification algorithm with enhancements for sophisticated handling of missing values and numeric data together with extensive diagnostic functions. It is useful as a baseline for machine learning models and the rules are often helpful heuristics.
