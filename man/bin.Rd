@@ -44,7 +44,8 @@ set.seed(1); table(bin(rnorm(900), nbins = 3, method = "content"))
 
 ## Method "clusters"
 intervals <- paste(levels(bin(faithful$waiting, nbins = 2, method = "cluster")), collapse = " ")
-hist(faithful$waiting, main = paste("Intervals:", intervals)); abline(v = c(42.9, 67.5, 96.1), col = "blue")
+hist(faithful$waiting, main = paste("Intervals:", intervals))
+abline(v = c(42.9, 67.5, 96.1), col = "blue")
 }
 \author{
 Holger von Jouanne-Diedrich
