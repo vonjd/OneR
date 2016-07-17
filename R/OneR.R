@@ -33,6 +33,10 @@
 #' intervals <- paste(levels(bin(faithful$waiting, nbins = 2, method = "cluster")), collapse = " ")
 #' hist(faithful$waiting, main = paste("Intervals:", intervals))
 #' abline(v = c(42.9, 67.5, 96.1), col = "blue")
+#'
+#' ## Missing values
+#' bin(c(1:10, NA), nbins = 2, na.omit = FALSE) # adds new level "NA"
+#' bin(c(1:10, NA), nbins = 2)                  # omits missing values by default (with warning)
 #' @importFrom stats quantile
 #' @importFrom stats kmeans
 #' @export
