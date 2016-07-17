@@ -14,7 +14,7 @@
 #' Method \code{"length"} gives intervals of equal length, method \code{"content"} gives intervals of equal content (via quantiles).
 #' Method \code{"clusters"} determins \code{"nbins"} clusters via 1D kmeans with deterministic seeding of the initial cluster centres (Jenks natural breaks optimization).
 #'
-#' When \code{"na.omit = FALSE"} a new level \code{"NA"} is introduced into each factor.
+#' When \code{"na.omit = FALSE"} an additional level \code{"NA"} is added to each factor with missing values.
 #' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}, \code{\link{optbin}}
@@ -84,7 +84,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #'
 #' Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. If the target is numeric it is turned into a factor with the number of levels equal to the number of values. Additionally a warning is given.
 #'
-#' When \code{"na.omit = FALSE"} a new level \code{"NA"} is introduced into each factor.
+#' When \code{"na.omit = FALSE"} an additional level \code{"NA"} is added to each factor with missing values.
 #' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}, \code{\link{bin}}
