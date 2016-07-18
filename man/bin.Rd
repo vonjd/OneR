@@ -38,10 +38,6 @@ str(bin(data))
 str(bin(data, nbins = 3))
 str(bin(data, nbins = 3, labels = c("small", "medium", "large")))
 
-## Missing values
-bin(c(1:10, NA), nbins = 2)                  # omits missing values by default (with warning)
-bin(c(1:10, NA), nbins = 2, na.omit = FALSE) # adds new level "NA"
-
 ## Difference between methods "length" and "content"
 set.seed(1); table(bin(rnorm(900), nbins = 3))
 set.seed(1); table(bin(rnorm(900), nbins = 3, method = "content"))
