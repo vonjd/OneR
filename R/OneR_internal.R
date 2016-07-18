@@ -47,7 +47,7 @@ naive <- function(x, target) {
   tmp <- na.omit(cbind(x, target))
   x <- tmp[ , 1]; target <- tmp[ , 2]
   xs <- split(x, target)
-  midpoints <- sort(sapply(xs, mean))
+  midpoints <- sort(sapply(xs, mean, na.rm = TRUE))
   # The cutpoints are the means of the expected values of the respective target levels.
   breaks <- add_range(x, na.omit(filter(midpoints, c(1/2, 1/2))))
   CUT(orig, breaks = unique(breaks))
@@ -62,6 +62,7 @@ logreg_midpoint <- function(data) {
   midpoint <- - coefs[1] / coefs[2]
   # test limits
   range <- sort(sapply(data, mean, na.rm = TRUE))
+  if (length(range) == 1) range <- c(range, range)
   if (is.na(midpoint)) return(mean(range, na.rm = TRUE))
   if (midpoint < range[1]) return(range[1])
   if (midpoint > range[2]) return(range[2])
