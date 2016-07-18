@@ -8,6 +8,7 @@ NEW FEATURES
 
 MINOR IMPROVEMENTS
 - bin & optbin: In cases where there were missing values and already a factor level "NA" the functions gave an unhelpful warning.
+- eval_model: Added warning when actual contains missing values.
 - eval_model: Added "Confusion matrix" to printout for clarity.
 - Extension of and minor corrections in documentation
 - Some minor streamlining of code.

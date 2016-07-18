@@ -330,15 +330,16 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' @importFrom stats addmargins
 #' @export
 eval_model <- function(prediction, actual) {
-  data <- actual
-  if (is.list(data) == FALSE) data <- data.frame(data)
-  if (typeof(as.vector(data[ , ncol(data)])) != typeof(prediction)) warning("data types of prediction and actual are different")
-  conf <- table(prediction, data[ , ncol(data)])
+  if (is.list(actual) == FALSE) actual <- data.frame(actual)
+  actual <- actual[ , ncol(actual)]
+  if (any(is.na(actual))) warning("actual contains missing values, results may be false")
+  if (typeof(as.vector(actual)) != typeof(prediction)) warning("data types of prediction and actual are different")
+  conf <- table(prediction, actual)
   conf.m <- addmargins(conf)
   cat("\nConfusion matrix (absolute):\n")
   cat(rep(" ", 11), "actual", sep = "")
   print(conf.m)
-  conf.p <- prop.table(table(prediction, data[ , ncol(data)]))
+  conf.p <- prop.table(conf)
   conf.pm <- round(addmargins(conf.p), 2)
   cat("\nConfusion matrix (relative):\n")
   cat(rep(" ", 11), "actual", sep = "")
