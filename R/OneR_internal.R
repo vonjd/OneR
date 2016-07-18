@@ -61,7 +61,7 @@ logreg_midpoint <- function(data) {
   midpoint <- - coefs[1] / coefs[2]
   # test limits
   range <- sort(sapply(data, mean, na.rm = TRUE))
-  if (is.na(midpoint)) return(mean(range))
+  if (is.na(midpoint)) return(mean(range, na.rm = TRUE))
   if (midpoint < range[1]) return(range[1])
   if (midpoint > range[2]) return(range[2])
   # ---
