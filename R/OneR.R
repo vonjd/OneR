@@ -7,7 +7,7 @@
 #' @param nbins number of bins (= levels).
 #' @param labels character vector of labels for the resulting category.
 #' @param method a character string specifying the binning method, see 'Details'; can be abbreviated.
-#' @param na.omit boolean value whether instances with missing values should be removed.
+#' @param na.omit logical value whether instances with missing values should be removed.
 #' @return A dataframe or vector.
 #' @keywords binning discretization discretize clusters Jenks breaks
 #' @details Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. When called with a single vector only the respective factor (and not a dataframe) is returned.
@@ -83,7 +83,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #' @param data dataframe which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
 #' @param formula formula interface for the \code{optbin} function.
 #' @param method a character string specifying the method for optimal binning, see 'Details'; can be abbreviated.
-#' @param na.omit boolean value whether instances with missing values should be removed.
+#' @param na.omit logical value whether instances with missing values should be removed.
 #' @return A dataframe with the target variable being in the last column.
 #' @keywords binning discretization discretize
 #' @details The cutpoints are calculated by pairwise logistic regressions (method \code{"logreg"}) or as the means of the expected values of the respective classes (\code{"naive"}).
@@ -149,7 +149,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
 #' Removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels.
 #' @param data dataframe which contains the data.
 #' @param maxlevels number of maximum factor levels.
-#' @param na.omit boolean value whether missing values should be treated as a level, defaults to omit missing values before counting.
+#' @param na.omit logical value whether missing values should be treated as a level, defaults to omit missing values before counting.
 #' @return A dataframe.
 #' @details Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit.
 #' Examples are IDs or names.
@@ -302,7 +302,7 @@ plot.OneR <- function(x, ...) {
 #'
 #' Test if object is a OneR model.
 #' @param x object to be tested.
-#' @return A boolean whether object is of class "OneR".
+#' @return a logical whether object is of class "OneR".
 #' @keywords OneR model
 #' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}

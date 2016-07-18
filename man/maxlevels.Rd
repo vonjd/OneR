@@ -11,7 +11,7 @@ maxlevels(data, maxlevels = 20, na.omit = TRUE)
 
 \item{maxlevels}{number of maximum factor levels.}
 
-\item{na.omit}{boolean value whether missing values should be treated as a level, defaults to omit missing values before counting.}
+\item{na.omit}{logical value whether missing values should be treated as a level, defaults to omit missing values before counting.}
 }
 \value{
 A dataframe.

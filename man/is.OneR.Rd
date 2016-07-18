@@ -10,7 +10,7 @@ is.OneR(x)
 \item{x}{object to be tested.}
 }
 \value{
-A boolean whether object is of class "OneR".
+a logical whether object is of class "OneR".
 }
 \description{
 Test if object is a OneR model.

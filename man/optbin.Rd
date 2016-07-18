@@ -14,7 +14,7 @@ optbin(data, formula = NULL, method = c("logreg", "naive"),
 
 \item{method}{a character string specifying the method for optimal binning, see 'Details'; can be abbreviated.}
 
-\item{na.omit}{boolean value whether instances with missing values should be removed.}
+\item{na.omit}{logical value whether instances with missing values should be removed.}
 }
 \value{
 A dataframe with the target variable being in the last column.

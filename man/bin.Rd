@@ -16,7 +16,7 @@ bin(data, nbins = 5, labels = NULL, method = c("length", "content",
 
 \item{method}{a character string specifying the binning method, see 'Details'; can be abbreviated.}
 
-\item{na.omit}{boolean value whether instances with missing values should be removed.}
+\item{na.omit}{logical value whether instances with missing values should be removed.}
 }
 \value{
 A dataframe or vector.
