@@ -13,6 +13,7 @@ MINOR IMPROVEMENTS
 - Some minor streamlining of code.
 
 BUGFIXES
+- predict: The combination of intervals and "NA"s caused an error.
 - bin: The method "content" stopped with an error in case of missing values.
 - optbin: The method "logreg" stopped in some borderline cases with missing values with an error.
 - optbin: Some borderline cases could result in a "breaks are not unique" error.

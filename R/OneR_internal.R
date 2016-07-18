@@ -33,9 +33,10 @@ add_range <- function(x, midpoints) {
 }
 
 get_breaks <- function(x) {
+  x <- x[x != "NA"]
   lower = as.numeric(sub("\\((.+),.*", "\\1", x))
   upper = as.numeric(sub("[^,]*,([^]]*)\\]", "\\1", x))
-  breaks <- unique(c(lower, upper))
+  breaks <- unique(na.omit(c(lower, upper)))
   return(breaks)
 }
 
