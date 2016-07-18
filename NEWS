@@ -14,5 +14,6 @@ MINOR IMPROVEMENTS
 
 BUGFIXES
 - bin: The method "content" stopped with an error in case of missing values.
+- optbin: The method "logreg" stopped with an error in case of missing values.
 - optbin: Some borderline cases could result in a "breaks are not unique" error.
 - OneR: In some borderline cases with very large datasets the numbering of printed ranks (verbose = TRUE) could be wrong due to rounding errors.

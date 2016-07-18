@@ -60,7 +60,7 @@ logreg_midpoint <- function(data) {
   coefs <-  suppressWarnings(coef(glm(target ~ x, data = df, family = binomial)))
   midpoint <- - coefs[1] / coefs[2]
   # test limits
-  range <- sort(sapply(data, mean))
+  range <- sort(sapply(data, mean, na.rm = TRUE))
   if (is.na(midpoint)) return(mean(range))
   if (midpoint < range[1]) return(range[1])
   if (midpoint > range[2]) return(range[2])
