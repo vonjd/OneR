@@ -193,7 +193,7 @@ predict.OneR <- function(object, newdata, ...) {
   index <- which(names(data) == model$feature)[1]
   if (is.numeric(data[ , index])) {
     levels <- names(model$rules)
-    if (grepl(",", levels[1]) == TRUE) {
+    if (substring(levels[1], 1, 1) == "(" & grepl(",", levels[1]) == TRUE & substring(levels[1], nchar(levels[1]), nchar(levels[1])) == "]") {
       features <- as.character(cut(unlist(data[ , index]), breaks = get_breaks(levels)))
     } else features <- as.character(data[ , index])
   } else features <- as.character(data[ , index])
