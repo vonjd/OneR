@@ -171,10 +171,10 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
   if (maxlevels <= 2) stop("maxlevels must be bigger than 2")
   tmp <- bin(data, nbins = 2, na.omit = na.omit)
   # Test if unused factor levels and drop them for analysis
-  nlevels_orig <- sum(sapply(tmp, nlevels))
+  nlevels_orig <- sapply(tmp, nlevels)
   tmp <- droplevels(tmp)
-  nlevels_new <- sum(sapply(tmp, nlevels))
-  if (nlevels_new < nlevels_orig) warning("data containes unused factor levels")
+  nlevels_new <- sapply(tmp, nlevels)
+  if (sum(nlevels_new) < sum(nlevels_orig)) warning("data containes unused factor levels")
   cols <- nlevels_new <= maxlevels
   return(data[cols])
 }

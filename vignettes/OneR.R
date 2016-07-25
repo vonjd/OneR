@@ -10,7 +10,7 @@ model <- OneR(data, verbose = TRUE)
 ## ------------------------------------------------------------------------
 summary(model)
 
-## ---- fig.width=7.15, fig.height=4.5-------------------------------------
+## ---- fig.width=7.15, fig.height=5---------------------------------------
 plot(model)
 
 ## ------------------------------------------------------------------------
@@ -35,7 +35,7 @@ model_train <- OneR(data_train, verbose = TRUE)
 ## ------------------------------------------------------------------------
 summary(model_train)
 
-## ---- fig.width=7.15, fig.height=4.5-------------------------------------
+## ---- fig.width=7.15, fig.height=5---------------------------------------
 plot(model_train)
 
 ## ------------------------------------------------------------------------
@@ -43,6 +43,31 @@ prediction <- predict(model_train, data_test)
 
 ## ------------------------------------------------------------------------
 eval_model(prediction, data_test)
+
+## ---- fig.width=7.15, fig.height=5---------------------------------------
+data <- iris
+str(data)
+str(bin(data))
+str(bin(data, nbins = 3))
+str(bin(data, nbins = 3, labels = c("small", "medium", "large")))
+
+## Difference between methods "length" and "content"
+set.seed(1); table(bin(rnorm(900), nbins = 3))
+set.seed(1); table(bin(rnorm(900), nbins = 3, method = "content"))
+
+## Method "clusters"
+intervals <- paste(levels(bin(faithful$waiting, nbins = 2, method = "cluster")), collapse = " ")
+hist(faithful$waiting, main = paste("Intervals:", intervals))
+abline(v = c(42.9, 67.5, 96.1), col = "blue")
+
+## Missing values
+bin(c(1:10, NA), nbins = 2, na.omit = FALSE) # adds new level "NA"
+bin(c(1:10, NA), nbins = 2)
+
+## ------------------------------------------------------------------------
+df <- data.frame(numeric = c(1:26), alphabet = letters)
+str(df)
+str(maxlevels(df))
 
 ## ---- eval=FALSE---------------------------------------------------------
 #  help(package = OneR)
