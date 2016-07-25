@@ -28,7 +28,7 @@ eval_model(prediction, data)
 Holger von Jouanne-Diedrich
 }
 \references{
-\url{http://vonjd.github.io/OneR/}
+\url{https://github.com/vonjd/OneR}
 }
 \keyword{accuracy}
 \keyword{evaluation}

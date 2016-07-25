@@ -1,0 +1,188 @@
+---
+title: "OneR - Establishing a New Baseline for Machine Learning Classification Models"
+author: "An R package by Holger K. von Jouanne-Diedrich"
+date: "`r Sys.Date()`"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{OneR}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+## Introduction
+
+The following story is one of the most often told in the Data Science community: Some time ago the military built a system which aim it was to distinguish military vehicles from civilian ones. They chose a neural network approach and trained the system with pictures of tanks, humvees and missile launchers on the one hand and normal cars, pickups and trucks on the other. After having reached a satisfactory accuracy they brought the system into the field (quite literally). It failed completely, performing no better than a coin toss. What had happened? No one knew, so they re-engineered the black box (no small feat in itself) and found that most of the military pics where taken at dusk or dawn and most civilian pics under brighter weather conditions. The neural net had learned the difference between light and dark!
+
+Although this might be an urban legend the fact that it is so often told wants to tell us something:
+
+1. Many of our Machine Learning models are so complex that we cannot understand them ourselves.
+2. Because of 1. we cannot differentiate between the simpler aspects of a problem which can be tackled by simple models and the more sophisticated ones which need specialized treatment.
+
+The above is not only true for neural networks (and especially deep neural networks) but for most of the methods used today, especially Support Vector Machines and Random Forests and in general all kinds of ensemble based methods.
+
+In one word: We need a good baseline which builds “the best simple model” that strikes a balance between the best accuracy possible with a model that is still simple enough to understand: I have developed the OneR package for finding this sweet spot and thereby establishing a new baseline for classification models in Machine Learning (ML).
+
+This package is filling a longstanding gap because only a JAVA based implementation was available so far ([RWeka package](https://cran.r-project.org/web/packages/RWeka/index.html) as an interface for the [OneR JAVA class](http://weka.sourceforge.net/doc.dev/weka/classifiers/rules/OneR.html)). Additionally several enhancements have been made (see below).
+
+## Design principles for the OneR package
+
+The following design principles were followed for programming the package:
+
+- Easy: The learning curve for new users should be minimal. Results should be obtained with ease and only minimal preprocessing and modeling steps should be necessary.
+- Versatile: All types of data, i.e. categorical and numeric, should be computable - as input variable as well as as target.
+- Fast: The running times of model trainings should be short.
+- Accurate: The accuracy of trained models should be good overall.
+- Robust: Models should not be prone to overfitting; the reached accuracy on training data should be comparable to the accuracy of predictions from new, unseen cases.
+- Comprehensible: It should be easy to understand which rules the model has learned. Not only should the rules be easily comprehensible but they should serve as heuristics that are usable even without a computer.
+- Reproducible: Because the used algorithms are strictly deterministic one will always get the same models on the same data. Many ML algorithms have stochastic components so that the data scientist will get a different model very time.
+- Intuitive: Model diagnostics should be presented in form of simple tables and plots.
+- Native R: The whole package is written in native R code. Thereby the source code can be easily checked and the whole package is very lean. Additionally the package has no dependencies at all other than base R itself.
+
+The package is based on the – as the name might reveal – one rule classification algorithm [Holte93]. Although the underlying method is simple enough (basically 1-level decision trees, you can find out more here: [OneR](http://www.saedsayad.com/oner.htm)) several enhancements have been made:
+
+- Discretization of numeric data: The OneR algorithm can only handle categorical data so numeric data has to be discretized. The original OneR algorithm separates the respective values in ever smaller and smaller buckets until the best possible accuracy is being reached. In can be argued that this is the definition of overfitting and contradicts the original spirit of OneR because tons of rules (one for every bucket) will result. One can of course introduce a new parameter “maximum bucket size” but finding the right value for this one doesn’t come naturally either. Therefore I take a radically different approach: There are several methods for handling numeric data in the package (in the bin and the optbin function), the most promising one is the (default) “logreg” method in the optbin function which gives only as many bins as there are target categories and which optimizes the cut points according to pairwise logistic regressions.
+- Missing values: In the original algorithm missing values were always handled as a separate level in the respective attribute. While missing values can sometimes reveal interesting patterns in other cases they are, well, just values that are missing. In the OneR package missing values can be handled as separate levels (level “NA”) or they can be omitted (the default).
+- Tie breaking: Sometimes the OneR algorithm will find several attributes that provide rules which all give the same best accuracy. The original algorithm just took the first attribute. While this is implemented in the OneR function as the default too a different method for tie breaking can be chosen: The contingency tables of all “best” rules are tested against each other with a Pearson’s Chi squared test and the one with the smallest p-value is being chosen. The rationale behind this is that thereby the attribute with the best signal-to-noise ratio is being found.
+
+## Getting started with a simple example
+
+You can also watch this video which goes through the following example step-by-step:
+
+[Quick Start Guide for the OneR package (Video)](https://www.youtube.com/watch?v=AGC0oRlXxgU)
+
+After installing from CRAN load package
+
+```{r}
+library(OneR)
+```
+
+Use the famous Iris dataset and determine optimal bins for numeric data
+
+```{r}
+data <- optbin(iris)
+```
+
+Build model with best predictor
+
+```{r}
+model <- OneR(data, verbose = TRUE)
+```
+
+Show learned rules and model diagnostics
+
+```{r}
+summary(model)
+```
+
+Plot model diagnostics
+
+```{r, fig.width=7.15, fig.height=4.5}
+plot(model)
+```
+
+Use model to predict data
+
+```{r}
+prediction <- predict(model, data)
+```
+
+Evaluate prediction statistics
+
+```{r}
+eval_model(prediction, data)
+```
+
+Please note that the very good accuracy of 96% is reached effortlessly.
+
+"Petal.Width" is identified as the attribute with the highest predictive value. The cut points of the intervals are found automatically (via the included optbin function). The results are three very simple, yet accurate, rules to predict the respective species.
+
+The nearly perfect separation of the colors in the diagnostic plot give a good indication of the model’s ability to separate the different species.
+
+## A more sophisticated real-world example
+
+The next example tries to find a model for the identification of breast cancer. The data were obtained from the UCI machine learning repository (see also the package documentation). According to this source the best out-of-sample performance was 95.9%, so let's see what we can achieve with the OneR package...
+
+
+```{r}
+data(breastcancer)
+data <- breastcancer
+```
+
+Divide training (80%) and test set (20%)
+
+```{r}
+set.seed(12) # for reproducibility
+random <- sample(1:nrow(data), 0.8 * nrow(data))
+data_train <- optbin(data[random, ])
+data_test <- data[-random, ]
+```
+
+Train OneR model on training set
+
+```{r}
+model_train <- OneR(data_train, verbose = TRUE)
+```
+
+Show model and diagnostics
+
+```{r}
+summary(model_train)
+```
+
+Plot model diagnostics
+
+```{r, fig.width=7.15, fig.height=4.5}
+plot(model_train)
+```
+
+Use trained model to predict test set
+
+```{r}
+prediction <- predict(model_train, data_test)
+```
+
+Evaluate model performance on test set
+
+```{r}
+eval_model(prediction, data_test)
+```
+
+The best reported out-of-sample accuracy on this dataset was at 95.9% and it was reached with considerable effort. The reached accuracy for the test set here lies at 94.3%! This is achieved with just two simple rules!
+
+"Uniformity of Cell Size" is identified as the attribute with the highest predictive value. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the colors in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue.
+
+## Included functions
+
+- "OneR" is the main function of the package. It builds a model according to the One Rule machine learning algorithm for categorical data. All numerical data is automatically converted into five categorical bins of equal length. When verbose is TRUE it gives the predictive accuracy of the attributes in decreasing order.
+- "bin" discretizes all numerical data in a dataframe into categorical bins of equal length or equal content or based on automatically determined clusters.
+- optbin discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method "logreg") or as the means of the expected values of the respective classes ("naive"). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method "naive" should only be used when distributions are (approximately) normal, although in this case "logreg" should give comparable results, so it is the preferable (and therefore default) method.
+- "maxlevels" removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.
+- "eval_model" is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument "actual" is a dataframe which contains the actual data in the last column. A single vector is allowed too.
+
+For the details please consult the available help entries.
+
+## Help overview
+
+From within R:
+
+```{r, eval=FALSE}
+help(package = OneR)
+```
+
+...or as a pdf here: [OneR.pdf](https://cran.r-project.org/web/packages/OneR/OneR.pdf)
+
+Issues can be posted here: http://github.com/vonjd/OneR/issues
+
+The latest version of the package (and full sourcecode) can be found here: https://github.com/vonjd/OneR
+
+## Sources
+
+[Holte93] R. Holte: Very Simple Classification Rules Perform Well on Most Commonly Used Datasets, 1993. Available online here: http://www.mlpack.org/papers/ds.pdf.
+
+## Contact
+
+I would love to hear about your experiences with the OneR package. Please drop me a note - you can reach me at my university account: [Holger K. von Jouanne-Diedrich](https://www.h-ab.de/nc/eng/about-aschaffenburg-university-of-applied-sciences/organisation/personal/?tx_fhapersonal_pi1%5BshowUid%5D=jouanne-diedrich)
+
+## License
+
+This package is under [MIT License](https://cran.r-project.org/web/packages/OneR/LICENSE).

@@ -32,7 +32,7 @@ eval_model(prediction, iris[5])
 Holger von Jouanne-Diedrich
 }
 \references{
-\url{http://vonjd.github.io/OneR/}
+\url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{OneR}}

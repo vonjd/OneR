@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<meta name="author" content="An R package by Holger K. von Jouanne-Diedrich" />
+
+<meta name="date" content="2016-07-25" />
+
+<title>OneR - Establishing a New Baseline for Machine Learning Classification Models</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css">
+div.sourceCode { overflow-x: auto; }
+table.sourceCode, tr.sourceCode, td.lineNumbers, td.sourceCode {
+  margin: 0; padding: 0; vertical-align: baseline; border: none; }
+table.sourceCode { width: 100%; line-height: 100%; }
+td.lineNumbers { text-align: right; padding-right: 4px; padding-left: 4px; color: #aaaaaa; border-right: 1px solid #aaaaaa; }
+td.sourceCode { padding-left: 5px; }
+code > span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code > span.dt { color: #902000; } /* DataType */
+code > span.dv { color: #40a070; } /* DecVal */
+code > span.bn { color: #40a070; } /* BaseN */
+code > span.fl { color: #40a070; } /* Float */
+code > span.ch { color: #4070a0; } /* Char */
+code > span.st { color: #4070a0; } /* String */
+code > span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code > span.ot { color: #007020; } /* Other */
+code > span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code > span.fu { color: #06287e; } /* Function */
+code > span.er { color: #ff0000; font-weight: bold; } /* Error */
+code > span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+code > span.cn { color: #880000; } /* Constant */
+code > span.sc { color: #4070a0; } /* SpecialChar */
+code > span.vs { color: #4070a0; } /* VerbatimString */
+code > span.ss { color: #bb6688; } /* SpecialString */
+code > span.im { } /* Import */
+code > span.va { color: #19177c; } /* Variable */
+code > span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code > span.op { color: #666666; } /* Operator */
+code > span.bu { } /* BuiltIn */
+code > span.ex { } /* Extension */
+code > span.pp { color: #bc7a00; } /* Preprocessor */
+code > span.at { color: #7d9029; } /* Attribute */
+code > span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code > span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code > span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+</style>
+
+
+
+<link href="data:text/css;charset=utf-8,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23header%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%20code%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" rel="stylesheet" type="text/css" />
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">OneR - Establishing a New Baseline for Machine Learning Classification Models</h1>
+<h4 class="author"><em>An R package by Holger K. von Jouanne-Diedrich</em></h4>
+<h4 class="date"><em>2016-07-25</em></h4>
+
+
+
+<div id="introduction" class="section level2">
+<h2>Introduction</h2>
+<p>The following story is one of the most often told in the Data Science community: Some time ago the military built a system which aim it was to distinguish military vehicles from civilian ones. They chose a neural network approach and trained the system with pictures of tanks, humvees and missile launchers on the one hand and normal cars, pickups and trucks on the other. After having reached a satisfactory accuracy they brought the system into the field (quite literally). It failed completely, performing no better than a coin toss. What had happened? No one knew, so they re-engineered the black box (no small feat in itself) and found that most of the military pics where taken at dusk or dawn and most civilian pics under brighter weather conditions. The neural net had learned the difference between light and dark!</p>
+<p>Although this might be an urban legend the fact that it is so often told wants to tell us something:</p>
+<ol style="list-style-type: decimal">
+<li>Many of our Machine Learning models are so complex that we cannot understand them ourselves.</li>
+<li>Because of 1. we cannot differentiate between the simpler aspects of a problem which can be tackled by simple models and the more sophisticated ones which need specialized treatment.</li>
+</ol>
+<p>The above is not only true for neural networks (and especially deep neural networks) but for most of the methods used today, especially Support Vector Machines and Random Forests and in general all kinds of ensemble based methods.</p>
+<p>In one word: We need a good baseline which builds “the best simple model” that strikes a balance between the best accuracy possible with a model that is still simple enough to understand: I have developed the OneR package for finding this sweet spot and thereby establishing a new baseline for classification models in Machine Learning (ML).</p>
+<p>This package is filling a longstanding gap because only a JAVA based implementation was available so far (<a href="https://cran.r-project.org/web/packages/RWeka/index.html">RWeka package</a> as an interface for the <a href="http://weka.sourceforge.net/doc.dev/weka/classifiers/rules/OneR.html">OneR JAVA class</a>). Additionally several enhancements have been made (see below).</p>
+</div>
+<div id="design-principles-for-the-oner-package" class="section level2">
+<h2>Design principles for the OneR package</h2>
+<p>The following design principles were followed for programming the package:</p>
+<ul>
+<li>Easy: The learning curve for new users should be minimal. Results should be obtained with ease and only minimal preprocessing and modeling steps should be necessary.</li>
+<li>Versatile: All types of data, i.e. categorical and numeric, should be computable - as input variable as well as as target.</li>
+<li>Fast: The running times of model trainings should be short.</li>
+<li>Accurate: The accuracy of trained models should be good overall.</li>
+<li>Robust: Models should not be prone to overfitting; the reached accuracy on training data should be comparable to the accuracy of predictions from new, unseen cases.</li>
+<li>Comprehensible: It should be easy to understand which rules the model has learned. Not only should the rules be easily comprehensible but they should serve as heuristics that are usable even without a computer.</li>
+<li>Reproducible: Because the used algorithms are strictly deterministic one will always get the same models on the same data. Many ML algorithms have stochastic components so that the data scientist will get a different model very time.</li>
+<li>Intuitive: Model diagnostics should be presented in form of simple tables and plots.</li>
+<li>Native R: The whole package is written in native R code. Thereby the source code can be easily checked and the whole package is very lean. Additionally the package has no dependencies at all other than base R itself.</li>
+</ul>
+<p>The package is based on the – as the name might reveal – one rule classification algorithm [Holte93]. Although the underlying method is simple enough (basically 1-level decision trees, you can find out more here: <a href="http://www.saedsayad.com/oner.htm">OneR</a>) several enhancements have been made:</p>
+<ul>
+<li>Discretization of numeric data: The OneR algorithm can only handle categorical data so numeric data has to be discretized. The original OneR algorithm separates the respective values in ever smaller and smaller buckets until the best possible accuracy is being reached. In can be argued that this is the definition of overfitting and contradicts the original spirit of OneR because tons of rules (one for every bucket) will result. One can of course introduce a new parameter “maximum bucket size” but finding the right value for this one doesn’t come naturally either. Therefore I take a radically different approach: There are several methods for handling numeric data in the package (in the bin and the optbin function), the most promising one is the (default) “logreg” method in the optbin function which gives only as many bins as there are target categories and which optimizes the cut points according to pairwise logistic regressions.</li>
+<li>Missing values: In the original algorithm missing values were always handled as a separate level in the respective attribute. While missing values can sometimes reveal interesting patterns in other cases they are, well, just values that are missing. In the OneR package missing values can be handled as separate levels (level “NA”) or they can be omitted (the default).</li>
+<li>Tie breaking: Sometimes the OneR algorithm will find several attributes that provide rules which all give the same best accuracy. The original algorithm just took the first attribute. While this is implemented in the OneR function as the default too a different method for tie breaking can be chosen: The contingency tables of all “best” rules are tested against each other with a Pearson’s Chi squared test and the one with the smallest p-value is being chosen. The rationale behind this is that thereby the attribute with the best signal-to-noise ratio is being found.</li>
+</ul>
+</div>
+<div id="getting-started-with-a-simple-example" class="section level2">
+<h2>Getting started with a simple example</h2>
+<p>You can also watch this video which goes through the following example step-by-step:</p>
+<p><a href="https://www.youtube.com/watch?v=AGC0oRlXxgU">Quick Start Guide for the OneR package (Video)</a></p>
+<p>After installing from CRAN load package</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">library</span>(OneR)</code></pre></div>
+<p>Use the famous Iris dataset and determine optimal bins for numeric data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span><span class="kw">optbin</span>(iris)</code></pre></div>
+<p>Build model with best predictor</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">OneR</span>(data, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## 
+##     Attribute    Accuracy
+## 1 * Petal.Width  96%     
+## 2   Petal.Length 95.33%  
+## 3   Sepal.Length 74.67%  
+## 4   Sepal.Width  55.33%  
+## ---
+## Chosen attribute due to accuracy
+## and ties method (if applicable): '*'</code></pre>
+<p>Show learned rules and model diagnostics</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model)</code></pre></div>
+<pre><code>## 
+## Call:
+## OneR(data = data, verbose = TRUE)
+## 
+## Rules:
+## If Petal.Width = (0.0976,0.791] then Species = setosa
+## If Petal.Width = (0.791,1.63]   then Species = versicolor
+## If Petal.Width = (1.63,2.5]     then Species = virginica
+## 
+## Accuracy:
+## 144 of 150 instances classified correctly (96%)
+## 
+## Contingency table:
+##             Petal.Width
+## Species      (0.0976,0.791] (0.791,1.63] (1.63,2.5] Sum
+##   setosa               * 50            0          0  50
+##   versicolor              0         * 48          2  50
+##   virginica               0            4       * 46  50
+##   Sum                    50           52         48 150
+## ---
+## Maximum in each column: '*'
+## 
+## Pearson's Chi-squared test:
+## X-squared = 266.35, df = 4, p-value &lt; 2.2e-16</code></pre>
+<p>Plot model diagnostics</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model)</code></pre></div>
+<p><img src="data:image/png;base64,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" alt /><!-- --></p>
+<p>Use model to predict data</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prediction &lt;-<span class="st"> </span><span class="kw">predict</span>(model, data)</code></pre></div>
+<p>Evaluate prediction statistics</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_model</span>(prediction, data)</code></pre></div>
+<pre><code>## 
+## Confusion matrix (absolute):
+##             actual
+## prediction   setosa versicolor virginica Sum
+##   setosa         50          0         0  50
+##   versicolor      0         48         4  52
+##   virginica       0          2        46  48
+##   Sum            50         50        50 150
+## 
+## Confusion matrix (relative):
+##             actual
+## prediction   setosa versicolor virginica  Sum
+##   setosa       0.33       0.00      0.00 0.33
+##   versicolor   0.00       0.32      0.03 0.35
+##   virginica    0.00       0.01      0.31 0.32
+##   Sum          0.33       0.33      0.33 1.00
+## 
+## Accuracy:
+## 0.96 (144/150)
+## 
+## Error rate:
+## 0.04 (6/150)</code></pre>
+<p>Please note that the very good accuracy of 96% is reached effortlessly.</p>
+<p>“Petal.Width” is identified as the attribute with the highest predictive value. The cut points of the intervals are found automatically (via the included optbin function). The results are three very simple, yet accurate, rules to predict the respective species.</p>
+<p>The nearly perfect separation of the colors in the diagnostic plot give a good indication of the model’s ability to separate the different species.</p>
+</div>
+<div id="a-more-sophisticated-real-world-example" class="section level2">
+<h2>A more sophisticated real-world example</h2>
+<p>The next example tries to find a model for the identification of breast cancer. The data were obtained from the UCI machine learning repository (see also the package documentation). According to this source the best out-of-sample performance was 95.9%, so let’s see what we can achieve with the OneR package…</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">data</span>(breastcancer)
+data &lt;-<span class="st"> </span>breastcancer</code></pre></div>
+<p>Divide training (80%) and test set (20%)</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">12</span>) <span class="co"># for reproducibility</span>
+random &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">nrow</span>(data), <span class="fl">0.8</span> *<span class="st"> </span><span class="kw">nrow</span>(data))
+data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[random, ])</code></pre></div>
+<pre><code>## Warning in optbin(data[random, ]): at least one instance was removed due to
+## missing values</code></pre>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_test &lt;-<span class="st"> </span>data[-random, ]</code></pre></div>
+<p>Train OneR model on training set</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_train &lt;-<span class="st"> </span><span class="kw">OneR</span>(data_train, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre></div>
+<pre><code>## 
+##     Attribute                   Accuracy
+## 1 * Uniformity of Cell Size     92.69%  
+## 2   Uniformity of Cell Shape    91.77%  
+## 3   Bland Chromatin             90.31%  
+## 4   Bare Nuclei                 89.58%  
+## 5   Single Epithelial Cell Size 88.12%  
+## 6   Normal Nucleoli             86.29%  
+## 7   Marginal Adhesion           85.74%  
+## 8   Clump Thickness             84.46%  
+## 9   Mitoses                     78.24%  
+## ---
+## Chosen attribute due to accuracy
+## and ties method (if applicable): '*'</code></pre>
+<p>Show model and diagnostics</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model_train)</code></pre></div>
+<pre><code>## 
+## Call:
+## OneR(data = data_train, verbose = TRUE)
+## 
+## Rules:
+## If Uniformity of Cell Size = (0.991,3.15] then Class = benign
+## If Uniformity of Cell Size = (3.15,10]    then Class = malignant
+## 
+## Accuracy:
+## 507 of 547 instances classified correctly (92.69%)
+## 
+## Contingency table:
+##            Uniformity of Cell Size
+## Class       (0.991,3.15] (3.15,10] Sum
+##   benign           * 340         8 348
+##   malignant           32     * 167 199
+##   Sum                372       175 547
+## ---
+## Maximum in each column: '*'
+## 
+## Pearson's Chi-squared test:
+## X-squared = 383.91, df = 1, p-value &lt; 2.2e-16</code></pre>
+<p>Plot model diagnostics</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_train)</code></pre></div>
+<p><img src="data:image/png;base64,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1NenReSqZurr0yJyVTP19WkRT8KqIVd5t/YKJXI1jVz1FjX2tp0hctVb1NjbdobIVW9RY2/bGeKhlhpylZfm+p9pI1eQqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrmqIVd55KqGXOWRqxpylUeuashVHrlKyBelLy+dRY29bWeIXAXsH5/7FjX2tp0hchWwf3rpOZVc5ZHrsP3D2t3VL18Hp8o2fYsae9vOELkOy5avu/vVMVsNTbR/YOx6HeQ6aP+wORaL8l+3xbcsauxtO0PkOsjlmpWp5oO5hr3r4q79gItc5ZHrsGy1f1i+7h8GBwN+7Fqsdj+2RrjkKo9ch5U7zrvnw3a4Vn9kYP/0vX2AgFzlkauAw9btXZe/sHfVRq4S3OB1+et23V7U2Nt2hsh12NuOu/YvauxtO0PkOuwNx13LQSvHXa+EXAdx3HVayHXQ24678oqsayHXYW867sorsq6FXIe9/bjr6aLG3rYzRK4SeEXWlZCrAF6RdS3kOiy+euWkxbcsauxtO0PkOixbvuar4+6+796+UUb956/dh1vkKo9cB7kntYrl6zEffFrrsN1km87rschVA7kOcsdddz+8+H8DUz29ZJuTwwPkKo9cBx22a39UdThXv3ctujtgcpVHrsPc01nZ+sJgwD8gO3kwRq7yyPWCbOVi/MCBAXJVQK4S/Otdu/tfcpVHrgLiuwkYu6ojVwHxvVocGVBHrgMVxme0Lj+rFd4J213U2Nt2hsj10849T0uu8shVDbnKI9ch4YWuu/v1xSn7FjX2tp0hch3g3kiQ/vedixp7284QuQ7IqkrdK13ev6ixt+0Mket5h+ZzLi48Cdu/qLG37QyR63nu5VgRb9yeBnI9LxkCXHjjdv+ixt62M0SuA5rPbskYDEwCuQ6o3/Ny6c0v/Ysae9vOELkOKRZ+OJAvPnLglVzlkeugw9Y9vTr8oRhnFzX2tp0hclVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXNeQqj1zVkKs8clVDrvLIVQ25yiNXAfunl/ijtaixt+0MkeunHbYLb/naWdTY23aGyFXAyY41LGrsbTtD5Cohd3vXLwwG1JGrgP3jc9+ixt62M0SuAhgMXAu5Ssg2fYsae9vOELkK2D/0jl0hL1m9Y/d4wXRzxQjI9cN6jwxAFbl+1P7xOdsUK41Z4xxy/aj900u+7j88AC3k+lGHr8/F6vQ1A5CXrN6xe7xgurkei+Wv28W6u6ixV9gMkauaqa9Pi8hVQv9rBsZeYTNErgLOvGZg7BU2Q+Qq4MxrBsZeYTNErhL6XzMw9gqbIXIVcOY1A2OvsBkiVzVTX58WkauAsHdd3LUfcE19fVpErhLc2LVY7X5svblw6uvTInIVEN+4/b19gGDq69MichVw2Lq96/IX9q7ayFWCG7wuf922XzUw9fVpEbmqmfr6tIhcP60ctHLc9UrIVc3U16dF5Ppp8agre9crIFc1U1+fFpGrBF7veiXkKqD/nbBTX58WkauA/nfCjvDGu/kztHolyrriO2GBz7riO2GBz+IzsmAIucIQpde7uqE1H+kGaVd8JyzwWTp71299nzMAfBaf7wpDGAzAEAYDMOSKH4sBfBbHXWEIucIQcoUh5ApDyBWGkCsMIVcYQq4whFxhCLnCEHKFIeQKQ8h10GEbPtwjW9afrLx/2PgX9A680ddPUvR9WdMxvehhu1gslulHNpcX9JcNv8eXCdWngFyH9eTq7B8uviv9XGTNRQufbZZ+4UiSa7HYdM8FuQ47m+vFHd75XOPpu/tNWEIy6yTXbJUuHwG5Dkpy3T/8qbx73rikdvf+brpY+Pv1/ePfFl/+de/OXbtz6kmWf3UXzmNwYep4UXd6zPS/7q88zqrONenUneLfTeSmiBPeKnId1Mq1vGPO755dPWFw6sNclf/K8Hb37lxXYv7lpZqkKP/0XytyTKfetObslbMt57BuDwaq86tTcjfzOOGtItdBrVzX/h68avHgvymkcP36M5of9STu3+63z2FG9dQhvnT4G34vfOfJYCHuh+MpbvBQT3it2z815Dqoleumvrf2HfqxZ4wz/FX9qHfA5QA03ue3pz62cy38A6pwZjrmPWzdNz+GU/wYt57wSjd/csh10MVcq8D6cy33g1mosj31sT0YKOJHSnZzdQsOQ4swXmgmvMqNnyByHZatqv98ZO+6f/zHYzgSdbJ3rR9qlYPaojpc1eRa7UGr4UMYsBa3flyLXIflcfi4Psm1PRrtz/Ww/X2M8mTsmh7ISp4a6B4ZCAPa6nDXzT9jQK7D3IN5f5d8kmv7sX5Prq7PfNE8KdA+MhCfJjhs3Q7T39NnvuXmyIAL1E3jD2TF3Wo14bVXw1SQ6wX1M6UnudbHXXtzPWbuUvG4wLEzdeCfZg173zw84XryJKwLszzFXwk/Zs1v+wMcyFXVrv0tzvgkclWV3+4RfRXkqmh3v2TnKopcYQi5whByhSHkCkPIFYaQKwwhVxhCrjCEXGEIucIQcoUh5ApDyBWGkCsMIVcYQq4whFxhCLnCEHKFIeQKQ8gVhpArDCFXGEKuMIRcYQi5whByhSHkCkPIFYaQKwwhVxhCrjCEXGEIucIQcoUh5ApDyBWGkCsMIVcYQq4whFxhCLnCEHKFIeQKQ8gVhpArDCFXGEKuMIRcYQi5whByhSHkCkPIFYaQKwwhVxhCrjCEXGEIucIQcoUh5ApD/g/zfDCONOu+OAAAAABJRU5ErkJggg==" alt /><!-- --></p>
+<p>Use trained model to predict test set</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prediction &lt;-<span class="st"> </span><span class="kw">predict</span>(model_train, data_test)</code></pre></div>
+<p>Evaluate model performance on test set</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_model</span>(prediction, data_test)</code></pre></div>
+<pre><code>## 
+## Confusion matrix (absolute):
+##            actual
+## prediction  benign malignant Sum
+##   benign        97         5 102
+##   malignant      3        35  38
+##   Sum          100        40 140
+## 
+## Confusion matrix (relative):
+##            actual
+## prediction  benign malignant  Sum
+##   benign      0.69      0.04 0.73
+##   malignant   0.02      0.25 0.27
+##   Sum         0.71      0.29 1.00
+## 
+## Accuracy:
+## 0.9429 (132/140)
+## 
+## Error rate:
+## 0.0571 (8/140)</code></pre>
+<p>The best reported out-of-sample accuracy on this dataset was at 95.9% and it was reached with considerable effort. The reached accuracy for the test set here lies at 94.3%! This is achieved with just two simple rules!</p>
+<p>“Uniformity of Cell Size” is identified as the attribute with the highest predictive value. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the colors in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue.</p>
+</div>
+<div id="included-functions" class="section level2">
+<h2>Included functions</h2>
+<ul>
+<li>“OneR” is the main function of the package. It builds a model according to the One Rule machine learning algorithm for categorical data. All numerical data is automatically converted into five categorical bins of equal length. When verbose is TRUE it gives the predictive accuracy of the attributes in decreasing order.</li>
+<li>“bin” discretizes all numerical data in a dataframe into categorical bins of equal length or equal content or based on automatically determined clusters.</li>
+<li>optbin discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method “logreg”) or as the means of the expected values of the respective classes (“naive”). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method “naive” should only be used when distributions are (approximately) normal, although in this case “logreg” should give comparable results, so it is the preferable (and therefore default) method.</li>
+<li>“maxlevels” removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.</li>
+<li>“eval_model” is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument “actual” is a dataframe which contains the actual data in the last column. A single vector is allowed too.</li>
+</ul>
+<p>For the details please consult the available help entries.</p>
+</div>
+<div id="help-overview" class="section level2">
+<h2>Help overview</h2>
+<p>From within R:</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">help</span>(<span class="dt">package =</span> OneR)</code></pre></div>
+<p>…or as a pdf here: <a href="https://cran.r-project.org/web/packages/OneR/OneR.pdf">OneR.pdf</a></p>
+<p>Issues can be posted here: <a href="http://github.com/vonjd/OneR/issues" class="uri">http://github.com/vonjd/OneR/issues</a></p>
+<p>The latest version of the package (and full sourcecode) can be found here: <a href="https://github.com/vonjd/OneR" class="uri">https://github.com/vonjd/OneR</a></p>
+</div>
+<div id="sources" class="section level2">
+<h2>Sources</h2>
+<p>[Holte93] R. Holte: Very Simple Classification Rules Perform Well on Most Commonly Used Datasets, 1993. Available online here: <a href="http://www.mlpack.org/papers/ds.pdf" class="uri">http://www.mlpack.org/papers/ds.pdf</a>.</p>
+</div>
+<div id="contact" class="section level2">
+<h2>Contact</h2>
+<p>I would love to hear about your experiences with the OneR package. Please drop me a note - you can reach me at my university account: <a href="https://www.h-ab.de/nc/eng/about-aschaffenburg-university-of-applied-sciences/organisation/personal/?tx_fhapersonal_pi1%5BshowUid%5D=jouanne-diedrich">Holger K. von Jouanne-Diedrich</a></p>
+</div>
+<div id="license" class="section level2">
+<h2>License</h2>
+<p>This package is under <a href="https://cran.r-project.org/web/packages/OneR/LICENSE">MIT License</a>.</p>
+</div>
+
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

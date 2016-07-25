@@ -52,7 +52,7 @@ eval_model(prediction, data)
 Holger von Jouanne-Diedrich
 }
 \references{
-\url{http://vonjd.github.io/OneR/}
+\url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{bin}}, \code{\link{optbin}}, \code{\link{eval_model}}, \code{\link{maxlevels}}

@@ -16,7 +16,7 @@
 #'
 #' When \code{"na.omit = FALSE"} an additional level \code{"NA"} is added to each factor with missing values.
 #' @author Holger von Jouanne-Diedrich
-#' @references \url{http://vonjd.github.io/OneR/}
+#' @references \url{https://github.com/vonjd/OneR}
 #' @seealso \code{\link{OneR}}, \code{\link{optbin}}
 #' @examples
 #' data <- iris
@@ -91,7 +91,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #' When \code{"na.omit = FALSE"} an additional level \code{"NA"} is added to each factor with missing values.
 #' If the target contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
 #' @author Holger von Jouanne-Diedrich
-#' @references \url{http://vonjd.github.io/OneR/}
+#' @references \url{https://github.com/vonjd/OneR}
 #' @seealso \code{\link{OneR}}, \code{\link{bin}}
 #' @examples
 #' data <- iris # without optimal binning
@@ -159,7 +159,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
 #' Character strings are treated as factors although they keep their datatype. Numeric data is left untouched.
 #' If data contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
 #' @author Holger von Jouanne-Diedrich
-#' @references \url{http://vonjd.github.io/OneR/}
+#' @references \url{https://github.com/vonjd/OneR}
 #' @seealso \code{\link{OneR}}
 #' @examples
 #' df <- data.frame(numeric = c(1:26), alphabet = letters)
@@ -189,7 +189,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #' @details \code{newdata} can have the same format as used for building the model but must at least have the feature variable that is used in the OneR rules.
 #' If cases appear that were not present when building the model the predicted value is \code{UNSEEN}.
 #' @author Holger von Jouanne-Diedrich
-#' @references \url{http://vonjd.github.io/OneR/}
+#' @references \url{https://github.com/vonjd/OneR}
 #' @seealso \code{\link{OneR}}
 #' @examples
 #' model <- OneR(iris)
@@ -221,7 +221,7 @@ predict.OneR <- function(object, newdata, ...) {
 #'
 #' In the contingency table the maximum values in each column are highlighted by adding a '*', thereby representing the rules of the OneR model.
 #' @author Holger von Jouanne-Diedrich
-#' @references \url{http://vonjd.github.io/OneR/}
+#' @references \url{https://github.com/vonjd/OneR}
 #' @seealso \code{\link{OneR}}
 #' @keywords diagnostics
 #' @examples
@@ -264,7 +264,7 @@ summary.OneR <- function(object, ...) {
 #' @param ... further arguments passed to or from other methods.
 #' @details Prints the rules and the accuracy of an OneR model.
 #' @author Holger von Jouanne-Diedrich
-#' @references \url{http://vonjd.github.io/OneR/}
+#' @references \url{https://github.com/vonjd/OneR}
 #' @seealso \code{\link{OneR}}
 #' @examples
 #' model <- OneR(iris)
@@ -291,7 +291,7 @@ print.OneR <- function(x, ...) {
 #' @param ... further arguments passed to or from other methods.
 #' @details If more than 20 levels are present for either the feature attribute or the target the function stops with an error.
 #' @author Holger von Jouanne-Diedrich
-#' @references \url{http://vonjd.github.io/OneR/}
+#' @references \url{https://github.com/vonjd/OneR}
 #' @seealso \code{\link{OneR}}
 #' @keywords diagnostics
 #' @examples
@@ -312,7 +312,7 @@ plot.OneR <- function(x, ...) {
 #' @return a logical whether object is of class "OneR".
 #' @keywords OneR model
 #' @author Holger von Jouanne-Diedrich
-#' @references \url{http://vonjd.github.io/OneR/}
+#' @references \url{https://github.com/vonjd/OneR}
 #' @examples
 #' model <- OneR(iris)
 #' is.OneR(model) # evaluates to TRUE
@@ -326,7 +326,7 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' @param actual dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.
 #' @return Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.
 #' @author Holger von Jouanne-Diedrich
-#' @references \url{http://vonjd.github.io/OneR/}
+#' @references \url{https://github.com/vonjd/OneR}
 #' @keywords evaluation accuracy
 #' @examples
 #' data <- iris

@@ -55,7 +55,7 @@ bin(c(1:10, NA), nbins = 2)                  # omits missing values by default (
 Holger von Jouanne-Diedrich
 }
 \references{
-\url{http://vonjd.github.io/OneR/}
+\url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{OneR}}, \code{\link{optbin}}

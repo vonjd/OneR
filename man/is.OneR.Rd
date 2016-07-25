@@ -23,7 +23,7 @@ is.OneR(model) # evaluates to TRUE
 Holger von Jouanne-Diedrich
 }
 \references{
-\url{http://vonjd.github.io/OneR/}
+\url{https://github.com/vonjd/OneR}
 }
 \keyword{OneR}
 \keyword{model}
