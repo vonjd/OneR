@@ -153,36 +153,61 @@ The best reported out-of-sample accuracy on this dataset was at 95.9% and it was
 
 ## Included functions
 
-- "OneR" is the main function of the package. It builds a model according to the One Rule machine learning algorithm for categorical data. All numerical data is automatically converted into five categorical bins of equal length. When verbose is TRUE it gives the predictive accuracy of the attributes in decreasing order.
-- "bin" discretizes all numerical data in a dataframe into categorical bins of equal length or equal content or based on automatically determined clusters.
-```{r, fig.width=7.15, fig.height=5}
+### OneR
+
+OneR is the main function of the package. It builds a model according to the One Rule machine learning algorithm for categorical data. All numerical data is automatically converted into five categorical bins of equal length. When verbose is TRUE it gives the predictive accuracy of the attributes in decreasing order.
+
+### bin
+
+bin discretizes all numerical data in a dataframe into categorical bins of equal length or equal content or based on automatically determined clusters.
+
+Examples
+```{r}
 data <- iris
 str(data)
 str(bin(data))
 str(bin(data, nbins = 3))
 str(bin(data, nbins = 3, labels = c("small", "medium", "large")))
+```
 
-## Difference between methods "length" and "content"
+Difference between methods "length" and "content"
+
+```{r}
 set.seed(1); table(bin(rnorm(900), nbins = 3))
 set.seed(1); table(bin(rnorm(900), nbins = 3, method = "content"))
+```
 
-## Method "clusters"
+Method "clusters"
+```{r, fig.width=7.15, fig.height=5}
 intervals <- paste(levels(bin(faithful$waiting, nbins = 2, method = "cluster")), collapse = " ")
 hist(faithful$waiting, main = paste("Intervals:", intervals))
 abline(v = c(42.9, 67.5, 96.1), col = "blue")
+```
 
-## Missing values
+Handling of missing values
+
+```{r}
 bin(c(1:10, NA), nbins = 2, na.omit = FALSE) # adds new level "NA"
 bin(c(1:10, NA), nbins = 2)
 ```
-- optbin discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method "logreg") or as the means of the expected values of the respective classes ("naive"). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method "naive" should only be used when distributions are (approximately) normal, although in this case "logreg" should give comparable results, so it is the preferable (and therefore default) method.
-- "maxlevels" removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.
+
+### optbin
+
+optbin discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method "logreg") or as the means of the expected values of the respective classes ("naive"). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method "naive" should only be used when distributions are (approximately) normal, although in this case "logreg" should give comparable results, so it is the preferable (and therefore default) method.
+
+### maxlevels
+
+maxlavels removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.
+
 ```{r}
 df <- data.frame(numeric = c(1:26), alphabet = letters)
 str(df)
 str(maxlevels(df))
 ```
-- "eval_model" is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument "actual" is a dataframe which contains the actual data in the last column. A single vector is allowed too.
+
+### eval_model
+
+eval_model is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument "actual" is a dataframe which contains the actual data in the last column. A single vector is allowed too.
 
 For the details please consult the available help entries.
 
