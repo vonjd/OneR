@@ -13,6 +13,7 @@
 #' @details All numerical data is automatically converted into five categorical bins of equal length. Instances with missing values are removed.
 #' This is done by internally calling the default version of \code{\link{bin}} before starting the OneR algorithm.
 #' To finetune this behaviour data preprocessing with the \code{\link{bin}} or \code{\link{optbin}} functions should be performed.
+#' If data contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
 #'
 #' When there is more than one attribute with best performance either the first (from left to right) is being chosen (method \code{"first"}) or
 #' the one with the lowest p-value of a chi-squared test (method \code{"chisq"}).
@@ -47,6 +48,12 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
   if (dim(data.frame(data))[2] < 2) stop("data must have at least two columns")
   data <- bin(data)
   if (nrow(data) == 0) stop("no data to analyse")
+  # Test if unused factor levels and drop them for analysis
+  nlevels_orig <- sum(sapply(data, nlevels))
+  data <- droplevels(data)
+  nlevels_new <- sum(sapply(data, nlevels))
+  if (nlevels_new < nlevels_orig) warning("data containes unused factor levels")
+  # main routine
   perf <- c()
   for (iter in 1:(ncol(data) - 1)) {
     groups <- split(data, data[ , iter])
@@ -71,6 +78,7 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
   cont_table <- table(c(data[target], data[feature]))
   output <- c(call = call, target = target, feature = feature, rules = list(majority), correct_instances = max(perf), total_instances = nrow(data), cont_table = list(cont_table))
   class(output) <- "OneR"
+  # additional diagnostic information if wanted
   if (verbose == TRUE) {
     newbest <- which(which(perf == max(perf)) == best)
     accs <- round(100 * sort(perf, decreasing = TRUE) / nrow(data), 2)

@@ -27,6 +27,7 @@ Builds a model according to the One Rule (OneR) machine learning classification 
 All numerical data is automatically converted into five categorical bins of equal length. Instances with missing values are removed.
 This is done by internally calling the default version of \code{\link{bin}} before starting the OneR algorithm.
 To finetune this behaviour data preprocessing with the \code{\link{bin}} or \code{\link{optbin}} functions should be performed.
+If data contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
 
 When there is more than one attribute with best performance either the first (from left to right) is being chosen (method \code{"first"}) or
 the one with the lowest p-value of a chi-squared test (method \code{"chisq"}).

@@ -31,6 +31,7 @@ although in this case \code{"logreg"} should give comparable results, so it is t
 Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. If the target is numeric it is turned into a factor with the number of levels equal to the number of values. Additionally a warning is given.
 
 When \code{"na.omit = FALSE"} an additional level \code{"NA"} is added to each factor with missing values.
+If the target contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
 }
 \examples{
 data <- iris # without optimal binning

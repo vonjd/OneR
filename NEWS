@@ -3,6 +3,7 @@ OneR 1.4 (2016-07-25)
 
 NEW FEATURES
 - breastcancer: Breast Cancer Wisconsin Original Data Set now included in the package
+- OneR, optbin, maxlevels: Consistent handling of unused factor levels (e.g. due to subsetting) was added. These are dropped for analysis and a warning is given.
 
 
 OneR 1.3 (2016-07-22)

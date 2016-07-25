@@ -24,6 +24,7 @@ Often categories that have very many levels are not useful in modelling OneR rul
 Examples are IDs or names.
 
 Character strings are treated as factors although they keep their datatype. Numeric data is left untouched.
+If data contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
 }
 \examples{
 df <- data.frame(numeric = c(1:26), alphabet = letters)

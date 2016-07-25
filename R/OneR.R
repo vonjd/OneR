@@ -89,6 +89,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #' Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. If the target is numeric it is turned into a factor with the number of levels equal to the number of values. Additionally a warning is given.
 #'
 #' When \code{"na.omit = FALSE"} an additional level \code{"NA"} is added to each factor with missing values.
+#' If the target contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
 #' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}, \code{\link{bin}}
@@ -127,8 +128,13 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
     # only add NA to target
     if(any(is.na(unlist(data[ncol(data)])))) data[ncol(data)] <- addNA(unlist(data[ncol(data)]))
   }
-  target <- data[ncol(data)]
-  nbins <- length(unique(unlist(target)))
+  target <- data[ , ncol(data)]
+  # Test if unused factor levels and drop them for analysis
+  nlevels_orig <- nlevels(target)
+  target <- droplevels(target)
+  nlevels_new <- nlevels(target)
+  if (nlevels_new < nlevels_orig) warning("target contains unused factor levels")
+  nbins <- length(unique(target))
   if (nbins <= 1) stop("number of target levels must be bigger than 1")
   data[] <- lapply(data, function(x) if (is.numeric(x)) {
     if (length(unique(x)) <= nbins) as.factor(x) else do.call(method, list(x, target))
@@ -151,6 +157,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
 #' Examples are IDs or names.
 #'
 #' Character strings are treated as factors although they keep their datatype. Numeric data is left untouched.
+#' If data contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
 #' @author Holger von Jouanne-Diedrich
 #' @references \url{http://vonjd.github.io/OneR/}
 #' @seealso \code{\link{OneR}}
@@ -163,8 +170,12 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
   if (is.list(data) == FALSE) stop("data must be a dataframe")
   if (maxlevels <= 2) stop("maxlevels must be bigger than 2")
   tmp <- bin(data, nbins = 2, na.omit = na.omit)
-  nlevels <- sapply(tmp, nlevels)
-  cols <- nlevels <= maxlevels
+  # Test if unused factor levels and drop them for analysis
+  nlevels_orig <- sum(sapply(tmp, nlevels))
+  tmp <- droplevels(tmp)
+  nlevels_new <- sum(sapply(tmp, nlevels))
+  if (nlevels_new < nlevels_orig) warning("data containes unused factor levels")
+  cols <- nlevels_new <= maxlevels
   return(data[cols])
 }
 
