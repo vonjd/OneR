@@ -7,6 +7,7 @@ NEW FEATURES
 - OneR, optbin, maxlevels: Consistent handling of unused factor levels (e.g. due to subsetting) was added. These are dropped for analysis and a warning is given.
 
 MINOR IMPROVEMENTS
+- bin & optbin: In case of removing instances due to missing values the resulting warning gives the number of removed instances.
 - Some minor streamlining of code.
 
 

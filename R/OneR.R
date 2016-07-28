@@ -47,9 +47,11 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
   # could be a matrix -> dataframe (even with only one column)
   if (is.list(data) == FALSE) data <- data.frame(data)
   if (na.omit == TRUE) {
-    len_rows <- nrow(data)
+    len_rows_orig <- nrow(data)
     data <- na.omit(data)
-    if (len_rows > nrow(data)) warning("at least one instance was removed due to missing values")
+    len_rows_new <- nrow(data)
+    no_removed <- len_rows_orig - len_rows_new
+    if (no_removed > 0) warning(paste(no_removed, "instance(s) removed due to missing values"))
   }
   if (!is.null(labels)) if (nbins != length(labels)) stop("number of 'nbins' and 'labels' differ")
   if (nbins <= 1) stop("number of 'bins' must be bigger than 1")
@@ -121,9 +123,11 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
     warning("target is numeric")
   }
   if (na.omit == TRUE) {
-    len_rows <- nrow(data)
+    len_rows_orig <- nrow(data)
     data <- na.omit(data)
-    if (len_rows > nrow(data)) warning("at least one instance was removed due to missing values")
+    len_rows_new <- nrow(data)
+    no_removed <- len_rows_orig - len_rows_new
+    if (no_removed > 0) warning(paste(no_removed, "instance(s) removed due to missing values"))
   } else {
     # only add NA to target
     if(any(is.na(unlist(data[ncol(data)])))) data[ncol(data)] <- addNA(unlist(data[ncol(data)]))
