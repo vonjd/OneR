@@ -6,7 +6,7 @@
 #' @param data dataframe which contains the data.
 #' @param nbins number of bins (= levels).
 #' @param labels character vector of labels for the resulting category.
-#' @param method a character string specifying the binning method, see 'Details'; can be abbreviated.
+#' @param method character string specifying the binning method, see 'Details'; can be abbreviated.
 #' @param na.omit logical value whether instances with missing values should be removed.
 #' @return A dataframe or vector.
 #' @keywords binning discretization discretize clusters Jenks breaks
@@ -77,7 +77,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #' When building a OneR model this could result in fewer rules with enhanced accuracy.
 #' @param data dataframe which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
 #' @param formula formula interface for the \code{optbin} function.
-#' @param method a character string specifying the method for optimal binning, see 'Details'; can be abbreviated.
+#' @param method character string specifying the method for optimal binning, see 'Details'; can be abbreviated.
 #' @param na.omit logical value whether instances with missing values should be removed.
 #' @return A dataframe with the target variable being in the last column.
 #' @keywords binning discretization discretize
@@ -182,8 +182,9 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #' Predict values based on OneR model object.
 #' @param object object of class \code{"OneR"}.
 #' @param newdata dataframe in which to look for the feature variable with which to predict.
+#' @param type character string denoting the type of predicted value returned. Default \code{"class"} gives a named vector with the predicted classes, \code{"prob"} gives a matrix whose columns are the probability of the first, second, etc. class.
 #' @param ... further arguments passed to or from other methods.
-#' @return A named vector.
+#' @return The default is a named vector with the predicted classes, if \code{"type"} is set to \code{"prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
 #' @details \code{newdata} can have the same format as used for building the model but must at least have the feature variable that is used in the OneR rules.
 #' If cases appear that were not present when building the model the predicted value is \code{UNSEEN}.
 #' @author Holger von Jouanne-Diedrich
@@ -193,8 +194,12 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #' model <- OneR(iris)
 #' prediction <- predict(model, iris[1:4])
 #' eval_model(prediction, iris[5])
+#'
+#' ## type prob
+#' predict(model, iris[c(1, 51, 101), 1:4], type = "prob")
 #' @export
-predict.OneR <- function(object, newdata, ...) {
+predict.OneR <- function(object, newdata, type = c("class", "prob"), ...) {
+  type <- match.arg(type)
   if (is.list(newdata) == FALSE) stop("newdata must be a dataframe")
   if (all(names(newdata) != object$feature)) stop("cannot find feature column in newdata")
   model <- object
@@ -207,6 +212,12 @@ predict.OneR <- function(object, newdata, ...) {
     } else features <- as.character(data[ , index])
   } else features <- as.character(data[ , index])
   features[is.na(features)] <- "NA"
+  if (type == "prob") {
+    probs <- prop.table(model$cont_table, margin = 2)
+    probrules <- lapply(names(model$rules), function(x) probs[ , x])
+    names(probrules) <- names(model$rules)
+    return(t(sapply(features, function(x) if (is.null(probrules[[x]]) == TRUE) rep(NA, dim(model$cont_table)[1]) else probrules[[x]])))
+  }
   return(sapply(features, function(x) if (is.null(model$rules[[x]]) == TRUE) "UNSEEN" else model$rules[[x]]))
 }
 

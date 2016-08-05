@@ -12,7 +12,7 @@ optbin(data, formula = NULL, method = c("logreg", "naive"),
 
 \item{formula}{formula interface for the \code{optbin} function.}
 
-\item{method}{a character string specifying the method for optimal binning, see 'Details'; can be abbreviated.}
+\item{method}{character string specifying the method for optimal binning, see 'Details'; can be abbreviated.}
 
 \item{na.omit}{logical value whether instances with missing values should be removed.}
 }

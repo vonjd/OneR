@@ -12,7 +12,7 @@ OneR(data, formula = NULL, ties.method = c("first", "chisq"),
 
 \item{formula}{formula interface for the \code{OneR} function.}
 
-\item{ties.method}{a character string specifying how ties are treated, see 'Details'; can be abbreviated.}
+\item{ties.method}{character string specifying how ties are treated, see 'Details'; can be abbreviated.}
 
 \item{verbose}{If \code{TRUE} prints rank, names and predictive accuracy of the attributes in decreasing order (with \code{ties.method = "first"}).}
 }

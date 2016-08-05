@@ -14,7 +14,7 @@ bin(data, nbins = 5, labels = NULL, method = c("length", "content",
 
 \item{labels}{character vector of labels for the resulting category.}
 
-\item{method}{a character string specifying the binning method, see 'Details'; can be abbreviated.}
+\item{method}{character string specifying the binning method, see 'Details'; can be abbreviated.}
 
 \item{na.omit}{logical value whether instances with missing values should be removed.}
 }

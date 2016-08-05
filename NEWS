@@ -4,6 +4,7 @@ OneR 1.4 (2016-XX-XX)
 NEW FEATURES
 - Added a vignette.
 - breastcancer: Breast Cancer Wisconsin Original Data Set now included in the package.
+- predict: New type "prob" which gives a matrix whose columns are the probability of the first, second, etc. class.
 - OneR, optbin, maxlevels: Consistent handling of unused factor levels (e.g. due to subsetting) was added. These are dropped for analysis and a warning is given.
 
 MINOR IMPROVEMENTS

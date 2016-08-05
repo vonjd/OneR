@@ -4,17 +4,19 @@
 \alias{predict.OneR}
 \title{Predict method for OneR models}
 \usage{
-\method{predict}{OneR}(object, newdata, ...)
+\method{predict}{OneR}(object, newdata, type = c("class", "prob"), ...)
 }
 \arguments{
 \item{object}{object of class \code{"OneR"}.}
 
 \item{newdata}{dataframe in which to look for the feature variable with which to predict.}
 
+\item{type}{character string denoting the type of predicted value returned. Default \code{"class"} gives a named vector with the predicted classes, \code{"prob"} gives a matrix whose columns are the probability of the first, second, etc. class.}
+
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-A named vector.
+The default is a named vector with the predicted classes, if \code{"type"} is set to \code{"prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
 }
 \description{
 Predict values based on OneR model object.
@@ -27,6 +29,9 @@ If cases appear that were not present when building the model the predicted valu
 model <- OneR(iris)
 prediction <- predict(model, iris[1:4])
 eval_model(prediction, iris[5])
+
+## type prob
+predict(model, iris[c(1, 51, 101), 1:4], type = "prob")
 }
 \author{
 Holger von Jouanne-Diedrich
