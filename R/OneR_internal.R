@@ -22,7 +22,7 @@ mode <- function(x) {
   names(sort(-table(x[ , ncol(x)])))[1]
 }
 
-addNA <- function(x) {
+ADDNA <- function(x) {
   if (is.factor(x) & !("NA" %in% levels(x))) x <- factor(x, levels = c(levels(x), "NA"))
   x[is.na(x)] <- "NA"
   return(x)

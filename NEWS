@@ -1,4 +1,4 @@
-OneR 1.4 (2016-07-25)
+OneR 1.4 (2016-XX-XX)
 =====================
 
 NEW FEATURES
@@ -8,7 +8,11 @@ NEW FEATURES
 
 MINOR IMPROVEMENTS
 - bin & optbin: In case of removing instances due to missing values the resulting warning gives the number of removed instances.
+- maxlevels: With data containing missing values an unhelpful warning was given.
 - Some minor streamlining of code.
+
+BUGFIXES
+- bin & optbin: In some borderline cases when the function addNA was used in preprocessing print.OneR stopped with an error.
 
 
 OneR 1.3 (2016-07-22)

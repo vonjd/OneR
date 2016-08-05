@@ -66,10 +66,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
       CUT(x, breaks = unique(nbins), labels = labels)
     }
   } else as.factor(x))
-  if (na.omit == FALSE) {
-    # data[] <- lapply(data, addNA)
-    data[] <- lapply(data, function(x) if(any(is.na(x))) addNA(x) else x)
-  }
+  data[] <- lapply(data, function(x) if(any(is.na(as.character(x)))) ADDNA(x) else x)
   if (vec) { data <- unlist(data); names(data) <- NULL }
   return(data)
 }
@@ -130,7 +127,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
     if (no_removed > 0) warning(paste(no_removed, "instance(s) removed due to missing values"))
   } else {
     # only add NA to target
-    if(any(is.na(unlist(data[ncol(data)])))) data[ncol(data)] <- addNA(unlist(data[ncol(data)]))
+    if(any(is.na(unlist(data[ncol(data)])))) data[ncol(data)] <- ADDNA(unlist(data[ncol(data)]))
   }
   target <- data[ , ncol(data)]
   # Test if unused factor levels and drop them for analysis
@@ -143,10 +140,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
   data[] <- lapply(data, function(x) if (is.numeric(x)) {
     if (length(unique(x)) <= nbins) as.factor(x) else do.call(method, list(x, target))
   } else as.factor(x))
-  if (na.omit == FALSE) {
-    # data[] <- lapply(data, addNA)
-    data[] <- lapply(data, function(x) if(any(is.na(x))) addNA(x) else x)
-  }
+  data[] <- lapply(data, function(x) if(any(is.na(as.character(x)))) ADDNA(x) else x)
   return(data)
 }
 
@@ -173,7 +167,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit 
 maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
   if (is.list(data) == FALSE) stop("data must be a dataframe")
   if (maxlevels <= 2) stop("maxlevels must be bigger than 2")
-  tmp <- bin(data, nbins = 2, na.omit = na.omit)
+  tmp <- suppressWarnings(bin(data, nbins = 2, na.omit = na.omit))
   # Test if unused factor levels and drop them for analysis
   nlevels_orig <- sapply(tmp, nlevels)
   tmp <- droplevels(tmp)
