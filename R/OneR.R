@@ -196,7 +196,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #' eval_model(prediction, iris[5])
 #'
 #' ## type prob
-#' predict(model, iris[c(1, 51, 101), 1:4], type = "prob")
+#' predict(model, data.frame(Petal.Width = seq(0.5, 2.5, 0.5)), type = "prob")
 #' @export
 predict.OneR <- function(object, newdata, type = c("class", "prob"), ...) {
   type <- match.arg(type)

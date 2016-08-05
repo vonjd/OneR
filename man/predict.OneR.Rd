@@ -31,7 +31,7 @@ prediction <- predict(model, iris[1:4])
 eval_model(prediction, iris[5])
 
 ## type prob
-predict(model, iris[c(1, 51, 101), 1:4], type = "prob")
+predict(model, data.frame(Petal.Width = seq(0.5, 2.5, 0.5)), type = "prob")
 }
 \author{
 Holger von Jouanne-Diedrich
