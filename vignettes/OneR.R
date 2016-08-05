@@ -69,6 +69,10 @@ df <- data.frame(numeric = c(1:26), alphabet = letters)
 str(df)
 str(maxlevels(df))
 
+## ------------------------------------------------------------------------
+model <- OneR(iris)
+predict(model, data.frame(Petal.Width = seq(0.5, 2.5, 0.5)), type = "prob")
+
 ## ---- eval=FALSE---------------------------------------------------------
 #  help(package = OneR)
 

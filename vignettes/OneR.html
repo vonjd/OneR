@@ -12,7 +12,7 @@
 
 <meta name="author" content="An R package by Holger K. von Jouanne-Diedrich" />
 
-<meta name="date" content="2016-07-29" />
+<meta name="date" content="2016-08-05" />
 
 <title>OneR - Establishing a New Baseline for Machine Learning Classification Models</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">OneR - Establishing a New Baseline for Machine Learning Classification Models</h1>
 <h4 class="author"><em>An R package by Holger K. von Jouanne-Diedrich</em></h4>
-<h4 class="date"><em>2016-07-29</em></h4>
+<h4 class="date"><em>2016-08-05</em></h4>
 
 
 
@@ -348,6 +348,18 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">str</span>(<span class="kw">maxlevels</span>(df))</code></pre></div>
 <pre><code>## 'data.frame':    26 obs. of  1 variable:
 ##  $ numeric: int  1 2 3 4 5 6 7 8 9 10 ...</code></pre>
+</div>
+<div id="predict" class="section level3">
+<h3>predict</h3>
+<p>predict is a S3 method for predicting cases or probabilites based on OneR model objects. The default is a named vector with the predicted classes, if “type = prob” a matrix is returned whose columns are the probability of the first, second, etc. class.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">OneR</span>(iris)
+<span class="kw">predict</span>(model, <span class="kw">data.frame</span>(<span class="dt">Petal.Width =</span> <span class="kw">seq</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>, <span class="fl">0.5</span>)), <span class="dt">type =</span> <span class="st">&quot;prob&quot;</span>)</code></pre></div>
+<pre><code>##               setosa versicolor  virginica
+## (0.0976,0.58]  1.000  0.0000000 0.00000000
+## (0.58,1.06]    0.125  0.8750000 0.00000000
+## (1.06,1.54]    0.000  0.9268293 0.07317073
+## (1.54,2.02]    0.000  0.1724138 0.82758621
+## (2.02,2.5]     0.000  0.0000000 1.00000000</code></pre>
 </div>
 <div id="eval_model" class="section level3">
 <h3>eval_model</h3>

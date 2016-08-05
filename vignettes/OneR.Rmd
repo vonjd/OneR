@@ -205,6 +205,15 @@ str(df)
 str(maxlevels(df))
 ```
 
+### predict
+
+predict is a S3 method for predicting cases or probabilites based on OneR model objects. The default is a named vector with the predicted classes, if "type = prob" a matrix is returned whose columns are the probability of the first, second, etc. class.
+
+```{r}
+model <- OneR(iris)
+predict(model, data.frame(Petal.Width = seq(0.5, 2.5, 0.5)), type = "prob")
+```
+
 ### eval_model
 
 eval_model is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument "actual" is a dataframe which contains the actual data in the last column. A single vector is allowed too.

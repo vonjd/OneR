@@ -16,14 +16,14 @@
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-The default is a named vector with the predicted classes, if \code{"type"} is set to \code{"prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
+The default is a named vector with the predicted classes, if \code{"type = prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
 }
 \description{
-Predict values based on OneR model object.
+Predict cases or probabilites based on OneR model object.
 }
 \details{
 \code{newdata} can have the same format as used for building the model but must at least have the feature variable that is used in the OneR rules.
-If cases appear that were not present when building the model the predicted value is \code{UNSEEN}.
+If cases appear that were not present when building the model the predicted case is \code{UNSEEN} or \code{NA} when \code{"type = prob"}.
 }
 \examples{
 model <- OneR(iris)
