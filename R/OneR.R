@@ -81,9 +81,11 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #' @param na.omit logical value whether instances with missing values should be removed.
 #' @return A dataframe with the target variable being in the last column.
 #' @keywords binning discretization discretize
-#' @details The cutpoints are calculated by pairwise logistic regressions (method \code{"logreg"}) or as the means of the expected values of the respective classes (\code{"naive"}).
+#' @details The cutpoints are calculated by pairwise logistic regressions (method \code{"logreg"}), information gain (method \code{"infogain"}) or as the means of the expected values of the respective classes (\code{"naive"}).
 #' The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method \code{"naive"} should only be used when distributions are (approximately) normal,
 #' although in this case \code{"logreg"} should give comparable results, so it is the preferable (and therefore default) method.
+#'
+#' Method \code{"infogain"} is an entropy based method which calculates cut points based on information gain. The idea is that uncertainty is minimized by making the resulting bins as pure as possible. This method is the standard method of many decision tree algorithms.
 #'
 #' Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. If the target is numeric it is turned into a factor with the number of levels equal to the number of values. Additionally a warning is given.
 #'
@@ -107,7 +109,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #' summary(model_opt)
 #'
 #' @export
-optbin <- function(data, formula = NULL, method = c("logreg", "naive"), na.omit = TRUE) {
+optbin <- function(data, formula = NULL, method = c("logreg", "infogain", "naive"), na.omit = TRUE) {
   method <- match.arg(method)
   if (class(formula) == "formula") {
     mf <- model.frame(formula = formula, data = data, na.action = NULL)

@@ -83,3 +83,40 @@ logreg <- function(x, target) {
   breaks <- add_range(x, na.omit(midpoints))
   CUT(orig, breaks = unique(breaks))
 }
+
+entropy <- function(x) {
+  freqs <- table(x) / length(x)
+  - sum(freqs * log2(freqs))
+}
+
+#' @importFrom stats na.omit
+infogain_midpoint <- function(data) {
+  df <- data.frame(numvar = unlist(data), target = factor(rep(names(data), sapply(data, length))))
+  data <- na.omit(df[order(df[ , 1]), ])
+  numvar <- data$numvar; target <- data$target
+
+  left_thresholds <- which(as.logical(diff(as.numeric(target))))
+  midpoints <- (numvar[left_thresholds] + numvar[(left_thresholds + 1)]) / 2
+
+  belows <- sapply(midpoints, function(x) as.character(data[numvar <= x, 2]))
+  aboves <- sapply(midpoints, function(x) as.character(data[numvar > x, 2]))
+  below_entropies <- sapply(belows, function(x) length(x)/length(target) * entropy(x))
+  above_entropies <- sapply(aboves, function(x) length(x)/length(target) * entropy(x))
+
+  infogains <- entropy(target) - (below_entropies + above_entropies)
+  midpoints[which.max(infogains)]
+}
+
+#' @importFrom stats na.omit
+infogain <- function(x, target) {
+  orig <- x
+  tmp <- na.omit(cbind(x, target))
+  x <- tmp[ , 1]; target <- tmp[ , 2]
+  xs <- split(x, target)
+  midpoints <- sapply(xs, mean)
+  nl <- xs[order(midpoints)]
+  pairs <- matrix(c(1:(length(nl) - 1), 2:length(nl)), ncol = 2, byrow = TRUE)
+  midpoints <- apply(pairs, 1, function(x) infogain_midpoint(c(nl[x[1]], nl[x[2]])))
+  breaks <- add_range(x, na.omit(midpoints))
+  CUT(orig, breaks = unique(breaks))
+}
