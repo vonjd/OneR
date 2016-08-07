@@ -94,15 +94,15 @@ infogain_midpoint <- function(data) {
   df <- data.frame(numvar = unlist(data), target = factor(rep(names(data), sapply(data, length))))
   data <- na.omit(df[order(df[ , 1]), ])
   numvar <- data$numvar; target <- data$target
-
+  # determine midpoint candidates
   left_thresholds <- which(as.logical(diff(as.numeric(target))))
   midpoints <- (numvar[left_thresholds] + numvar[(left_thresholds + 1)]) / 2
-
+  # calculate average entropies for all midpoint candidates
   belows <- sapply(midpoints, function(x) as.character(data[numvar <= x, 2]))
   aboves <- sapply(midpoints, function(x) as.character(data[numvar > x, 2]))
   below_entropies <- sapply(belows, function(x) length(x)/length(target) * entropy(x))
   above_entropies <- sapply(aboves, function(x) length(x)/length(target) * entropy(x))
-
+  # calculate information gains and chose highest one
   infogains <- entropy(target) - (below_entropies + above_entropies)
   midpoints[which.max(infogains)]
 }
