@@ -181,7 +181,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 
 #' Predict method for OneR models
 #'
-#' Predict cases or probabilites based on OneR model object.
+#' Predict cases or probabilities based on OneR model object.
 #' @param object object of class \code{"OneR"}.
 #' @param newdata dataframe in which to look for the feature variable with which to predict.
 #' @param type character string denoting the type of predicted value returned. Default \code{"class"} gives a named vector with the predicted classes, \code{"prob"} gives a matrix whose columns are the probability of the first, second, etc. class.

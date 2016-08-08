@@ -19,7 +19,7 @@
 The default is a named vector with the predicted classes, if \code{"type = prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
 }
 \description{
-Predict cases or probabilites based on OneR model object.
+Predict cases or probabilities based on OneR model object.
 }
 \details{
 \code{newdata} can have the same format as used for building the model but must at least have the feature variable that is used in the OneR rules.
