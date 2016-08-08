@@ -11,7 +11,7 @@ NEW FEATURES
 MINOR IMPROVEMENTS
 - bin & optbin: In case of removing instances due to missing values the resulting warning gives the number of removed instances.
 - maxlevels: With data containing missing values an unhelpful warning was given.
-- Some minor streamlining of code.
+- Some streamlining and consolidation of code for better maintenance.
 
 BUGFIXES
 - bin & optbin: In some borderline cases when the function addNA was used in preprocessing print.OneR stopped with an error.

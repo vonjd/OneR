@@ -68,7 +68,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
   } else as.factor(x))
   data[] <- lapply(data, function(x) if(any(is.na(as.character(x)))) ADDNA(x) else x)
   if (vec) { data <- unlist(data); names(data) <- NULL }
-  return(data)
+  data
 }
 
 #' Optimal Binning function
@@ -140,10 +140,10 @@ optbin <- function(data, formula = NULL, method = c("logreg", "infogain", "naive
   nbins <- length(unique(target))
   if (nbins <= 1) stop("number of target levels must be bigger than 1")
   data[] <- lapply(data, function(x) if (is.numeric(x)) {
-    if (length(unique(x)) <= nbins) as.factor(x) else do.call(method, list(x, target))
+    if (length(unique(x)) <= nbins) as.factor(x) else optcut(x, target, method)
   } else as.factor(x))
   data[] <- lapply(data, function(x) if(any(is.na(as.character(x)))) ADDNA(x) else x)
-  return(data)
+  data
 }
 
 #' Remove factors with too many levels
@@ -176,7 +176,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
   nlevels_new <- sapply(tmp, nlevels)
   if (sum(nlevels_new) < sum(nlevels_orig)) warning("data containes unused factor levels")
   cols <- nlevels_new <= maxlevels
-  return(data[cols])
+  data[cols]
 }
 
 #' Predict method for OneR models
@@ -220,7 +220,7 @@ predict.OneR <- function(object, newdata, type = c("class", "prob"), ...) {
     names(probrules) <- names(model$rules)
     return(t(sapply(features, function(x) if (is.null(probrules[[x]]) == TRUE) rep(NA, dim(model$cont_table)[1]) else probrules[[x]])))
   }
-  return(sapply(features, function(x) if (is.null(model$rules[[x]]) == TRUE) "UNSEEN" else model$rules[[x]]))
+  sapply(features, function(x) if (is.null(model$rules[[x]]) == TRUE) "UNSEEN" else model$rules[[x]])
 }
 
 #' Summarize OneR models
@@ -363,5 +363,5 @@ eval_model <- function(prediction, actual) {
   sum.conf.adj <- sum(conf[colnames(conf)[col(conf)] == rownames(conf)[row(conf)]])
   cat("\nAccuracy:\n", round(sum.conf.adj / sum(conf), 4), " (", sum.conf.adj, "/", sum(conf), ")", sep = "")
   cat("\n\nError rate:\n", round(1 - sum.conf.adj / sum(conf), 4), " (", sum(conf) - sum.conf.adj, "/", sum(conf), ")\n\n", sep = "")
-  return(invisible(list(correct_instances = sum.conf.adj, total_instances = sum(conf), conf_matrix = conf)))
+  invisible(list(correct_instances = sum.conf.adj, total_instances = sum(conf), conf_matrix = conf))
 }

@@ -91,5 +91,5 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
     print(M, quote = FALSE)
     cat("---\nChosen attribute due to accuracy\nand ties method (if applicable): '*'\n\n")
   }
-  return(output)
+  output
 }
