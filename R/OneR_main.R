@@ -76,7 +76,13 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
   majority <- lapply(groups, mode)
   feature <- names(data[ , best, drop = FALSE])
   cont_table <- table(c(data[target], data[feature]))
-  output <- c(call = call, target = target, feature = feature, rules = list(majority), correct_instances = max(perf), total_instances = nrow(data), cont_table = list(cont_table))
+  output <- c(call = call,
+              target = target,
+              feature = feature,
+              rules = list(majority),
+              correct_instances = max(perf),
+              total_instances = nrow(data),
+              cont_table = list(cont_table))
   class(output) <- "OneR"
   # additional diagnostic information if wanted
   if (verbose == TRUE) {
