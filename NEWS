@@ -5,6 +5,7 @@ NEW FEATURES
 - Added a vignette.
 - breastcancer: Breast Cancer Wisconsin Original Data Set now included in the package.
 - predict: New type "prob" which gives a matrix whose columns are the probability of the first, second, etc. class.
+- optbin: New method "infogain" (information gain) which is an entropy based method to determine the cutpoints which make the resulting bins as pure as possible.
 - OneR, optbin, maxlevels: Consistent handling of unused factor levels (e.g. due to subsetting) was added. These are dropped for analysis and a warning is given.
 
 MINOR IMPROVEMENTS
@@ -37,3 +38,9 @@ BUGFIXES
 - optbin: The method "logreg" stopped in some borderline cases with missing values with an error.
 - optbin: Some borderline cases could result in a "breaks are not unique" error.
 - OneR: In some borderline cases with very large datasets the numbering of printed ranks (verbose = TRUE) could be wrong due to rounding errors.
+
+
+OneR 1.2 (2016-06-20)
+=====================
+
+Initial release on CRAN

@@ -195,6 +195,8 @@ bin(c(1:10, NA), nbins = 2)
 
 optbin discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method "logreg") or as the means of the expected values of the respective classes ("naive"). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method "naive" should only be used when distributions are (approximately) normal, although in this case "logreg" should give comparable results, so it is the preferable (and therefore default) method.
 
+Method "infogain" is an entropy based method which calculates cut points based on information gain. The idea is that uncertainty is minimized by making the resulting bins as pure as possible. This method is the standard method of many decision tree algorithms.
+
 ### maxlevels
 
 maxlavels removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.

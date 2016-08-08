@@ -12,7 +12,7 @@
 
 <meta name="author" content="An R package by Holger K. von Jouanne-Diedrich" />
 
-<meta name="date" content="2016-08-05" />
+<meta name="date" content="2016-08-08" />
 
 <title>OneR - Establishing a New Baseline for Machine Learning Classification Models</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">OneR - Establishing a New Baseline for Machine Learning Classification Models</h1>
 <h4 class="author"><em>An R package by Holger K. von Jouanne-Diedrich</em></h4>
-<h4 class="date"><em>2016-08-05</em></h4>
+<h4 class="date"><em>2016-08-08</em></h4>
 
 
 
@@ -336,6 +336,7 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 <div id="optbin" class="section level3">
 <h3>optbin</h3>
 <p>optbin discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method “logreg”) or as the means of the expected values of the respective classes (“naive”). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method “naive” should only be used when distributions are (approximately) normal, although in this case “logreg” should give comparable results, so it is the preferable (and therefore default) method.</p>
+<p>Method “infogain” is an entropy based method which calculates cut points based on information gain. The idea is that uncertainty is minimized by making the resulting bins as pure as possible. This method is the standard method of many decision tree algorithms.</p>
 </div>
 <div id="maxlevels" class="section level3">
 <h3>maxlevels</h3>
