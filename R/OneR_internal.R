@@ -92,7 +92,7 @@ optcut <- function(x, target, method) {
     # Cutpoints are the means of the expected values of the respective target levels.
     breaks <- add_range(x, na.omit(filter(midpoints, c(1/2, 1/2))))
   } else {
-    midpoints <- sapply(xs, mean)
+    midpoints <- sapply(xs, mean, na.rm = TRUE)
     nl <- xs[order(midpoints)]
     pairs <- matrix(c(1:(length(nl) - 1), 2:length(nl)), ncol = 2, byrow = TRUE)
     if (method == "logreg") {

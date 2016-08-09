@@ -54,8 +54,8 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
     if (no_removed > 0) warning(paste(no_removed, "instance(s) removed due to missing values"))
   }
   if (!is.null(labels)) if (nbins != length(labels)) stop("number of 'nbins' and 'labels' differ")
-  if (nbins <= 1) stop("number of 'bins' must be bigger than 1")
-  data[] <- lapply(data, function(x) if (is.numeric(x) ) {
+  if (nbins <= 1) stop("nbins must be bigger than 1")
+  data[] <- lapply(data, function(x) if (is.numeric(x)) {
     if (length(unique(x)) <= nbins) as.factor(x)
     else {
       if (method == "content") nbins <- add_range(x, na.omit(quantile(x, (1:(nbins-1)/nbins), na.rm = TRUE)))
@@ -174,7 +174,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
   nlevels_orig <- sapply(tmp, nlevels)
   tmp <- droplevels(tmp)
   nlevels_new <- sapply(tmp, nlevels)
-  if (sum(nlevels_new) < sum(nlevels_orig)) warning("data containes unused factor levels")
+  if (sum(nlevels_new) < sum(nlevels_orig)) warning("data contains unused factor levels")
   cols <- nlevels_new <= maxlevels
   data[cols]
 }
@@ -350,7 +350,7 @@ is.OneR <- function(x) inherits(x, "OneR")
 eval_model <- function(prediction, actual) {
   if (is.list(actual) == FALSE) actual <- data.frame(actual)
   actual <- actual[ , ncol(actual)]
-  if (any(is.na(actual))) warning("actual contains missing values, results may be false")
+  if (any(is.na(actual))) warning("'actual' contains missing values, results may be false")
   if (typeof(as.vector(actual)) != typeof(prediction)) warning("data types of prediction and actual are different")
   conf <- table(prediction, actual)
   conf.m <- addmargins(conf)

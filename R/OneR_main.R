@@ -52,7 +52,7 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
   nlevels_orig <- sum(sapply(data, nlevels))
   data <- droplevels(data)
   nlevels_new <- sum(sapply(data, nlevels))
-  if (nlevels_new < nlevels_orig) warning("data containes unused factor levels")
+  if (nlevels_new < nlevels_orig) warning("data contains unused factor levels")
   # main routine
   perf <- c()
   for (iter in 1:(ncol(data) - 1)) {
