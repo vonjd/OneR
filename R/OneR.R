@@ -115,12 +115,13 @@ optbin <- function(data, formula = NULL, method = c("logreg", "infogain", "naive
     mf <- model.frame(formula = formula, data = data, na.action = NULL)
     data <- mf[c(2:ncol(mf), 1)]
   } else if (is.null(formula) == FALSE) stop("invalid formula")
-  if (is.list(data) == FALSE) data <- data.frame(data)
-  if (dim(data)[2] < 2) stop("data must have at least two columns")
-  if (is.numeric(unlist(data[ncol(data)])) == TRUE) {
-    data[ncol(data)] <- as.factor(unlist(data[ncol(data)]))
-    warning("target is numeric")
+  if (is.list(data) == FALSE) {
+    data <- data.frame(data)
+    warning("data is not a dataframe")
   }
+  if (dim(data)[2] < 2) stop("data must have at least two columns")
+  if (is.numeric(data[ , ncol(data)]) == TRUE) warning("target is numeric")
+  data[ncol(data)] <- as.factor(data[ , ncol(data)])
   if (na.omit == TRUE) {
     len_rows_orig <- nrow(data)
     data <- na.omit(data)
@@ -129,15 +130,14 @@ optbin <- function(data, formula = NULL, method = c("logreg", "infogain", "naive
     if (no_removed > 0) warning(paste(no_removed, "instance(s) removed due to missing values"))
   } else {
     # only add NA to target
-    if(any(is.na(unlist(data[ncol(data)])))) data[ncol(data)] <- ADDNA(unlist(data[ncol(data)]))
+    if(any(is.na(as.character(data[ , ncol(data)])))) data[ncol(data)] <- ADDNA(data[ , ncol(data)])
   }
   target <- data[ , ncol(data)]
   # Test if unused factor levels and drop them for analysis
   nlevels_orig <- nlevels(target)
   target <- droplevels(target)
-  nlevels_new <- nlevels(target)
-  if (nlevels_new < nlevels_orig) warning("target contains unused factor levels")
-  nbins <- length(unique(target))
+  nbins <- nlevels(target)
+  if (nbins < nlevels_orig) warning("target contains unused factor levels")
   if (nbins <= 1) stop("number of target levels must be bigger than 1")
   data[] <- lapply(data, function(x) if (is.numeric(x)) {
     if (length(unique(x)) <= nbins) as.factor(x) else optcut(x, target, method)
@@ -210,7 +210,7 @@ predict.OneR <- function(object, newdata, type = c("class", "prob"), ...) {
   if (is.numeric(data[ , index])) {
     levels <- names(model$rules)
     if (substring(levels[1], 1, 1) == "(" & grepl(",", levels[1]) == TRUE & substring(levels[1], nchar(levels[1]), nchar(levels[1])) == "]") {
-      features <- as.character(cut(unlist(data[ , index]), breaks = get_breaks(levels)))
+      features <- as.character(cut(data[ , index], breaks = get_breaks(levels)))
     } else features <- as.character(data[ , index])
   } else features <- as.character(data[ , index])
   features[is.na(features)] <- "NA"
