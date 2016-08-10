@@ -183,7 +183,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 0.04 (6/150)</code></pre>
 <p>Please note that the very good accuracy of 96% is reached effortlessly.</p>
 <p>“Petal.Width” is identified as the attribute with the highest predictive value. The cut points of the intervals are found automatically (via the included optbin function). The results are three very simple, yet accurate, rules to predict the respective species.</p>
-<p>The nearly perfect separation of the colors in the diagnostic plot give a good indication of the model’s ability to separate the different species.</p>
+<p>The nearly perfect separation of the areas in the diagnostic plot give a good indication of the model’s ability to separate the different species.</p>
 </div>
 <div id="a-more-sophisticated-real-world-example" class="section level2">
 <h2>A more sophisticated real-world example</h2>
@@ -264,8 +264,7 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 ## 
 ## Error rate:
 ## 0.0571 (8/140)</code></pre>
-<p>The best reported out-of-sample accuracy on this dataset was at 95.9% and it was reached with considerable effort. The reached accuracy for the test set here lies at 94.3%! This is achieved with just two simple rules!</p>
-<p>“Uniformity of Cell Size” is identified as the attribute with the highest predictive value. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the colors in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue. Additionally when you look at the distribution of misclassifications not a single malignant instance is missed, which is obviously very desirable in a clinical context.</p>
+<p>The best reported out-of-sample accuracy on this dataset was at 95.9% and it was reached with considerable effort. The reached accuracy for the test set here lies at 94.3%! This is achieved with just one simple rule that when “Uniformity of Cell Size” is bigger than 2 the examined tissue is malignant. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the areas in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue. Additionally when you look at the distribution of misclassifications not a single malignant instance is missed, which is obviously very desirable in a clinical context.</p>
 </div>
 <div id="included-functions" class="section level2">
 <h2>Included functions</h2>
