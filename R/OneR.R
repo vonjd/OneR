@@ -186,7 +186,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #' @param newdata dataframe in which to look for the feature variable with which to predict.
 #' @param type character string denoting the type of predicted value returned. Default \code{"class"} gives a named vector with the predicted classes, \code{"prob"} gives a matrix whose columns are the probability of the first, second, etc. class.
 #' @param ... further arguments passed to or from other methods.
-#' @return The default is a named vector with the predicted classes, if \code{"type = prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
+#' @return The default is a factor with the predicted classes, if \code{"type = prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
 #' @details \code{newdata} can have the same format as used for building the model but must at least have the feature variable that is used in the OneR rules.
 #' If cases appear that were not present when building the model the predicted case is \code{UNSEEN} or \code{NA} when \code{"type = prob"}.
 #' @author Holger von Jouanne-Diedrich

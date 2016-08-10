@@ -351,15 +351,24 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 </div>
 <div id="predict" class="section level3">
 <h3>predict</h3>
-<p>predict is a S3 method for predicting cases or probabilites based on OneR model objects. The default is a named vector with the predicted classes, if “type = prob” a matrix is returned whose columns are the probability of the first, second, etc. class.</p>
+<p>predict is a S3 method for predicting cases or probabilites based on OneR model objects. The default is a factor with the predicted classes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">OneR</span>(iris)
-<span class="kw">predict</span>(model, <span class="kw">data.frame</span>(<span class="dt">Petal.Width =</span> <span class="kw">seq</span>(<span class="fl">0.5</span>, <span class="fl">2.5</span>, <span class="fl">0.5</span>)), <span class="dt">type =</span> <span class="st">&quot;prob&quot;</span>)</code></pre></div>
+<span class="kw">predict</span>(model, <span class="kw">data.frame</span>(<span class="dt">Petal.Width =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.5</span>)))</code></pre></div>
+<pre><code>## (-Inf,0.0976] (0.0976,0.58]   (0.58,1.06]   (1.06,1.54]   (1.54,2.02] 
+##        UNSEEN        setosa    versicolor    versicolor     virginica 
+##    (2.02,2.5]    (2.5, Inf] 
+##     virginica        UNSEEN 
+## Levels: UNSEEN setosa versicolor virginica</code></pre>
+<p>If “type = prob” a matrix is returned whose columns are the probability of the first, second, etc. class.</p>
+<div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">predict</span>(model, <span class="kw">data.frame</span>(<span class="dt">Petal.Width =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.5</span>)), <span class="dt">type =</span> <span class="st">&quot;prob&quot;</span>)</code></pre></div>
 <pre><code>##               setosa versicolor  virginica
+## (-Inf,0.0976]     NA         NA         NA
 ## (0.0976,0.58]  1.000  0.0000000 0.00000000
 ## (0.58,1.06]    0.125  0.8750000 0.00000000
 ## (1.06,1.54]    0.000  0.9268293 0.07317073
 ## (1.54,2.02]    0.000  0.1724138 0.82758621
-## (2.02,2.5]     0.000  0.0000000 1.00000000</code></pre>
+## (2.02,2.5]     0.000  0.0000000 1.00000000
+## (2.5, Inf]        NA         NA         NA</code></pre>
 </div>
 <div id="eval_model" class="section level3">
 <h3>eval_model</h3>

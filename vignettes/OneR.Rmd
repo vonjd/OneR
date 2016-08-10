@@ -207,11 +207,17 @@ str(maxlevels(df))
 
 ### predict
 
-predict is a S3 method for predicting cases or probabilites based on OneR model objects. The default is a named vector with the predicted classes, if "type = prob" a matrix is returned whose columns are the probability of the first, second, etc. class.
+predict is a S3 method for predicting cases or probabilites based on OneR model objects. The default is a factor with the predicted classes.
 
 ```{r}
 model <- OneR(iris)
-predict(model, data.frame(Petal.Width = seq(0.5, 2.5, 0.5)), type = "prob")
+predict(model, data.frame(Petal.Width = seq(0, 3, 0.5)))
+```
+
+If "type = prob" a matrix is returned whose columns are the probability of the first, second, etc. class.
+
+```{r}
+predict(model, data.frame(Petal.Width = seq(0, 3, 0.5)), type = "prob")
 ```
 
 ### eval_model

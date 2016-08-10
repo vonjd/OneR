@@ -16,7 +16,7 @@
 \item{...}{further arguments passed to or from other methods.}
 }
 \value{
-The default is a named vector with the predicted classes, if \code{"type = prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
+The default is a factor with the predicted classes, if \code{"type = prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
 }
 \description{
 Predict cases or probabilities based on OneR model object.
