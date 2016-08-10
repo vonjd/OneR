@@ -3,7 +3,7 @@
 #' Binning function
 #'
 #' Discretizes all numerical data in a dataframe into categorical bins of equal length or content or based on automatically determined clusters.
-#' @param data dataframe which contains the data.
+#' @param data dataframe or vector which contains the data.
 #' @param nbins number of bins (= levels).
 #' @param labels character vector of labels for the resulting category.
 #' @param method character string specifying the binning method, see 'Details'; can be abbreviated.
@@ -312,7 +312,7 @@ print.OneR <- function(x, ...) {
 #' @export
 plot.OneR <- function(x, ...) {
   model <- x
-  if (any(dim(model$cont_table) > 20)) stop("cannot plot: more than 20 levels")
+  if (any(dim(model$cont_table) > 20)) stop("cannot plot more than 20 levels")
   mosaicplot(t(model$cont_table), color = TRUE, main = "OneR model diagnostic plot")
 }
 

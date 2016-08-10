@@ -8,7 +8,7 @@ bin(data, nbins = 5, labels = NULL, method = c("length", "content",
   "clusters"), na.omit = TRUE)
 }
 \arguments{
-\item{data}{dataframe which contains the data.}
+\item{data}{dataframe or vector which contains the data.}
 
 \item{nbins}{number of bins (= levels).}
 
