@@ -218,7 +218,9 @@ predict.OneR <- function(object, newdata, type = c("class", "prob"), ...) {
     probs <- prop.table(model$cont_table, margin = 2)
     probrules <- lapply(names(model$rules), function(x) probs[ , x])
     names(probrules) <- names(model$rules)
-    return(t(sapply(features, function(x) if (is.null(probrules[[x]]) == TRUE) rep(NA, dim(model$cont_table)[1]) else probrules[[x]])))
+    M <- t(sapply(features, function(x) if (is.null(probrules[[x]]) == TRUE) rep(NA, dim(model$cont_table)[1]) else probrules[[x]]))
+    colnames(M) <- rownames(model$cont_table)
+    return(M)
   }
   sapply(features, function(x) if (is.null(model$rules[[x]]) == TRUE) "UNSEEN" else model$rules[[x]])
 }
