@@ -12,6 +12,7 @@ MINOR IMPROVEMENTS
 - bin & optbin: In case of removing instances due to missing values the resulting warning gives the number of removed instances.
 - maxlevels: With data containing missing values an unhelpful warning was given.
 - predict: Numerical values that are smaller or bigger than model limits are now transformed into (-Inf, min] or (max, Inf] respectively.
+- predict: output of type "class" is a factor now.
 - Some streamlining and consolidation of code for better maintenance.
 
 BUGFIXES

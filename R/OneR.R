@@ -222,7 +222,7 @@ predict.OneR <- function(object, newdata, type = c("class", "prob"), ...) {
     colnames(M) <- rownames(model$cont_table)
     return(M)
   }
-  sapply(features, function(x) if (is.null(model$rules[[x]]) == TRUE) "UNSEEN" else model$rules[[x]])
+  factor(sapply(features, function(x) if (is.null(model$rules[[x]]) == TRUE) "UNSEEN" else model$rules[[x]]))
 }
 
 #' Summarize OneR models
