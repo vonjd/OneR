@@ -27,7 +27,7 @@ Dataset containing the original Wisconsin breast cancer data.
 }
 \examples{
 data(breastcancer)
-data <- optbin(breastcancer)
+data <- optbin(breastcancer, method = "infogain")
 model <- OneR(data, verbose = TRUE)
 summary(model)
 plot(model)

@@ -23,7 +23,7 @@
 #' @format A dataframe with 699 instances and 10 attributes. The variables are as follows:
 #' @examples
 #' data(breastcancer)
-#' data <- optbin(breastcancer)
+#' data <- optbin(breastcancer, method = "infogain")
 #' model <- OneR(data, verbose = TRUE)
 #' summary(model)
 #' plot(model)

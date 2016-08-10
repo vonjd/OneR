@@ -199,7 +199,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #'
 #' ## type prob
 #' predict(model, data.frame(Petal.Width = seq(0, 3, 0.5)))
-#' predict(model, data.frame(Petal.Width = seq(0, 2.5, 0.5), type = "prob"))
+#' predict(model, data.frame(Petal.Width = seq(0, 2.5, 0.5)), type = "prob")
 #' @export
 predict.OneR <- function(object, newdata, type = c("class", "prob"), ...) {
   type <- match.arg(type)
