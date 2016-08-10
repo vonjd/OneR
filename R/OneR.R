@@ -353,7 +353,7 @@ eval_model <- function(prediction, actual) {
   if (is.list(actual) == FALSE) actual <- data.frame(actual)
   actual <- actual[ , ncol(actual)]
   if (any(is.na(actual))) warning("'actual' contains missing values, results may be false")
-  if (typeof(as.vector(actual)) != typeof(prediction)) warning("data types of prediction and actual are different")
+  if (typeof(as.vector(actual)) != typeof(as.vector(prediction))) warning("data types of prediction and actual are different")
   conf <- table(prediction, actual)
   conf.m <- addmargins(conf)
   cat("\nConfusion matrix (absolute):\n")
