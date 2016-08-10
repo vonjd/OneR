@@ -32,7 +32,7 @@ eval_model(prediction, iris[5])
 
 ## type prob
 predict(model, data.frame(Petal.Width = seq(0, 3, 0.5)))
-predict(model, data.frame(Petal.Width = seq(0, 2.5, 0.5)), type = "prob")
+predict(model, data.frame(Petal.Width = seq(0, 3, 0.5)), type = "prob")
 }
 \author{
 Holger von Jouanne-Diedrich
