@@ -113,7 +113,7 @@ Divide training (80%) and test set (20%)
 ```{r}
 set.seed(12) # for reproducibility
 random <- sample(1:nrow(data), 0.8 * nrow(data))
-data_train <- optbin(data[random, ])
+data_train <- optbin(data[random, ], method = "infogain")
 data_test <- data[-random, ]
 ```
 
@@ -149,7 +149,7 @@ eval_model(prediction, data_test)
 
 The best reported out-of-sample accuracy on this dataset was at 95.9% and it was reached with considerable effort. The reached accuracy for the test set here lies at 94.3%! This is achieved with just two simple rules!
 
-"Uniformity of Cell Size" is identified as the attribute with the highest predictive value. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the colors in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue.
+"Uniformity of Cell Size" is identified as the attribute with the highest predictive value. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the colors in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue. Additionally when you look at the distribution of misclassifications not a single malignant instance is missed, which is obviously very desirable in a clinical context.
 
 ## Included functions
 

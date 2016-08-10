@@ -12,7 +12,7 @@
 
 <meta name="author" content="An R package by Holger K. von Jouanne-Diedrich" />
 
-<meta name="date" content="2016-08-09" />
+<meta name="date" content="2016-08-10" />
 
 <title>OneR - Establishing a New Baseline for Machine Learning Classification Models</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">OneR - Establishing a New Baseline for Machine Learning Classification Models</h1>
 <h4 class="author"><em>An R package by Holger K. von Jouanne-Diedrich</em></h4>
-<h4 class="date"><em>2016-08-09</em></h4>
+<h4 class="date"><em>2016-08-10</em></h4>
 
 
 
@@ -193,22 +193,22 @@ data &lt;-<span class="st"> </span>breastcancer</code></pre></div>
 <p>Divide training (80%) and test set (20%)</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">12</span>) <span class="co"># for reproducibility</span>
 random &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">nrow</span>(data), <span class="fl">0.8</span> *<span class="st"> </span><span class="kw">nrow</span>(data))
-data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[random, ])</code></pre></div>
-<pre><code>## Warning in optbin(data[random, ]): 12 instance(s) removed due to missing
-## values</code></pre>
+data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[random, ], <span class="dt">method =</span> <span class="st">&quot;infogain&quot;</span>)</code></pre></div>
+<pre><code>## Warning in optbin(data[random, ], method = &quot;infogain&quot;): 12 instance(s)
+## removed due to missing values</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_test &lt;-<span class="st"> </span>data[-random, ]</code></pre></div>
 <p>Train OneR model on training set</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_train &lt;-<span class="st"> </span><span class="kw">OneR</span>(data_train, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre></div>
 <pre><code>## 
 ##     Attribute                   Accuracy
-## 1 * Uniformity of Cell Size     92.69%  
-## 2   Uniformity of Cell Shape    91.77%  
-## 3   Bland Chromatin             90.31%  
-## 4   Bare Nuclei                 89.58%  
-## 5   Single Epithelial Cell Size 88.12%  
-## 6   Normal Nucleoli             86.29%  
-## 7   Marginal Adhesion           85.74%  
-## 8   Clump Thickness             84.46%  
+## 1 * Uniformity of Cell Size     92.32%  
+## 2   Uniformity of Cell Shape    91.59%  
+## 3   Bare Nuclei                 90.68%  
+## 4   Bland Chromatin             90.31%  
+## 5   Normal Nucleoli             90.13%  
+## 6   Single Epithelial Cell Size 89.4%   
+## 7   Marginal Adhesion           85.92%  
+## 8   Clump Thickness             84.28%  
 ## 9   Mitoses                     78.24%  
 ## ---
 ## Chosen attribute due to accuracy
@@ -220,26 +220,26 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 ## OneR(data = data_train, verbose = TRUE)
 ## 
 ## Rules:
-## If Uniformity of Cell Size = (0.991,3.15] then Class = benign
-## If Uniformity of Cell Size = (3.15,10]    then Class = malignant
+## If Uniformity of Cell Size = (0.991,2] then Class = benign
+## If Uniformity of Cell Size = (2,10]    then Class = malignant
 ## 
 ## Accuracy:
-## 507 of 547 instances classified correctly (92.69%)
+## 505 of 547 instances classified correctly (92.32%)
 ## 
 ## Contingency table:
 ##            Uniformity of Cell Size
-## Class       (0.991,3.15] (3.15,10] Sum
-##   benign           * 340         8 348
-##   malignant           32     * 167 199
-##   Sum                372       175 547
+## Class       (0.991,2] (2,10] Sum
+##   benign        * 318     30 348
+##   malignant        12  * 187 199
+##   Sum             330    217 547
 ## ---
 ## Maximum in each column: '*'
 ## 
 ## Pearson's Chi-squared test:
-## X-squared = 383.91, df = 1, p-value &lt; 2.2e-16</code></pre>
+## X-squared = 381.78, df = 1, p-value &lt; 2.2e-16</code></pre>
 <p>Plot model diagnostics</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">plot</span>(model_train)</code></pre></div>
-<p><img src="data:image/png;base64,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" alt /><!-- --></p>
+<p><img src="data:image/png;base64,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" alt /><!-- --></p>
 <p>Use trained model to predict test set</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">prediction &lt;-<span class="st"> </span><span class="kw">predict</span>(model_train, data_test)</code></pre></div>
 <p>Evaluate model performance on test set</p>
@@ -248,15 +248,15 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 ## Confusion matrix (absolute):
 ##            actual
 ## prediction  benign malignant Sum
-##   benign        97         5 102
-##   malignant      3        35  38
+##   benign        92         0  92
+##   malignant      8        40  48
 ##   Sum          100        40 140
 ## 
 ## Confusion matrix (relative):
 ##            actual
 ## prediction  benign malignant  Sum
-##   benign      0.69      0.04 0.73
-##   malignant   0.02      0.25 0.27
+##   benign      0.66      0.00 0.66
+##   malignant   0.06      0.29 0.34
 ##   Sum         0.71      0.29 1.00
 ## 
 ## Accuracy:
@@ -265,7 +265,7 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 ## Error rate:
 ## 0.0571 (8/140)</code></pre>
 <p>The best reported out-of-sample accuracy on this dataset was at 95.9% and it was reached with considerable effort. The reached accuracy for the test set here lies at 94.3%! This is achieved with just two simple rules!</p>
-<p>“Uniformity of Cell Size” is identified as the attribute with the highest predictive value. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the colors in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue.</p>
+<p>“Uniformity of Cell Size” is identified as the attribute with the highest predictive value. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the colors in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue. Additionally when you look at the distribution of misclassifications not a single malignant instance is missed, which is obviously very desirable in a clinical context.</p>
 </div>
 <div id="included-functions" class="section level2">
 <h2>Included functions</h2>

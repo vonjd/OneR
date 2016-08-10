@@ -26,7 +26,7 @@ data <- breastcancer
 ## ------------------------------------------------------------------------
 set.seed(12) # for reproducibility
 random <- sample(1:nrow(data), 0.8 * nrow(data))
-data_train <- optbin(data[random, ])
+data_train <- optbin(data[random, ], method = "infogain")
 data_test <- data[-random, ]
 
 ## ------------------------------------------------------------------------
