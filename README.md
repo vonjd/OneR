@@ -7,7 +7,7 @@ This video gives a step-by-step introduction: [Quick Start Guide for the OneR pa
 
 You can find the vignette here: [OneR - Establishing a New Baseline for Machine Learning Classification Models](https://cran.r-project.org/web/packages/OneR/vignettes/OneR.html)
 
-You can find the full documentation here: [OneR.pdf](http://cran.r-project.org/web/packages/OneR/OneR.pdf)
+You can find the full documentation here: [OneR.pdf](https://cran.r-project.org/web/packages/OneR/OneR.pdf)
 
 ## Installation
 
