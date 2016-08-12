@@ -5,7 +5,7 @@ This R package implements the One Rule (OneR) Machine Learning classification al
 
 This video gives a step-by-step introduction: [Quick Start Guide for the OneR package](https://www.youtube.com/watch?v=AGC0oRlXxgU)
 
-You can find the vignette here: [http://vonjd.github.io/OneR](http://vonjd.github.io/OneR)
+You can find the vignette here: [OneR - Establishing a New Baseline for Machine Learning Classification Models](https://cran.r-project.org/web/packages/OneR/vignettes/OneR.html)
 
 You can find the full documentation here: [OneR.pdf](http://cran.r-project.org/web/packages/OneR/OneR.pdf)
 
@@ -27,4 +27,4 @@ install.packages("OneR")
 
 ## Contact
 
-I would love to hear about your experiences with the OneR package. Please drop me a note - you can reach me at my university account: [Holger von Jouanne-Diedrich](https://www.h-ab.de/nc/eng/about-aschaffenburg-university-of-applied-sciences/organisation/personal/?tx_fhapersonal_pi1%5BshowUid%5D=jouanne-diedrich)
+I would love to hear about your experiences with the OneR package. Please drop me a note - you can reach me at my university account: [Holger K. von Jouanne-Diedrich](https://www.h-ab.de/nc/eng/about-aschaffenburg-university-of-applied-sciences/organisation/personal/?tx_fhapersonal_pi1%5BshowUid%5D=jouanne-diedrich)
