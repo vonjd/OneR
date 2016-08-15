@@ -238,7 +238,7 @@ help(package = OneR)
 
 ...or as a pdf here: [OneR.pdf](https://cran.r-project.org/web/packages/OneR/OneR.pdf)
 
-Issues can be posted here: http://github.com/vonjd/OneR/issues
+Issues can be posted here: https://github.com/vonjd/OneR/issues
 
 The latest version of the package (and full sourcecode) can be found here: https://github.com/vonjd/OneR
 
