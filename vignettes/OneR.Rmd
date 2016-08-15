@@ -4,7 +4,7 @@ author: "An R package by Holger K. von Jouanne-Diedrich"
 date: "`r Sys.Date()`"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{OneR}
+  %\VignetteIndexEntry{OneR - Establishing a New Baseline for Machine Learning Classification Models}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

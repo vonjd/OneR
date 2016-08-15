@@ -254,8 +254,8 @@ summary.OneR <- function(object, ...) {
   cat("Contingency table:\n")
   print(tbl, quote = FALSE, right = TRUE)
   cat("---\nMaximum in each column: '*'\n")
-  # Chi-squared test
-  digits = getOption("digits")
+  # chi-squared test
+  digits <- getOption("digits")
   x <- suppressWarnings(chisq.test(model$cont_table))
   cat("\nPearson's Chi-squared test:\n")
   out <- character()

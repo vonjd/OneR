@@ -2,7 +2,8 @@ OneR 2.0.1 (2016-XX-XX)
 =====================
 
 MINOR IMPROVEMENTS
-- some minor corrections in documentation.
+- Some minor corrections in documentation.
+- Some streamlining and consolidation of code for better maintenance.
 
 
 OneR 2.0 (2016-08-12)
