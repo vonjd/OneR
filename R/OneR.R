@@ -339,10 +339,10 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' @param prediction vector which contains the predicted values.
 #' @param actual dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.
 #' @param dimnames character vector of printed dimnames for the confusion matrices.
-#' @details Error rate reduction versus the base rate accuracy is calculated by the following formula:\cr
-#' \eqn{(Accuracy(Prediction) - Accuracy(Baserate)) / (1 - Accuracy(Baserate))},\cr
-#' giving a number between 0 (no error reduction) and 1 (no error).\cr
-#' In some borderline cases when the model is performing worse than the base rate negative numbers can result. This shows that something is seriously wrong with the model generating this prediction.\cr
+#' @details Error rate reduction versus the base rate accuracy is calculated by the following formula:\cr\cr
+#' \eqn{(Accuracy(Prediction) - Accuracy(Baserate)) / (1 - Accuracy(Baserate))},\cr\cr
+#' giving a number between 0 (no error reduction) and 1 (no error).\cr\cr
+#' In some borderline cases when the model is performing worse than the base rate negative numbers can result. This shows that something is seriously wrong with the model generating this prediction.\cr\cr
 #' The provided p-value gives the probability of obtaining a distribution of predictions like this (or even more unambiguous) under the assumption that the real accuracy is equal to or lower than the base rate accuracy.
 #' More technicaly it is derived from a one-sided binomial test with the alternative hypothesis that the prediction's accuracy is bigger than the base rate accuracy.
 #' Loosly speaking a low p-value (< 0.05) signifies that the model really is able to give predictions that are better than the base rate.
