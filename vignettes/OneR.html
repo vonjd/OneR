@@ -12,7 +12,7 @@
 
 <meta name="author" content="An R package by Holger K. von Jouanne-Diedrich" />
 
-<meta name="date" content="2016-08-15" />
+<meta name="date" content="2016-10-17" />
 
 <title>OneR - Establishing a New Baseline for Machine Learning Classification Models</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">OneR - Establishing a New Baseline for Machine Learning Classification Models</h1>
 <h4 class="author"><em>An R package by Holger K. von Jouanne-Diedrich</em></h4>
-<h4 class="date"><em>2016-08-15</em></h4>
+<h4 class="date"><em>2016-10-17</em></h4>
 
 
 
@@ -162,16 +162,16 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_model</span>(prediction, data)</code></pre></div>
 <pre><code>## 
 ## Confusion matrix (absolute):
-##             actual
-## prediction   setosa versicolor virginica Sum
+##             Actual
+## Prediction   setosa versicolor virginica Sum
 ##   setosa         50          0         0  50
 ##   versicolor      0         48         4  52
 ##   virginica       0          2        46  48
 ##   Sum            50         50        50 150
 ## 
 ## Confusion matrix (relative):
-##             actual
-## prediction   setosa versicolor virginica  Sum
+##             Actual
+## Prediction   setosa versicolor virginica  Sum
 ##   setosa       0.33       0.00      0.00 0.33
 ##   versicolor   0.00       0.32      0.03 0.35
 ##   virginica    0.00       0.01      0.31 0.32
@@ -181,7 +181,10 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 ## 0.96 (144/150)
 ## 
 ## Error rate:
-## 0.04 (6/150)</code></pre>
+## 0.04 (6/150)
+## 
+## Error rate reduction (vs. base rate):
+## 0.94 (p-value &lt; 2.2e-16)</code></pre>
 <p>Please note that the very good accuracy of 96% is reached effortlessly.</p>
 <p>“Petal.Width” is identified as the attribute with the highest predictive value. The cut points of the intervals are found automatically (via the included optbin function). The results are three very simple, yet accurate, rules to predict the respective species.</p>
 <p>The nearly perfect separation of the areas in the diagnostic plot give a good indication of the model’s ability to separate the different species.</p>
@@ -247,15 +250,15 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">eval_model</span>(prediction, data_test)</code></pre></div>
 <pre><code>## 
 ## Confusion matrix (absolute):
-##            actual
-## prediction  benign malignant Sum
+##            Actual
+## Prediction  benign malignant Sum
 ##   benign        92         0  92
 ##   malignant      8        40  48
 ##   Sum          100        40 140
 ## 
 ## Confusion matrix (relative):
-##            actual
-## prediction  benign malignant  Sum
+##            Actual
+## Prediction  benign malignant  Sum
 ##   benign      0.66      0.00 0.66
 ##   malignant   0.06      0.29 0.34
 ##   Sum         0.71      0.29 1.00
@@ -264,7 +267,10 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 ## 0.9429 (132/140)
 ## 
 ## Error rate:
-## 0.0571 (8/140)</code></pre>
+## 0.0571 (8/140)
+## 
+## Error rate reduction (vs. base rate):
+## 0.8 (p-value = 7.993e-12)</code></pre>
 <p>The best reported out-of-sample accuracy on this dataset was at 95.9% and it was reached with considerable effort. The reached accuracy for the test set here lies at 94.3%! This is achieved with just one simple rule that when “Uniformity of Cell Size” is bigger than 2 the examined tissue is malignant. The cut points of the intervals are again found automatically (via the included optbin function). The very good separation of the areas in the diagnostic plot give a good indication of the model’s ability to differentiate between benign and malignant tissue. Additionally when you look at the distribution of misclassifications not a single malignant instance is missed, which is obviously very desirable in a clinical context.</p>
 </div>
 <div id="included-functions" class="section level2">
@@ -373,7 +379,7 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 </div>
 <div id="eval_model" class="section level3">
 <h3>eval_model</h3>
-<p>eval_model is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument “actual” is a dataframe which contains the actual data in the last column. A single vector is allowed too.</p>
+<p>eval_model is a simple function for evaluating a OneR classification model. It prints confusion matrices with prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy, error rate as well as the error rate reduction versus the base rate accuracy together with a p-value. The second argument “actual” is a dataframe which contains the actual data in the last column. A single vector is allowed too.</p>
 <p>For the details please consult the available help entries.</p>
 </div>
 </div>
