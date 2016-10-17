@@ -224,7 +224,7 @@ predict(model, data.frame(Petal.Width = seq(0, 3, 0.5)), type = "prob")
 
 ### eval_model
 
-eval_model is a simple function for evaluating a OneR classification model, which is included in the package for convenience reasons. It prints prediction vs. actual in absolute and relative numbers. Additionally, it gives the accuracy and error rate. The second argument "actual" is a dataframe which contains the actual data in the last column. A single vector is allowed too.
+eval_model is a simple function for evaluating a OneR classification model. It prints confusion matrices with prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy, error rate as well as the error rate reduction versus the base rate accuracy together with a p-value. The second argument "actual" is a dataframe which contains the actual data in the last column. A single vector is allowed too.
 
 For the details please consult the available help entries.
 

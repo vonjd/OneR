@@ -335,9 +335,15 @@ is.OneR <- function(x) inherits(x, "OneR")
 
 #' Classification Evaluation function
 #'
-#' Function for evaluating a OneR classification model. Prints prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy and error rate.
+#' Function for evaluating a OneR classification model. Prints confusion matrices with prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy, error rate as well as the error rate reduction versus the base rate accuracy together with a p-value.
 #' @param prediction vector which contains the predicted values.
 #' @param actual dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.
+#' @param dimnames character vector of printed dimnames for the confusion matrix.
+#' @details Error rate reduction versus the base rate accuracy is calculated by the following formula: (Accuracy(Prediction) - Accuracy(Baserate)) / (1 - Accuracy(Baserate)), giving a number between 0 (no error reduction) and 1 (no error).
+#' In some borderline cases when the model is performing worse than the base rate negative numbers can result. This shows that something is seriously wrong with the model generating this prediction.
+#' The provided p-value gives the probability of obtaining a distribution of predictions like this (or even more unambiguous) under the assumption that the real accuracy is equal to or lower than the base rate accuracy.
+#' More technicaly it is derived from a one-sided binomial test with the alternative hypothesis that the prediction's accuracy is bigger than the base rate accuracy.
+#' Loosly speaking a low p-value (< 0.05) signifies that the model really is able to give predictions that are better than the base rate.
 #' @return Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.
 #' @author Holger von Jouanne-Diedrich
 #' @references \url{https://github.com/vonjd/OneR}
@@ -349,22 +355,47 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' prediction <- predict(model, data)
 #' eval_model(prediction, data)
 #' @importFrom stats addmargins
+#' @importFrom stats binom.test
 #' @export
-eval_model <- function(prediction, actual) {
-  if (is.list(actual) == FALSE) actual <- data.frame(actual)
+eval_model <- function (prediction, actual, dimnames = c("Prediction", "Actual")) {
+  if (any(is.na(prediction))) stop("prediction contains missing values")
+  prediction <- factor(prediction)
+  if (!is.list(actual)) actual <- data.frame(actual)
   actual <- actual[ , ncol(actual)]
-  if (any(is.na(actual))) warning("'actual' contains missing values, results may be false")
-  if (typeof(as.vector(actual)) != typeof(as.vector(prediction))) warning("data types of prediction and actual are different")
-  conf <- table(prediction, actual)
+  actual <- factor(actual)
+  if (any(is.na(actual))) actual <- ADDNA(actual)
+  # make sure that all levels are included in the same format and order in each set
+  all_levels <- sort(unique(c(levels(prediction), levels(actual))))
+  prediction <- factor(prediction, levels = all_levels, labels = all_levels)
+  actual <- factor(actual, levels = all_levels, labels = all_levels)
+  if (length(prediction) != length(actual)) stop("prediction and actual must have the same length")
+  # create and print confusion matrices
+  conf <- table(prediction, actual, dnn = dimnames)
   conf.m <- addmargins(conf)
   cat("\nConfusion matrix (absolute):\n")
   print(conf.m)
   conf.p <- prop.table(conf)
-  conf.pm <- round(addmargins(conf.p), 2)
+  conf.pm <- addmargins(conf.p)
   cat("\nConfusion matrix (relative):\n")
-  print(conf.pm)
-  sum.conf.adj <- sum(conf[colnames(conf)[col(conf)] == rownames(conf)[row(conf)]])
-  cat("\nAccuracy:\n", round(sum.conf.adj / sum(conf), 4), " (", sum.conf.adj, "/", sum(conf), ")", sep = "")
-  cat("\n\nError rate:\n", round(1 - sum.conf.adj / sum(conf), 4), " (", sum(conf) - sum.conf.adj, "/", sum(conf), ")\n\n", sep = "")
-  invisible(list(correct_instances = sum.conf.adj, total_instances = sum(conf), conf_matrix = conf))
+  print(round(conf.pm, 2))
+  # calculate and print performance measures
+  N <- sum(conf)
+  correct_class <- sum(diag(conf))
+  acc <- correct_class / N
+  cat("\nAccuracy:\n", round(acc, 4), " (", correct_class, "/", N, ")\n", sep = "")
+  error.rt <- 1 - acc
+  cat("\nError rate:\n", round(error.rt, 4), " (", N - correct_class, "/", N, ")\n", sep = "")
+  base.rt <- max(conf.pm[nrow(conf.pm), 1:(ncol(conf.pm) - 1)])
+  errordown.p <- (acc - base.rt) / (1 - base.rt)
+  # binomial test
+  digits <- getOption("digits")
+  out <- character()
+  x <- binom.test(correct_class, N, p = base.rt, alternative = "greater")
+  if (!is.null(x$p.value)) {
+    fp <- format.pval(x$p.value, digits = max(1L, digits - 3L))
+    out <- c(out, paste("p-value", if (substr(fp, 1L, 1L) == "<") fp else paste("=", fp)))
+  }
+  cat("\nError rate reduction (vs. base rate):\n", round(errordown.p, 4), " (", out, ")\n\n", sep = "")
+  # return list invisibly
+  invisible(list(correct_instances = correct_class, total_instances = N, conf_matrix = conf))
 }
