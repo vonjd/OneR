@@ -11,7 +11,7 @@ eval_model(prediction, actual, dimnames = c("Prediction", "Actual"))
 
 \item{actual}{dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.}
 
-\item{dimnames}{character vector of printed dimnames for the confusion matrix.}
+\item{dimnames}{character vector of printed dimnames for the confusion matrices.}
 }
 \value{
 Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.
@@ -20,7 +20,7 @@ Invisibly returns a list with the number of correctly classified and total insta
 Function for evaluating a OneR classification model. Prints confusion matrices with prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy, error rate as well as the error rate reduction versus the base rate accuracy together with a p-value.
 }
 \details{
-Error rate reduction versus the base rate accuracy is calculated by the following formula: (Accuracy(Prediction) - Accuracy(Baserate)) / (1 - Accuracy(Baserate)), giving a number between 0 (no error reduction) and 1 (no error).
+Error rate reduction versus the base rate accuracy is calculated by the following formula: \eqn{(Accuracy(Prediction) - Accuracy(Baserate)) / (1 - Accuracy(Baserate))}, giving a number between 0 (no error reduction) and 1 (no error).
 In some borderline cases when the model is performing worse than the base rate negative numbers can result. This shows that something is seriously wrong with the model generating this prediction.
 The provided p-value gives the probability of obtaining a distribution of predictions like this (or even more unambiguous) under the assumption that the real accuracy is equal to or lower than the base rate accuracy.
 More technicaly it is derived from a one-sided binomial test with the alternative hypothesis that the prediction's accuracy is bigger than the base rate accuracy.
