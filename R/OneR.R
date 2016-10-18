@@ -339,6 +339,7 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' @param prediction vector which contains the predicted values.
 #' @param actual dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.
 #' @param dimnames character vector of printed dimnames for the confusion matrices.
+#' @param zero.print character specifying how zeros should be printed; for sparse confusion matrices, using "." can produce more readable results.
 #' @details Error rate reduction versus the base rate accuracy is calculated by the following formula:\cr\cr
 #' \eqn{(Accuracy(Prediction) - Accuracy(Baserate)) / (1 - Accuracy(Baserate))},\cr\cr
 #' giving a number between 0 (no error reduction) and 1 (no error).\cr\cr
@@ -359,7 +360,7 @@ is.OneR <- function(x) inherits(x, "OneR")
 #' @importFrom stats addmargins
 #' @importFrom stats binom.test
 #' @export
-eval_model <- function (prediction, actual, dimnames = c("Prediction", "Actual")) {
+eval_model <- function (prediction, actual, dimnames = c("Prediction", "Actual"), zero.print = "0") {
   if (any(is.na(prediction))) stop("prediction contains missing values")
   prediction <- factor(prediction)
   if (!is.list(actual)) actual <- data.frame(actual)
@@ -375,11 +376,11 @@ eval_model <- function (prediction, actual, dimnames = c("Prediction", "Actual")
   conf <- table(prediction, actual, dnn = dimnames)
   conf.m <- addmargins(conf)
   cat("\nConfusion matrix (absolute):\n")
-  print(conf.m)
+  print(conf.m, zero.print = zero.print)
   conf.p <- prop.table(conf)
   conf.pm <- addmargins(conf.p)
   cat("\nConfusion matrix (relative):\n")
-  print(round(conf.pm, 2))
+  print(round(conf.pm, 2), zero.print = zero.print)
   # calculate and print performance measures
   N <- sum(conf)
   correct_class <- sum(diag(conf))

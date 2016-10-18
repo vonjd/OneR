@@ -4,7 +4,8 @@
 \alias{eval_model}
 \title{Classification Evaluation function}
 \usage{
-eval_model(prediction, actual, dimnames = c("Prediction", "Actual"))
+eval_model(prediction, actual, dimnames = c("Prediction", "Actual"),
+  zero.print = "0")
 }
 \arguments{
 \item{prediction}{vector which contains the predicted values.}
@@ -12,6 +13,8 @@ eval_model(prediction, actual, dimnames = c("Prediction", "Actual"))
 \item{actual}{dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.}
 
 \item{dimnames}{character vector of printed dimnames for the confusion matrices.}
+
+\item{zero.print}{character specifying how zeros should be printed; for sparse confusion matrices, using "." can produce more readable results.}
 }
 \value{
 Invisibly returns a list with the number of correctly classified and total instances and a confusion matrix with the absolute numbers.

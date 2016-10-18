@@ -2,7 +2,7 @@ OneR 2.1 (2016-10-XX)
 =====================
 
 NEW FEATURES
-- eval_model: All instances of "prediction" and "actual" are now being printed in the confusion matrices. A new argument "dimnames" was added for the printed dimnames of the confusion matrices. A new performance measure "error rate reduction versus the base rate accuracy" was added together with a p-value.
+- eval_model: All instances of "prediction" and "actual" are now being printed in the confusion matrices. Two new arguments were added: "dimnames" for the printed dimnames of the confusion matrices and "zero.print" specifying how zeros should be printed; for sparse confusion matrices, using "." can produce more readable results. A new performance measure "error rate reduction versus the base rate accuracy" was added together with a p-value.
 
 MINOR IMPROVEMENTS
 - Some minor corrections in documentation.
