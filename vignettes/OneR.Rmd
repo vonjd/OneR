@@ -236,7 +236,7 @@ From within R:
 help(package = OneR)
 ```
 
-...or as a pdf here: [OneR.pdf](https://cran.r-project.org/web/packages/OneR/OneR.pdf)
+...or as a pdf here: [OneR.pdf](https://cran.r-project.org/web/package=OneR/OneR.pdf)
 
 Issues can be posted here: https://github.com/vonjd/OneR/issues
 
@@ -252,4 +252,4 @@ I would love to hear about your experiences with the OneR package. Please drop m
 
 ## License
 
-This package is under [MIT License](https://cran.r-project.org/web/packages/OneR/LICENSE).
+This package is under [MIT License](https://cran.r-project.org/web/package=OneR/LICENSE).
