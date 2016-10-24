@@ -209,7 +209,7 @@ str(maxlevels(df))
 
 ### predict
 
-predict is a S3 method for predicting cases or probabilites based on OneR model objects. The default is a factor with the predicted classes.
+predict is a S3 method for predicting cases or probabilites based on OneR model objects. The second argument "newdata"" can have the same format as used for building the model but must at least have the feature variable that is used in the OneR rules. The default output is a factor with the predicted classes.
 
 ```{r}
 model <- OneR(iris)

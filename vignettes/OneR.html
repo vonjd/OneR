@@ -12,7 +12,7 @@
 
 <meta name="author" content="An R package by Holger K. von Jouanne-Diedrich" />
 
-<meta name="date" content="2016-10-17" />
+<meta name="date" content="2016-10-24" />
 
 <title>OneR - Establishing a New Baseline for Machine Learning Classification Models</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">OneR - Establishing a New Baseline for Machine Learning Classification Models</h1>
 <h4 class="author"><em>An R package by Holger K. von Jouanne-Diedrich</em></h4>
-<h4 class="date"><em>2016-10-17</em></h4>
+<h4 class="date"><em>2016-10-24</em></h4>
 
 
 
@@ -358,7 +358,7 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 </div>
 <div id="predict" class="section level3">
 <h3>predict</h3>
-<p>predict is a S3 method for predicting cases or probabilites based on OneR model objects. The default is a factor with the predicted classes.</p>
+<p>predict is a S3 method for predicting cases or probabilites based on OneR model objects. The second argument “newdata”&quot; can have the same format as used for building the model but must at least have the feature variable that is used in the OneR rules. The default output is a factor with the predicted classes.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model &lt;-<span class="st"> </span><span class="kw">OneR</span>(iris)
 <span class="kw">predict</span>(model, <span class="kw">data.frame</span>(<span class="dt">Petal.Width =</span> <span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">3</span>, <span class="fl">0.5</span>)))</code></pre></div>
 <pre><code>## (-Inf,0.0976] (0.0976,0.58]   (0.58,1.06]   (1.06,1.54]   (1.54,2.02] 
