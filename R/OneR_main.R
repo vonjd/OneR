@@ -56,10 +56,10 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
   # main routine
   perf <- c()
   for (iter in 1:(ncol(data) - 1)) {
-    groups <- split(data, data[ , iter])
-    majority <- lapply(groups, mode)
-    real <- lapply(groups, function(x) x[ , ncol(x)])
-    perf <- c(perf, sum(unlist(Map("==", real, majority))))
+    groups <- split(data[,ncol(data)], data[, iter])
+    mapping <- lapply(groups, function(x)names(sort(-table(x)))[1])
+    pred <- unlist(mapping)[data[,iter]]
+    perf <- c(perf, sum(data[,ncol(data)]==pred))
   }
   target <- names(data[ , ncol(data), drop = FALSE])
   best <- which(perf == max(perf))
@@ -72,8 +72,8 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
       best <- best[which.min(p.values)]
     } else best <- best[1]
   }
-  groups <- split(data, data[ , best])
-  majority <- lapply(groups, mode)
+  groups <- split(data[,ncol(data)], data[ , best])
+  majority <- lapply(groups, function(x)names(sort(-table(x)))[1])
   feature <- names(data[ , best, drop = FALSE])
   cont_table <- table(c(data[target], data[feature]))
   output <- c(call = call,
