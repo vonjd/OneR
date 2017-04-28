@@ -51,14 +51,14 @@ abline(v = c(42.9, 67.5, 96.1), col = "blue")
 bin(c(1:10, NA), nbins = 2, na.omit = FALSE) # adds new level "NA"
 bin(c(1:10, NA), nbins = 2)                  # omits missing values by default (with warning)
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{OneR}}, \code{\link{optbin}}
+}
+\author{
+Holger von Jouanne-Diedrich
 }
 \keyword{Jenks}
 \keyword{binning}
@@ -66,4 +66,3 @@ Holger von Jouanne-Diedrich
 \keyword{clusters}
 \keyword{discretization}
 \keyword{discretize}
-

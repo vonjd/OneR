@@ -50,16 +50,15 @@ model_opt <- OneR(data_opt, verbose = TRUE)
 summary(model_opt)
 
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{OneR}}, \code{\link{bin}}
 }
+\author{
+Holger von Jouanne-Diedrich
+}
 \keyword{binning}
 \keyword{discretization}
 \keyword{discretize}
-

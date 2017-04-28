@@ -31,13 +31,12 @@ df <- data.frame(numeric = c(1:26), alphabet = letters)
 str(df)
 str(maxlevels(df))
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{OneR}}
 }
-
+\author{
+Holger von Jouanne-Diedrich
+}

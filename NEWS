@@ -1,8 +1,19 @@
+OneR 2.2 (2017-xx-xx)
+=====================
+
+MAJOR IMPORVEMENTS
+- OneR: massive speedup of main OneR function (> 30 times faster).
+
+MINOR IMPROVEMENTS
+- optbin: speedup of method "infogain"
+- Some minor corrections in documentation.
+
+
 OneR 2.1 (2016-10-24)
 =====================
 
 NEW FEATURES
-- eval_model: All instances of "prediction" and "actual" are now being printed in the confusion matrices. Two new arguments were added: "dimnames" for the printed dimnames of the confusion matrices and "zero.print" specifying how zeros should be printed; for sparse confusion matrices, using "." can produce more readable results. A new performance measure "error rate reduction versus the base rate accuracy" was added together with a p-value.
+- eval_model: all instances of "prediction" and "actual" are now being printed in the confusion matrices. Two new arguments were added: "dimnames" for the printed dimnames of the confusion matrices and "zero.print" specifying how zeros should be printed; for sparse confusion matrices, using "." can produce more readable results. A new performance measure "error rate reduction versus the base rate accuracy" was added together with a p-value.
 
 MINOR IMPROVEMENTS
 - Some minor corrections in documentation.
@@ -15,42 +26,42 @@ OneR 2.0 (2016-08-12)
 NEW FEATURES
 - Added a vignette.
 - breastcancer: Breast Cancer Wisconsin Original Data Set now included in the package.
-- predict: New type "prob" which gives a matrix whose columns are the probability of the first, second, etc. class.
-- optbin: New method "infogain" (information gain) which is an entropy based method to determine the cutpoints which make the resulting bins as pure as possible.
-- OneR, optbin, maxlevels: Consistent handling of unused factor levels (e.g. due to subsetting) was added. These are dropped for analysis and a warning is given.
+- predict: new type "prob" which gives a matrix whose columns are the probability of the first, second, etc. class.
+- optbin: new method "infogain" (information gain) which is an entropy based method to determine the cutpoints which make the resulting bins as pure as possible.
+- OneR, optbin, maxlevels: consistent handling of unused factor levels (e.g. due to subsetting) was added. These are dropped for analysis and a warning is given.
 
 MINOR IMPROVEMENTS
-- bin & optbin: In case of removing instances due to missing values the resulting warning gives the number of removed instances.
-- maxlevels: With data containing missing values an unhelpful warning was given.
-- predict: Numerical values that are smaller or bigger than model limits are now transformed into (-Inf, min] or (max, Inf] respectively.
+- bin & optbin: in case of removing instances due to missing values the resulting warning gives the number of removed instances.
+- maxlevels: with data containing missing values an unhelpful warning was given.
+- predict: numerical values that are smaller or bigger than model limits are now transformed into (-Inf, min] or (max, Inf] respectively.
 - predict: output of type "class" is a factor now.
 - Some streamlining and consolidation of code for better maintenance.
 
 BUGFIXES
-- bin & optbin: In some borderline cases when the function addNA was used in preprocessing print.OneR stopped with an error.
+- bin & optbin: in some borderline cases when the function addNA was used in preprocessing print.OneR stopped with an error.
 
 
 OneR 1.3 (2016-07-22)
 =====================
 
 NEW FEATURES
-- bin: New method "clusters", which determines the bins according to automatically determined clusters in the data.
-- OneR: A new element "call" with the specified arguments of the actual function call was added to the internal class structure of OneR objects.
-- print & summary: The function call with the specified arguments which was used to build the model is printed first.
+- bin: new method "clusters", which determines the bins according to automatically determined clusters in the data.
+- OneR: a new element "call" with the specified arguments of the actual function call was added to the internal class structure of OneR objects.
+- print & summary: the function call with the specified arguments which was used to build the model is printed first.
 
 MINOR IMPROVEMENTS
-- bin & optbin: In cases where there were missing values and already a factor level "NA" the functions gave an unhelpful warning.
-- eval_model: Added warning when actual contains missing values.
-- eval_model: Added "Confusion matrix" to printout for clarity.
+- bin & optbin: in cases where there were missing values and already a factor level "NA" the functions gave an unhelpful warning.
+- eval_model: added warning when actual contains missing values.
+- eval_model: added "Confusion matrix" to printout for clarity.
 - Extension of and minor corrections in documentation
 - Some minor streamlining of code.
 
 BUGFIXES
-- predict: The combination of intervals and "NA"s caused an error.
-- bin: The method "content" stopped with an error in case of missing values.
-- optbin: The method "logreg" stopped in some borderline cases with missing values with an error.
-- optbin: Some borderline cases could result in a "breaks are not unique" error.
-- OneR: In some borderline cases with very large datasets the numbering of printed ranks (verbose = TRUE) could be wrong due to rounding errors.
+- predict: the combination of intervals and "NA"s caused an error.
+- bin: the method "content" stopped with an error in case of missing values.
+- optbin: the method "logreg" stopped in some borderline cases with missing values with an error.
+- optbin: some borderline cases could result in a "breaks are not unique" error.
+- OneR: in some borderline cases with very large datasets the numbering of printed ranks (verbose = TRUE) could be wrong due to rounding errors.
 
 
 OneR 1.2 (2016-06-20)

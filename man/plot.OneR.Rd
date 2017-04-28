@@ -21,14 +21,13 @@ If more than 20 levels are present for either the feature attribute or the targe
 model <- OneR(iris)
 plot(model)
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{OneR}}
 }
+\author{
+Holger von Jouanne-Diedrich
+}
 \keyword{diagnostics}
-

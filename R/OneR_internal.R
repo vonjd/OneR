@@ -18,6 +18,10 @@ CUT <- function(x, breaks, ...) {
   cut(x, breaks = unique(breaks.f), ...)
 }
 
+nerrors <- function(x) {
+  sum(rowSums(x) - apply(x, 1, max))
+}
+
 mode <- function(x) {
   names(sort(-table(x[ , ncol(x)])))[1]
 }
@@ -75,9 +79,9 @@ infogain_midpoint <- function(data) {
   aboves <- lapply(midpoints, function(x) as.character(data[numvar > x, 2]))
   below_entropies <- sapply(belows, function(x) length(x)/length(target) * entropy(x))
   above_entropies <- sapply(aboves, function(x) length(x)/length(target) * entropy(x))
-  # calculate information gains and chose highest one
-  infogains <- entropy(target) - (below_entropies + above_entropies)
-  midpoints[which.max(infogains)]
+  # calculate entropies after split and choose lowest
+  after_entropies <- below_entropies + above_entropies
+  midpoints[which.min(after_entropies)]
 }
 
 #' @importFrom stats na.omit

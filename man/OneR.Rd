@@ -48,17 +48,16 @@ plot(model)
 prediction <- predict(model, data)
 eval_model(prediction, data)
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{bin}}, \code{\link{optbin}}, \code{\link{eval_model}}, \code{\link{maxlevels}}
 }
+\author{
+Holger von Jouanne-Diedrich
+}
 \keyword{1R}
 \keyword{One}
 \keyword{OneR}
 \keyword{Rule}
-

@@ -23,14 +23,13 @@ In the contingency table the maximum values in each column are highlighted by ad
 model <- OneR(iris)
 summary(model)
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{OneR}}
 }
+\author{
+Holger von Jouanne-Diedrich
+}
 \keyword{diagnostics}
-

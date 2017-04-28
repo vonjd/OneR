@@ -1,8 +1,8 @@
 Package: OneR
 Type: Package
 Title: One Rule Machine Learning Classification Algorithm with Enhancements
-Version: 2.1
-Date: 2016-10-24
+Version: 2.2
+Date: 2017-xx-xx
 Author: Holger von Jouanne-Diedrich
 Maintainer: Holger von Jouanne-Diedrich <holger.jouanne-diedrich@h-ab.de>
 Depends: R (>= 2.10)
@@ -11,7 +11,7 @@ License: MIT + file LICENSE
 URL: https://github.com/vonjd/OneR
 BugReports: https://github.com/vonjd/OneR/issues
 LazyData: TRUE
-RoxygenNote: 5.0.1
+RoxygenNote: 6.0.1
 Suggests: knitr,
     rmarkdown
 VignetteBuilder: knitr

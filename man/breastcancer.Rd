@@ -42,4 +42,3 @@ The data were obtained from the UCI machine learning repository, see \url{https:
 \keyword{cancer}
 \keyword{data}
 \keyword{datasets}
-

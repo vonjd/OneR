@@ -21,13 +21,12 @@ Prints the rules and the accuracy of an OneR model.
 model <- OneR(iris)
 print(model)
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{OneR}}
 }
-
+\author{
+Holger von Jouanne-Diedrich
+}

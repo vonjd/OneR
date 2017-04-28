@@ -48,21 +48,18 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
   if (dim(data.frame(data))[2] < 2) stop("data must have at least two columns")
   data <- bin(data)
   if (nrow(data) == 0) stop("no data to analyse")
-  # Test if unused factor levels and drop them for analysis
+  # test if unused factor levels and drop them for analysis
   nlevels_orig <- sum(sapply(data, nlevels))
   data <- droplevels(data)
   nlevels_new <- sum(sapply(data, nlevels))
   if (nlevels_new < nlevels_orig) warning("data contains unused factor levels")
-  # main routine
-  perf <- c()
-  for (iter in 1:(ncol(data) - 1)) {
-    groups <- split(data, data[ , iter])
-    majority <- lapply(groups, mode)
-    real <- lapply(groups, function(x) x[ , ncol(x)])
-    perf <- c(perf, sum(unlist(Map("==", real, majority))))
-  }
+  # main routine for finding the best predictor(s)
+  tables <- lapply(data[ , 1:(ncol(data)-1)], table, data[ , ncol(data)])
+  errors <- sapply(tables, nerrors)
+  perf <- nrow(data) - errors
   target <- names(data[ , ncol(data), drop = FALSE])
   best <- which(perf == max(perf))
+  # method "chisq
   if (length(best) > 1) {
     if (method == "chisq") {
       features <- names(data[ , best, drop = FALSE])
@@ -72,7 +69,8 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
       best <- best[which.min(p.values)]
     } else best <- best[1]
   }
-  groups <- split(data, data[ , best])
+  # preparation and output of results
+  groups <- split(data[ , ncol(data), drop = FALSE], data[ , best])
   majority <- lapply(groups, mode)
   feature <- names(data[ , best, drop = FALSE])
   cont_table <- table(c(data[target], data[feature]))
@@ -84,7 +82,7 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
               total_instances = nrow(data),
               cont_table = list(cont_table))
   class(output) <- "OneR"
-  # additional diagnostic information if wanted
+  # print additional diagnostic information if wanted
   if (verbose == TRUE) {
     newbest <- which(which(perf == max(perf)) == best)
     accs <- round(100 * sort(perf, decreasing = TRUE) / nrow(data), 2)

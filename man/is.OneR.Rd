@@ -19,12 +19,11 @@ Test if object is a OneR model.
 model <- OneR(iris)
 is.OneR(model) # evaluates to TRUE
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
+\author{
+Holger von Jouanne-Diedrich
+}
 \keyword{OneR}
 \keyword{model}
-

@@ -38,12 +38,11 @@ summary(model)
 prediction <- predict(model, data)
 eval_model(prediction, data)
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
+\author{
+Holger von Jouanne-Diedrich
+}
 \keyword{accuracy}
 \keyword{evaluation}
-

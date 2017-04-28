@@ -34,13 +34,12 @@ eval_model(prediction, iris[5])
 predict(model, data.frame(Petal.Width = seq(0, 3, 0.5)))
 predict(model, data.frame(Petal.Width = seq(0, 3, 0.5)), type = "prob")
 }
-\author{
-Holger von Jouanne-Diedrich
-}
 \references{
 \url{https://github.com/vonjd/OneR}
 }
 \seealso{
 \code{\link{OneR}}
 }
-
+\author{
+Holger von Jouanne-Diedrich
+}
