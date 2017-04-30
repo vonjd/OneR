@@ -54,7 +54,7 @@ OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbos
   nlevels_new <- sum(sapply(data, nlevels))
   if (nlevels_new < nlevels_orig) warning("data contains unused factor levels")
   # main routine for finding the best predictor(s)
-  tables <- lapply(data[ , 1:(ncol(data)-1)], table, data[ , ncol(data)])
+  tables <- lapply(data[ , 1:(ncol(data)-1), drop = FALSE], table, data[ , ncol(data)])
   errors <- sapply(tables, nerrors)
   perf <- nrow(data) - errors
   target <- names(data[ , ncol(data), drop = FALSE])
