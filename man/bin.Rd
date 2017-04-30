@@ -8,7 +8,7 @@ bin(data, nbins = 5, labels = NULL, method = c("length", "content",
   "clusters"), na.omit = TRUE)
 }
 \arguments{
-\item{data}{dataframe or vector which contains the data.}
+\item{data}{data frame or vector which contains the data.}
 
 \item{nbins}{number of bins (= levels).}
 
@@ -19,13 +19,13 @@ bin(data, nbins = 5, labels = NULL, method = c("length", "content",
 \item{na.omit}{logical value whether instances with missing values should be removed.}
 }
 \value{
-A dataframe or vector.
+A data frame or vector.
 }
 \description{
-Discretizes all numerical data in a dataframe into categorical bins of equal length or content or based on automatically determined clusters.
+Discretizes all numerical data in a data frame into categorical bins of equal length or content or based on automatically determined clusters.
 }
 \details{
-Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. When called with a single vector only the respective factor (and not a dataframe) is returned.
+Character strings and logical strings are coerced into factors. Matrices are coerced into data frames. When called with a single vector only the respective factor (and not a data frame) is returned.
 Method \code{"length"} gives intervals of equal length, method \code{"content"} gives intervals of equal content (via quantiles).
 Method \code{"clusters"} determins \code{"nbins"} clusters via 1D kmeans with deterministic seeding of the initial cluster centres (Jenks natural breaks optimization).
 

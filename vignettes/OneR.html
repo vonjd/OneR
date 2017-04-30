@@ -12,7 +12,7 @@
 
 <meta name="author" content="An R package by Holger K. von Jouanne-Diedrich" />
 
-<meta name="date" content="2017-04-28" />
+<meta name="date" content="2017-04-30" />
 
 <title>OneR - Establishing a New Baseline for Machine Learning Classification Models</title>
 
@@ -70,7 +70,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">OneR - Establishing a New Baseline for Machine Learning Classification Models</h1>
 <h4 class="author"><em>An R package by Holger K. von Jouanne-Diedrich</em></h4>
-<h4 class="date"><em>2017-04-28</em></h4>
+<h4 class="date"><em>2017-04-30</em></h4>
 
 
 
@@ -281,7 +281,7 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 </div>
 <div id="bin" class="section level3">
 <h3>bin</h3>
-<p>bin discretizes all numerical data in a dataframe into categorical bins of equal length or equal content or based on automatically determined clusters.</p>
+<p>bin discretizes all numerical data in a data frame into categorical bins of equal length or equal content or based on automatically determined clusters.</p>
 <p>Examples</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data &lt;-<span class="st"> </span>iris
 <span class="kw">str</span>(data)</code></pre></div>
@@ -341,12 +341,12 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 </div>
 <div id="optbin" class="section level3">
 <h3>optbin</h3>
-<p>optbin discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method “logreg”) or as the means of the expected values of the respective classes (“naive”). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method “naive” should only be used when distributions are (approximately) normal, although in this case “logreg” should give comparable results, so it is the preferable (and therefore default) method.</p>
+<p>optbin discretizes all numerical data in a data frame into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method “logreg”) or as the means of the expected values of the respective classes (“naive”). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method “naive” should only be used when distributions are (approximately) normal, although in this case “logreg” should give comparable results, so it is the preferable (and therefore default) method.</p>
 <p>Method “infogain” is an entropy based method which calculates cut points based on information gain. The idea is that uncertainty is minimized by making the resulting bins as pure as possible. This method is the standard method of many decision tree algorithms.</p>
 </div>
 <div id="maxlevels" class="section level3">
 <h3>maxlevels</h3>
-<p>maxlavels removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.</p>
+<p>maxlavels removes all columns of a data frame where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">numeric =</span> <span class="kw">c</span>(<span class="dv">1</span>:<span class="dv">26</span>), <span class="dt">alphabet =</span> letters)
 <span class="kw">str</span>(df)</code></pre></div>
 <pre><code>## 'data.frame':    26 obs. of  2 variables:
@@ -379,7 +379,7 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 </div>
 <div id="eval_model" class="section level3">
 <h3>eval_model</h3>
-<p>eval_model is a simple function for evaluating a OneR classification model. It prints confusion matrices with prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy, error rate as well as the error rate reduction versus the base rate accuracy together with a p-value. The second argument “actual” is a dataframe which contains the actual data in the last column. A single vector is allowed too.</p>
+<p>eval_model is a simple function for evaluating a OneR classification model. It prints confusion matrices with prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy, error rate as well as the error rate reduction versus the base rate accuracy together with a p-value. The second argument “actual” is a data frame which contains the actual data in the last column. A single vector is allowed too.</p>
 <p>For the details please consult the available help entries.</p>
 </div>
 </div>

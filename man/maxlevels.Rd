@@ -7,17 +7,17 @@
 maxlevels(data, maxlevels = 20, na.omit = TRUE)
 }
 \arguments{
-\item{data}{dataframe which contains the data.}
+\item{data}{data frame which contains the data.}
 
 \item{maxlevels}{number of maximum factor levels.}
 
 \item{na.omit}{logical value whether missing values should be treated as a level, defaults to omit missing values before counting.}
 }
 \value{
-A dataframe.
+A data frame.
 }
 \description{
-Removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels.
+Removes all columns of a data frame where a factor (or character string) has more than a maximum number of levels.
 }
 \details{
 Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit.

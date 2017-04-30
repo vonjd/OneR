@@ -159,7 +159,7 @@ OneR is the main function of the package. It builds a model according to the One
 
 ### bin
 
-bin discretizes all numerical data in a dataframe into categorical bins of equal length or equal content or based on automatically determined clusters.
+bin discretizes all numerical data in a data frame into categorical bins of equal length or equal content or based on automatically determined clusters.
 
 Examples
 ```{r}
@@ -193,13 +193,13 @@ bin(c(1:10, NA), nbins = 2)
 
 ### optbin
 
-optbin discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method "logreg") or as the means of the expected values of the respective classes ("naive"). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method "naive" should only be used when distributions are (approximately) normal, although in this case "logreg" should give comparable results, so it is the preferable (and therefore default) method.
+optbin discretizes all numerical data in a data frame into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned. When building a OneR model this could result in fewer rules with enhanced accuracy. The cutpoints are calculated by pairwise logistic regressions (method "logreg") or as the means of the expected values of the respective classes ("naive"). The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method "naive" should only be used when distributions are (approximately) normal, although in this case "logreg" should give comparable results, so it is the preferable (and therefore default) method.
 
 Method "infogain" is an entropy based method which calculates cut points based on information gain. The idea is that uncertainty is minimized by making the resulting bins as pure as possible. This method is the standard method of many decision tree algorithms.
 
 ### maxlevels
 
-maxlavels removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.
+maxlavels removes all columns of a data frame where a factor (or character string) has more than a maximum number of levels. Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit. Examples are IDs or names.
 
 ```{r}
 df <- data.frame(numeric = c(1:26), alphabet = letters)
@@ -224,7 +224,7 @@ predict(model, data.frame(Petal.Width = seq(0, 3, 0.5)), type = "prob")
 
 ### eval_model
 
-eval_model is a simple function for evaluating a OneR classification model. It prints confusion matrices with prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy, error rate as well as the error rate reduction versus the base rate accuracy together with a p-value. The second argument "actual" is a dataframe which contains the actual data in the last column. A single vector is allowed too.
+eval_model is a simple function for evaluating a OneR classification model. It prints confusion matrices with prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy, error rate as well as the error rate reduction versus the base rate accuracy together with a p-value. The second argument "actual" is a data frame which contains the actual data in the last column. A single vector is allowed too.
 
 For the details please consult the available help entries.
 

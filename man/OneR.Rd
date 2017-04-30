@@ -8,7 +8,7 @@ OneR(data, formula = NULL, ties.method = c("first", "chisq"),
   verbose = FALSE)
 }
 \arguments{
-\item{data}{dataframe, which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.}
+\item{data}{data frame, which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.}
 
 \item{formula}{formula interface for the \code{OneR} function.}
 

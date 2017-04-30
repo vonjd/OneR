@@ -5,7 +5,7 @@ MAJOR IMPORVEMENTS
 - OneR: massive speedup of main OneR function (> 30 times faster).
 
 MINOR IMPROVEMENTS
-- optbin: speedup of method "infogain"
+- optbin: speedup of method "infogain".
 - Some minor corrections in documentation.
 
 

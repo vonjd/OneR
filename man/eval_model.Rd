@@ -10,7 +10,7 @@ eval_model(prediction, actual, dimnames = c("Prediction", "Actual"),
 \arguments{
 \item{prediction}{vector which contains the predicted values.}
 
-\item{actual}{dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.}
+\item{actual}{data frame which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.}
 
 \item{dimnames}{character vector of printed dimnames for the confusion matrices.}
 

@@ -3,7 +3,7 @@
 #' One Rule function
 #'
 #' Builds a model according to the One Rule (OneR) machine learning classification algorithm.
-#' @param data dataframe, which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
+#' @param data data frame, which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
 #' @param formula formula interface for the \code{OneR} function.
 #' @param ties.method character string specifying how ties are treated, see 'Details'; can be abbreviated.
 #' @param verbose If \code{TRUE} prints rank, names and predictive accuracy of the attributes in decreasing order (with \code{ties.method = "first"}).

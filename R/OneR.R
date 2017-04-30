@@ -2,15 +2,15 @@
 
 #' Binning function
 #'
-#' Discretizes all numerical data in a dataframe into categorical bins of equal length or content or based on automatically determined clusters.
-#' @param data dataframe or vector which contains the data.
+#' Discretizes all numerical data in a data frame into categorical bins of equal length or content or based on automatically determined clusters.
+#' @param data data frame or vector which contains the data.
 #' @param nbins number of bins (= levels).
 #' @param labels character vector of labels for the resulting category.
 #' @param method character string specifying the binning method, see 'Details'; can be abbreviated.
 #' @param na.omit logical value whether instances with missing values should be removed.
-#' @return A dataframe or vector.
+#' @return A data frame or vector.
 #' @keywords binning discretization discretize clusters Jenks breaks
-#' @details Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. When called with a single vector only the respective factor (and not a dataframe) is returned.
+#' @details Character strings and logical strings are coerced into factors. Matrices are coerced into data frames. When called with a single vector only the respective factor (and not a data frame) is returned.
 #' Method \code{"length"} gives intervals of equal length, method \code{"content"} gives intervals of equal content (via quantiles).
 #' Method \code{"clusters"} determins \code{"nbins"} clusters via 1D kmeans with deterministic seeding of the initial cluster centres (Jenks natural breaks optimization).
 #'
@@ -44,7 +44,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
   method <- match.arg(method)
   vec <- FALSE
   if (is.atomic(data) == TRUE & is.null(dim(data)) == TRUE) { vec <- TRUE; data <- data.frame(data) }
-  # could be a matrix -> dataframe (even with only one column)
+  # could be a matrix -> data frame (even with only one column)
   if (is.list(data) == FALSE) data <- data.frame(data)
   if (na.omit == TRUE) {
     len_rows_orig <- nrow(data)
@@ -73,13 +73,13 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 
 #' Optimal Binning function
 #'
-#' Discretizes all numerical data in a dataframe into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned.
+#' Discretizes all numerical data in a data frame into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned.
 #' When building a OneR model this could result in fewer rules with enhanced accuracy.
-#' @param data dataframe which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
+#' @param data data frame which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
 #' @param formula formula interface for the \code{optbin} function.
 #' @param method character string specifying the method for optimal binning, see 'Details'; can be abbreviated.
 #' @param na.omit logical value whether instances with missing values should be removed.
-#' @return A dataframe with the target variable being in the last column.
+#' @return A data frame with the target variable being in the last column.
 #' @keywords binning discretization discretize
 #' @details The cutpoints are calculated by pairwise logistic regressions (method \code{"logreg"}), information gain (method \code{"infogain"}) or as the means of the expected values of the respective classes (\code{"naive"}).
 #' The function is likely to give unsatisfactory results when the distributions of the respective classes are not (linearly) separable. Method \code{"naive"} should only be used when distributions are (approximately) normal,
@@ -87,7 +87,7 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #'
 #' Method \code{"infogain"} is an entropy based method which calculates cut points based on information gain. The idea is that uncertainty is minimized by making the resulting bins as pure as possible. This method is the standard method of many decision tree algorithms.
 #'
-#' Character strings and logical strings are coerced into factors. Matrices are coerced into dataframes. If the target is numeric it is turned into a factor with the number of levels equal to the number of values. Additionally a warning is given.
+#' Character strings and logical strings are coerced into factors. Matrices are coerced into data frames. If the target is numeric it is turned into a factor with the number of levels equal to the number of values. Additionally a warning is given.
 #'
 #' When \code{"na.omit = FALSE"} an additional level \code{"NA"} is added to each factor with missing values.
 #' If the target contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
@@ -117,7 +117,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "infogain", "naive
   } else if (is.null(formula) == FALSE) stop("invalid formula")
   if (is.list(data) == FALSE) {
     data <- data.frame(data)
-    warning("data is not a dataframe")
+    warning("data is not a data frame")
   }
   if (dim(data)[2] < 2) stop("data must have at least two columns")
   if (is.numeric(data[ , ncol(data)]) == TRUE) warning("target is numeric")
@@ -148,11 +148,11 @@ optbin <- function(data, formula = NULL, method = c("logreg", "infogain", "naive
 
 #' Remove factors with too many levels
 #'
-#' Removes all columns of a dataframe where a factor (or character string) has more than a maximum number of levels.
-#' @param data dataframe which contains the data.
+#' Removes all columns of a data frame where a factor (or character string) has more than a maximum number of levels.
+#' @param data data frame which contains the data.
 #' @param maxlevels number of maximum factor levels.
 #' @param na.omit logical value whether missing values should be treated as a level, defaults to omit missing values before counting.
-#' @return A dataframe.
+#' @return A data frame.
 #' @details Often categories that have very many levels are not useful in modelling OneR rules because they result in too many rules and tend to overfit.
 #' Examples are IDs or names.
 #'
@@ -167,7 +167,7 @@ optbin <- function(data, formula = NULL, method = c("logreg", "infogain", "naive
 #' str(maxlevels(df))
 #' @export
 maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
-  if (is.list(data) == FALSE) stop("data must be a dataframe")
+  if (is.list(data) == FALSE) stop("data must be a data frame")
   if (maxlevels <= 2) stop("maxlevels must be bigger than 2")
   tmp <- suppressWarnings(bin(data, nbins = 2, na.omit = na.omit))
   # Test if unused factor levels and drop them for analysis
@@ -183,7 +183,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #'
 #' Predict cases or probabilities based on OneR model object.
 #' @param object object of class \code{"OneR"}.
-#' @param newdata dataframe in which to look for the feature variable with which to predict.
+#' @param newdata data frame in which to look for the feature variable with which to predict.
 #' @param type character string denoting the type of predicted value returned. Default \code{"class"} gives a named vector with the predicted classes, \code{"prob"} gives a matrix whose columns are the probability of the first, second, etc. class.
 #' @param ... further arguments passed to or from other methods.
 #' @return The default is a factor with the predicted classes, if \code{"type = prob"} a matrix is returned whose columns are the probability of the first, second, etc. class.
@@ -203,7 +203,7 @@ maxlevels <- function(data, maxlevels = 20, na.omit = TRUE) {
 #' @export
 predict.OneR <- function(object, newdata, type = c("class", "prob"), ...) {
   type <- match.arg(type)
-  if (is.list(newdata) == FALSE) stop("newdata must be a dataframe")
+  if (is.list(newdata) == FALSE) stop("newdata must be a data frame")
   if (all(names(newdata) != object$feature)) stop("cannot find feature column in newdata")
   model <- object
   data <- newdata
@@ -337,7 +337,7 @@ is.OneR <- function(x) inherits(x, "OneR")
 #'
 #' Function for evaluating a OneR classification model. Prints confusion matrices with prediction vs. actual in absolute and relative numbers. Additionally it gives the accuracy, error rate as well as the error rate reduction versus the base rate accuracy together with a p-value.
 #' @param prediction vector which contains the predicted values.
-#' @param actual dataframe which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.
+#' @param actual data frame which contains the actual data. When there is more than one column the last last column is taken. A single vector is allowed too.
 #' @param dimnames character vector of printed dimnames for the confusion matrices.
 #' @param zero.print character specifying how zeros should be printed; for sparse confusion matrices, using "." can produce more readable results.
 #' @details Error rate reduction versus the base rate accuracy is calculated by the following formula:\cr\cr

@@ -20,7 +20,7 @@
 #' @references The data were obtained from the UCI machine learning repository, see \url{https://archive.ics.uci.edu/ml/datasets/Breast+Cancer+Wisconsin+(Original)}
 #' @keywords data datasets Wisconsin breast cancer
 #' @usage data(breastcancer)
-#' @format A dataframe with 699 instances and 10 attributes. The variables are as follows:
+#' @format A data frame with 699 instances and 10 attributes. The variables are as follows:
 #' @examples
 #' data(breastcancer)
 #' data <- optbin(breastcancer, method = "infogain")
