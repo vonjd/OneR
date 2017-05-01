@@ -3,6 +3,7 @@ OneR 2.2 (2017-xx-xx)
 
 MAJOR IMPORVEMENTS
 - OneR: massive speedup of main OneR function (> 30 times faster).
+- OneR & optbin: standard S3 method interface added for formulas and data frames.
 
 MINOR IMPROVEMENTS
 - optbin: speedup of method "infogain".

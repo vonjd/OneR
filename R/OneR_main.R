@@ -3,10 +3,11 @@
 #' One Rule function
 #'
 #' Builds a model according to the One Rule (OneR) machine learning classification algorithm.
-#' @param data data frame, which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
-#' @param formula formula interface for the \code{OneR} function.
+#' @param x either a formula or a data frame with the last column containing the target variable.
+#' @param data data frame which contains the data, only needed when using the formula interface because otherwise 'x' will already contain the data.
 #' @param ties.method character string specifying how ties are treated, see 'Details'; can be abbreviated.
-#' @param verbose If \code{TRUE} prints rank, names and predictive accuracy of the attributes in decreasing order (with \code{ties.method = "first"}).
+#' @param verbose if \code{TRUE} prints rank, names and predictive accuracy of the attributes in decreasing order (with \code{ties.method = "first"}).
+#' @param ... arguments passed to or from other methods.
 #' @return Returns an object of class "OneR". Internally this is a list consisting of the function call with the specified arguments, the names of the target and feature variables,
 #' a list of the rules, the number of correctly classified and total instances and the contingency table of the best predictor vs. the target variable.
 #' @keywords 1R OneR One Rule
@@ -30,7 +31,7 @@
 #'
 #' ## The same with the formula interface:
 #' data <- optbin(iris)
-#' model <- OneR(formula = Species ~., data = data, verbose = TRUE)
+#' model <- OneR(Species ~., data = data, verbose = TRUE)
 #' summary(model)
 #' plot(model)
 #' prediction <- predict(model, data)
@@ -38,13 +39,30 @@
 #' @importFrom stats model.frame
 #' @importFrom stats chisq.test
 #' @export
-OneR <- function(data, formula = NULL, ties.method = c("first", "chisq"), verbose = FALSE) {
+OneR <- function(x, ...) UseMethod("OneR")
+
+#' @export
+OneR.default <- function(x, ...) {
+  stop("data type not supported")
+}
+
+#' @export
+#' @describeIn OneR method for formulas.
+OneR.formula <- function(x, data, ties.method = c("first", "chisq"), verbose = FALSE, ...) {
   call <- match.call()
   method <- match.arg(ties.method)
-  if (class(formula) == "formula") {
-    mf <- model.frame(formula = formula, data = data, na.action = NULL)
-    data <- mf[c(2:ncol(mf), 1)]
-  } else if (is.null(formula) == FALSE) stop("invalid formula")
+  mf <- model.frame(formula = x, data = data, na.action = NULL)
+  data <- mf[c(2:ncol(mf), 1)]
+  OneR.data.frame(x = data, ties.method = ties.method, verbose = verbose, fcall = call)
+}
+
+#' @export
+#' @describeIn OneR method for data frames.
+OneR.data.frame <- function(x, ties.method = c("first", "chisq"), verbose = FALSE, ...) {
+  if (!is.null(list(...)$fcall)) call <- list(...)$fcall
+  else call <- match.call()
+  method <- match.arg(ties.method)
+  data <- x
   if (dim(data.frame(data))[2] < 2) stop("data must have at least two columns")
   data <- bin(data)
   if (nrow(data) == 0) stop("no data to analyse")

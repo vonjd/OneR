@@ -12,7 +12,7 @@
 
 <meta name="author" content="An R package by Holger K. von Jouanne-Diedrich" />
 
-<meta name="date" content="2017-04-30" />
+<meta name="date" content="2017-05-01" />
 
 <title>OneR - Establishing a New Baseline for Machine Learning Classification Models</title>
 
@@ -70,42 +70,42 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 
 <h1 class="title toc-ignore">OneR - Establishing a New Baseline for Machine Learning Classification Models</h1>
 <h4 class="author"><em>An R package by Holger K. von Jouanne-Diedrich</em></h4>
-<h4 class="date"><em>2017-04-30</em></h4>
+<h4 class="date"><em>2017-05-01</em></h4>
 
 
 
 <p><strong>Note:</strong> You can find a step-by-step introduction on YouTube: <a href="https://www.youtube.com/watch?v=AGC0oRlXxgU">Quick Start Guide for the OneR package</a></p>
 <div id="introduction" class="section level2">
 <h2>Introduction</h2>
-<p>The following story is one of the most often told in the Data Science community: Some time ago the military built a system which aim it was to distinguish military vehicles from civilian ones. They chose a neural network approach and trained the system with pictures of tanks, humvees and missile launchers on the one hand and normal cars, pickups and trucks on the other. After having reached a satisfactory accuracy they brought the system into the field (quite literally). It failed completely, performing no better than a coin toss. What had happened? No one knew, so they re-engineered the black box (no small feat in itself) and found that most of the military pics where taken at dusk or dawn and most civilian pics under brighter weather conditions. The neural net had learned the difference between light and dark!</p>
+<p>The following story is one of the most often told in the Data Science community: some time ago the military built a system which aim it was to distinguish military vehicles from civilian ones. They chose a neural network approach and trained the system with pictures of tanks, humvees and missile launchers on the one hand and normal cars, pickups and trucks on the other. After having reached a satisfactory accuracy they brought the system into the field (quite literally). It failed completely, performing no better than a coin toss. What had happened? No one knew, so they re-engineered the black box (no small feat in itself) and found that most of the military pics where taken at dusk or dawn and most civilian pics under brighter weather conditions. The neural net had learned the difference between light and dark!</p>
 <p>Although this might be an urban legend the fact that it is so often told wants to tell us something:</p>
 <ol style="list-style-type: decimal">
 <li>Many of our Machine Learning models are so complex that we cannot understand them ourselves.</li>
 <li>Because of 1. we cannot differentiate between the simpler aspects of a problem which can be tackled by simple models and the more sophisticated ones which need specialized treatment.</li>
 </ol>
 <p>The above is not only true for neural networks (and especially deep neural networks) but for most of the methods used today, especially Support Vector Machines and Random Forests and in general all kinds of ensemble based methods.</p>
-<p>In one word: We need a good baseline which builds “the best simple model” that strikes a balance between the best accuracy possible with a model that is still simple enough to understand: I have developed the OneR package for finding this sweet spot and thereby establishing a new baseline for classification models in Machine Learning (ML).</p>
+<p>In one word: we need a good baseline which builds “the best simple model” that strikes a balance between the best accuracy possible with a model that is still simple enough to understand: I have developed the OneR package for finding this sweet spot and thereby establishing a new baseline for classification models in Machine Learning (ML).</p>
 <p>This package is filling a longstanding gap because only a JAVA based implementation was available so far (<a href="https://cran.r-project.org/package=RWeka">RWeka package</a> as an interface for the <a href="http://weka.sourceforge.net/doc.dev/weka/classifiers/rules/OneR.html">OneR JAVA class</a>). Additionally several enhancements have been made (see below).</p>
 </div>
 <div id="design-principles-for-the-oner-package" class="section level2">
 <h2>Design principles for the OneR package</h2>
 <p>The following design principles were followed for programming the package:</p>
 <ul>
-<li>Easy: The learning curve for new users should be minimal. Results should be obtained with ease and only minimal preprocessing and modeling steps should be necessary.</li>
-<li>Versatile: All types of data, i.e. categorical and numeric, should be computable - as input variable as well as as target.</li>
-<li>Fast: The running times of model trainings should be short.</li>
-<li>Accurate: The accuracy of trained models should be good overall.</li>
-<li>Robust: Models should not be prone to overfitting; the reached accuracy on training data should be comparable to the accuracy of predictions from new, unseen cases.</li>
-<li>Comprehensible: It should be easy to understand which rules the model has learned. Not only should the rules be easily comprehensible but they should serve as heuristics that are usable even without a computer.</li>
-<li>Reproducible: Because the used algorithms are strictly deterministic one will always get the same models on the same data. Many ML algorithms have stochastic components so that the data scientist will get a different model every time.</li>
-<li>Intuitive: Model diagnostics should be presented in form of simple tables and plots.</li>
-<li>Native R: The whole package is written in native R code. Thereby the source code can be easily checked and the whole package is very lean. Additionally the package has no dependencies at all other than base R itself.</li>
+<li>Easy: the learning curve for new users should be minimal. Results should be obtained with ease and only minimal preprocessing and modeling steps should be necessary.</li>
+<li>Versatile: all types of data, i.e. categorical and numeric, should be computable - as input variable as well as as target.</li>
+<li>Fast: the running times of model trainings should be short.</li>
+<li>Accurate: the accuracy of trained models should be good overall.</li>
+<li>Robust: models should not be prone to overfitting; the reached accuracy on training data should be comparable to the accuracy of predictions from new, unseen cases.</li>
+<li>Comprehensible: it should be easy to understand which rules the model has learned. Not only should the rules be easily comprehensible but they should serve as heuristics that are usable even without a computer.</li>
+<li>Reproducible: because the used algorithms are strictly deterministic one will always get the same models on the same data. Many ML algorithms have stochastic components so that the data scientist will get a different model every time.</li>
+<li>Intuitive: model diagnostics should be presented in form of simple tables and plots.</li>
+<li>Native R: the whole package is written in native R code. Thereby the source code can be easily checked and the whole package is very lean. Additionally the package has no dependencies at all other than base R itself.</li>
 </ul>
 <p>The package is based on the – as the name might reveal – one rule classification algorithm [Holte93]. Although the underlying method is simple enough (basically 1-level decision trees, you can find out more here: <a href="http://www.saedsayad.com/oner.htm">OneR</a>) several enhancements have been made:</p>
 <ul>
-<li>Discretization of numeric data: The OneR algorithm can only handle categorical data, so numeric data has to be discretized. The original OneR algorithm separates the respective values in ever smaller and smaller buckets until the best possible accuracy is being reached. It can be argued that this is the definition of overfitting and contradicts the original spirit of OneR because tons of rules (one for every bucket) will result. One can of course introduce a new parameter “maximum bucket size” but finding the right value for this one doesn’t come naturally either. Therefore I take a radically different approach: There are several methods for handling numeric data in the package (in the bin and the optbin function), the most promising one is the (default) “logreg” method in the optbin function which gives only as many bins as there are target categories and which optimizes the cut points according to pairwise logistic regressions.</li>
-<li>Missing values: In the original algorithm missing values were always handled as a separate level in the respective attribute. While missing values can sometimes reveal interesting patterns in other cases they are, well, just values that are missing. In the OneR package missing values can be handled as separate levels (level “NA”) or they can be omitted (the default).</li>
-<li>Tie breaking: Sometimes the OneR algorithm will find several attributes that provide rules which all give the same best accuracy. The original algorithm just took the first attribute. While this is implemented in the OneR function as the default too a different method for tie breaking can be chosen: The contingency tables of all “best” rules are tested against each other with a Pearson’s Chi squared test and the one with the smallest p-value is being chosen. The rationale behind this is that thereby the attribute with the best signal-to-noise ratio is being found.</li>
+<li>Discretization of numeric data: the OneR algorithm can only handle categorical data, so numeric data has to be discretized. The original OneR algorithm separates the respective values in ever smaller and smaller buckets until the best possible accuracy is being reached. It can be argued that this is the definition of overfitting and contradicts the original spirit of OneR because tons of rules (one for every bucket) will result. One can of course introduce a new parameter “maximum bucket size” but finding the right value for this one doesn’t come naturally either. Therefore I take a radically different approach: there are several methods for handling numeric data in the package (in the bin and the optbin function), the most promising one is the (default) “logreg” method in the optbin function which gives only as many bins as there are target categories and which optimizes the cut points according to pairwise logistic regressions.</li>
+<li>Missing values: in the original algorithm missing values were always handled as a separate level in the respective attribute. While missing values can sometimes reveal interesting patterns in other cases they are, well, just values that are missing. In the OneR package missing values can be handled as separate levels (level “NA”) or they can be omitted (the default).</li>
+<li>Tie breaking: sometimes the OneR algorithm will find several attributes that provide rules which all give the same best accuracy. The original algorithm just took the first attribute. While this is implemented in the OneR function as the default too a different method for tie breaking can be chosen: the contingency tables of all “best” rules are tested against each other with a Pearson’s Chi squared test and the one with the smallest p-value is being chosen. The rationale behind this is that thereby the attribute with the best signal-to-noise ratio is being found.</li>
 </ul>
 </div>
 <div id="getting-started-with-a-simple-example" class="section level2">
@@ -131,7 +131,7 @@ code > span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Inf
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model)</code></pre></div>
 <pre><code>## 
 ## Call:
-## OneR(data = data, verbose = TRUE)
+## OneR.data.frame(x = data, verbose = TRUE)
 ## 
 ## Rules:
 ## If Petal.Width = (0.0976,0.791] then Species = setosa
@@ -198,8 +198,8 @@ data &lt;-<span class="st"> </span>breastcancer</code></pre></div>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">set.seed</span>(<span class="dv">12</span>) <span class="co"># for reproducibility</span>
 random &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span>:<span class="kw">nrow</span>(data), <span class="fl">0.8</span> *<span class="st"> </span><span class="kw">nrow</span>(data))
 data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[random, ], <span class="dt">method =</span> <span class="st">&quot;infogain&quot;</span>)</code></pre></div>
-<pre><code>## Warning in optbin(data[random, ], method = &quot;infogain&quot;): 12 instance(s)
-## removed due to missing values</code></pre>
+<pre><code>## Warning in optbin.data.frame(data[random, ], method = &quot;infogain&quot;): 12
+## instance(s) removed due to missing values</code></pre>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">data_test &lt;-<span class="st"> </span>data[-random, ]</code></pre></div>
 <p>Train OneR model on training set</p>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r">model_train &lt;-<span class="st"> </span><span class="kw">OneR</span>(data_train, <span class="dt">verbose =</span> <span class="ot">TRUE</span>)</code></pre></div>
@@ -221,7 +221,7 @@ data_train &lt;-<span class="st"> </span><span class="kw">optbin</span>(data[ran
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="kw">summary</span>(model_train)</code></pre></div>
 <pre><code>## 
 ## Call:
-## OneR(data = data_train, verbose = TRUE)
+## OneR.data.frame(x = data_train, verbose = TRUE)
 ## 
 ## Rules:
 ## If Uniformity of Cell Size = (0.991,2] then Class = benign
