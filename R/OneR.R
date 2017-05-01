@@ -75,8 +75,9 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #'
 #' Discretizes all numerical data in a data frame into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned.
 #' When building a OneR model this could result in fewer rules with enhanced accuracy.
-#' @param x either a formula or a data frame with the last column containing the target variable.
-#' @param data data frame which contains the data, only needed when using the formula interface because otherwise 'x' will already contain the data.
+#' @param x data frame with the last column containing the target variable.
+#' @param formula formula, additionally the argument \code{data} is needed.
+#' @param data data frame which contains the data, only needed when using the formula interface.
 #' @param method character string specifying the method for optimal binning, see 'Details'; can be abbreviated.
 #' @param na.omit logical value whether instances with missing values should be removed.
 #' @param ... arguments passed to or from other methods.
@@ -119,9 +120,9 @@ optbin.default <- function(x, ...) {
 
 #' @export
 #' @describeIn optbin method for formulas.
-optbin.formula <- function(x, data, method = c("logreg", "infogain", "naive"), na.omit = TRUE, ...) {
+optbin.formula <- function(formula, data, method = c("logreg", "infogain", "naive"), na.omit = TRUE, ...) {
   method <- match.arg(method)
-  mf <- model.frame(formula = x, data = data, na.action = NULL)
+  mf <- model.frame(formula = formula, data = data, na.action = NULL)
   data <- mf[c(2:ncol(mf), 1)]
   optbin.data.frame(x = data, method = method, na.omit = na.omit)
 }

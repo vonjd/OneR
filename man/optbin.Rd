@@ -8,18 +8,20 @@
 \usage{
 optbin(x, ...)
 
-\method{optbin}{formula}(x, data, method = c("logreg", "infogain", "naive"),
-  na.omit = TRUE, ...)
+\method{optbin}{formula}(formula, data, method = c("logreg", "infogain",
+  "naive"), na.omit = TRUE, ...)
 
 \method{optbin}{data.frame}(x, method = c("logreg", "infogain", "naive"),
   na.omit = TRUE, ...)
 }
 \arguments{
-\item{x}{either a formula or a data frame with the last column containing the target variable.}
+\item{x}{data frame with the last column containing the target variable.}
 
 \item{...}{arguments passed to or from other methods.}
 
-\item{data}{data frame which contains the data, only needed when using the formula interface because otherwise 'x' will already contain the data.}
+\item{formula}{formula, additionally the argument \code{data} is needed.}
+
+\item{data}{data frame which contains the data, only needed when using the formula interface.}
 
 \item{method}{character string specifying the method for optimal binning, see 'Details'; can be abbreviated.}
 

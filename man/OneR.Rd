@@ -8,18 +8,20 @@
 \usage{
 OneR(x, ...)
 
-\method{OneR}{formula}(x, data, ties.method = c("first", "chisq"),
+\method{OneR}{formula}(formula, data, ties.method = c("first", "chisq"),
   verbose = FALSE, ...)
 
 \method{OneR}{data.frame}(x, ties.method = c("first", "chisq"),
   verbose = FALSE, ...)
 }
 \arguments{
-\item{x}{either a formula or a data frame with the last column containing the target variable.}
+\item{x}{data frame with the last column containing the target variable.}
 
 \item{...}{arguments passed to or from other methods.}
 
-\item{data}{data frame which contains the data, only needed when using the formula interface because otherwise 'x' will already contain the data.}
+\item{formula}{formula, additionally the argument \code{data} is needed.}
+
+\item{data}{data frame which contains the data, only needed when using the formula interface.}
 
 \item{ties.method}{character string specifying how ties are treated, see 'Details'; can be abbreviated.}
 

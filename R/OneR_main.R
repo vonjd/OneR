@@ -3,8 +3,9 @@
 #' One Rule function
 #'
 #' Builds a model according to the One Rule (OneR) machine learning classification algorithm.
-#' @param x either a formula or a data frame with the last column containing the target variable.
-#' @param data data frame which contains the data, only needed when using the formula interface because otherwise 'x' will already contain the data.
+#' @param x data frame with the last column containing the target variable.
+#' @param formula formula, additionally the argument \code{data} is needed.
+#' @param data data frame which contains the data, only needed when using the formula interface.
 #' @param ties.method character string specifying how ties are treated, see 'Details'; can be abbreviated.
 #' @param verbose if \code{TRUE} prints rank, names and predictive accuracy of the attributes in decreasing order (with \code{ties.method = "first"}).
 #' @param ... arguments passed to or from other methods.
@@ -48,10 +49,10 @@ OneR.default <- function(x, ...) {
 
 #' @export
 #' @describeIn OneR method for formulas.
-OneR.formula <- function(x, data, ties.method = c("first", "chisq"), verbose = FALSE, ...) {
+OneR.formula <- function(formula, data, ties.method = c("first", "chisq"), verbose = FALSE, ...) {
   call <- match.call()
   method <- match.arg(ties.method)
-  mf <- model.frame(formula = x, data = data, na.action = NULL)
+  mf <- model.frame(formula = formula, data = data, na.action = NULL)
   data <- mf[c(2:ncol(mf), 1)]
   OneR.data.frame(x = data, ties.method = ties.method, verbose = verbose, fcall = call)
 }
