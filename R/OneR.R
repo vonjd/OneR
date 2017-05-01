@@ -75,10 +75,11 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #'
 #' Discretizes all numerical data in a data frame into categorical bins where the cut points are optimally aligned with the target categories, thereby a factor is returned.
 #' When building a OneR model this could result in fewer rules with enhanced accuracy.
-#' @param data data frame which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.
-#' @param formula formula interface for the \code{optbin} function.
+#' @param x either a formula or a data frame with the last column containing the target variable.
+#' @param data data frame which contains the data, only needed when using the formula interface because otherwise 'x' will already contain the data.
 #' @param method character string specifying the method for optimal binning, see 'Details'; can be abbreviated.
 #' @param na.omit logical value whether instances with missing values should be removed.
+#' @param ... arguments passed to or from other methods.
 #' @return A data frame with the target variable being in the last column.
 #' @keywords binning discretization discretize
 #' @details The cutpoints are calculated by pairwise logistic regressions (method \code{"logreg"}), information gain (method \code{"infogain"}) or as the means of the expected values of the respective classes (\code{"naive"}).
@@ -104,21 +105,32 @@ bin <- function(data, nbins = 5, labels = NULL, method = c("length", "content", 
 #' summary(model_opt)
 #'
 #' ## The same with the formula interface:
-#' data_opt <- optbin(formula = Species ~., data = iris)
+#' data_opt <- optbin(Species ~., data = iris)
 #' model_opt <- OneR(data_opt, verbose = TRUE)
 #' summary(model_opt)
 #'
 #' @export
-optbin <- function(data, formula = NULL, method = c("logreg", "infogain", "naive"), na.omit = TRUE) {
+optbin <- function(x, ...) UseMethod("optbin")
+
+#' @export
+optbin.default <- function(x, ...) {
+  stop("data type not supported")
+}
+
+#' @export
+#' @describeIn optbin method for formulas.
+optbin.formula <- function(x, data, method = c("logreg", "infogain", "naive"), na.omit = TRUE, ...) {
   method <- match.arg(method)
-  if (class(formula) == "formula") {
-    mf <- model.frame(formula = formula, data = data, na.action = NULL)
-    data <- mf[c(2:ncol(mf), 1)]
-  } else if (is.null(formula) == FALSE) stop("invalid formula")
-  if (is.list(data) == FALSE) {
-    data <- data.frame(data)
-    warning("data is not a data frame")
-  }
+  mf <- model.frame(formula = x, data = data, na.action = NULL)
+  data <- mf[c(2:ncol(mf), 1)]
+  optbin.data.frame(x = data, method = method, na.omit = na.omit)
+}
+
+#' @export
+#' @describeIn optbin method for data frames.
+optbin.data.frame <- function(x, method = c("logreg", "infogain", "naive"), na.omit = TRUE, ...) {
+  method <- match.arg(method)
+  data <- x
   if (dim(data)[2] < 2) stop("data must have at least two columns")
   if (is.numeric(data[ , ncol(data)]) == TRUE) warning("target is numeric")
   data[ncol(data)] <- as.factor(data[ , ncol(data)])

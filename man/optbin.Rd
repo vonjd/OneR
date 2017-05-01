@@ -2,15 +2,24 @@
 % Please edit documentation in R/OneR.R
 \name{optbin}
 \alias{optbin}
+\alias{optbin.formula}
+\alias{optbin.data.frame}
 \title{Optimal Binning function}
 \usage{
-optbin(data, formula = NULL, method = c("logreg", "infogain", "naive"),
-  na.omit = TRUE)
+optbin(x, ...)
+
+\method{optbin}{formula}(x, data, method = c("logreg", "infogain", "naive"),
+  na.omit = TRUE, ...)
+
+\method{optbin}{data.frame}(x, method = c("logreg", "infogain", "naive"),
+  na.omit = TRUE, ...)
 }
 \arguments{
-\item{data}{data frame which contains the data. When \code{formula = NULL} (the default) the last column must be the target variable.}
+\item{x}{either a formula or a data frame with the last column containing the target variable.}
 
-\item{formula}{formula interface for the \code{optbin} function.}
+\item{...}{arguments passed to or from other methods.}
+
+\item{data}{data frame which contains the data, only needed when using the formula interface because otherwise 'x' will already contain the data.}
 
 \item{method}{character string specifying the method for optimal binning, see 'Details'; can be abbreviated.}
 
@@ -35,6 +44,13 @@ Character strings and logical strings are coerced into factors. Matrices are coe
 When \code{"na.omit = FALSE"} an additional level \code{"NA"} is added to each factor with missing values.
 If the target contains unused factor levels (e.g. due to subsetting) these are ignored and a warning is given.
 }
+\section{Methods (by class)}{
+\itemize{
+\item \code{formula}: method for formulas.
+
+\item \code{data.frame}: method for data frames.
+}}
+
 \examples{
 data <- iris # without optimal binning
 model <- OneR(data, verbose = TRUE)
@@ -45,7 +61,7 @@ model_opt <- OneR(data_opt, verbose = TRUE)
 summary(model_opt)
 
 ## The same with the formula interface:
-data_opt <- optbin(formula = Species ~., data = iris)
+data_opt <- optbin(Species ~., data = iris)
 model_opt <- OneR(data_opt, verbose = TRUE)
 summary(model_opt)
 
