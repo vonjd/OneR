@@ -2,7 +2,7 @@ Package: OneR
 Type: Package
 Title: One Rule Machine Learning Classification Algorithm with Enhancements
 Version: 2.2
-Date: 2017-xx-xx
+Date: 2017-05-05
 Author: Holger von Jouanne-Diedrich
 Maintainer: Holger von Jouanne-Diedrich <holger.jouanne-diedrich@h-ab.de>
 Depends: R (>= 2.10)
