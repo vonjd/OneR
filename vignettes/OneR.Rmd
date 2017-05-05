@@ -244,7 +244,7 @@ The latest version of the package (and full sourcecode) can be found here: https
 
 ## Sources
 
-[Holte93] R. Holte: Very Simple Classification Rules Perform Well on Most Commonly Used Datasets, 1993. Available online here: http://www.mlpack.org/papers/ds.pdf.
+[Holte93] R. Holte: Very Simple Classification Rules Perform Well on Most Commonly Used Datasets, 1993. Available online here: https://link.springer.com/article/10.1023/A:1022631118932
 
 ## Contact
 
