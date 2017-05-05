@@ -6,7 +6,7 @@ Date: 2017-05-05
 Author: Holger von Jouanne-Diedrich
 Maintainer: Holger von Jouanne-Diedrich <holger.jouanne-diedrich@h-ab.de>
 Depends: R (>= 2.10)
-Description: Implements the One Rule (OneR) Machine Learning classification algorithm (Holte, R.C. Machine Learning (1993) 11: 63. doi:10.1023/A:1022631118932) with enhancements for sophisticated handling of numeric data and missing values together with extensive diagnostic functions. It is useful as a baseline for machine learning models and the rules are often helpful heuristics.
+Description: Implements the One Rule (OneR) Machine Learning classification algorithm (Holte, R.C. (1993) <doi:10.1023/A:1022631118932>) with enhancements for sophisticated handling of numeric data and missing values together with extensive diagnostic functions. It is useful as a baseline for machine learning models and the rules are often helpful heuristics.
 License: MIT + file LICENSE
 URL: https://github.com/vonjd/OneR
 BugReports: https://github.com/vonjd/OneR/issues
