@@ -9,18 +9,18 @@ You can find the vignette and full documentation in the package and on CRAN: [On
 
 ## Installation
 
-Install the latest version from GitHub:
+Install the latest stable version from [CRAN](https://cran.r-project.org/package=OneR):
+
+```r
+install.packages("OneR")
+```
+
+Install the latest development version from GitHub:
 
 ```R
 install.packages("devtools")
 library(devtools)
 install_github("vonjd/OneR")
-```
-
-Install from [CRAN](https://cran.r-project.org/package=OneR):
-
-```r
-install.packages("OneR")
 ```
 
 ## Contact
